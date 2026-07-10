@@ -1,0 +1,13 @@
+TO ONI PROJEKTUJĄ — V8 FINAL
+
+Zmienione wyłącznie:
+- font nagłówków z Instrument Serif na szerszy i czytelniejszy DM Serif Display,
+- niższy pasek „Nowa inwestycja”,
+- mniejszy pasek z adresem e-mail,
+- pasek e-mail ma dokładnie ten sam niebieski kolor co „Nowa inwestycja”,
+- większe teksty nawigacji, kontaktu i informacji w stopce,
+- podbity cache CSS do style.css?v=tooni8.
+
+Podmień tylko:
+- index.html
+- style.css

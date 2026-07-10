@@ -1138,3 +1138,115 @@ p{color:var(--muted);line-height:1.72}
     padding-right:18px;
   }
 }
+
+
+/* =========================================================
+   V8 — FINAL TYPOGRAPHY + COMPACT CTA + FOOTER
+   ========================================================= */
+
+/* Szerszy, czytelniejszy font na całej stronie */
+:root{
+  --serif:"DM Serif Display",Georgia,serif;
+}
+
+h1,h2{
+  letter-spacing:-.025em;
+}
+
+.statement-band p,
+.prefooter-inner h2,
+.footer-refined-email,
+.about-editorial-lead,
+.process-row h3,
+.package-item h3,
+.contact-details a{
+  letter-spacing:-.018em;
+}
+
+/* Niższy pasek "Nowa inwestycja" */
+.prefooter-cta{
+  padding:clamp(62px,6.5vw,92px) 24px !important;
+}
+
+.prefooter-inner h2{
+  max-width:1040px;
+  margin-bottom:26px;
+  font-size:clamp(48px,6.4vw,88px);
+  line-height:.98;
+}
+
+.prefooter-inner .eyebrow{
+  margin-bottom:12px;
+}
+
+.prefooter-inner>a{
+  padding-bottom:6px;
+}
+
+/* Pasek z mailem — ten sam niebieski co CTA wyżej, ale dużo niższy */
+.footer-refined-email{
+  margin-left:-5vw;
+  margin-right:-5vw;
+  padding:24px 5vw 27px !important;
+  color:#fff !important;
+  background:#345798 !important;
+  font-size:clamp(30px,4.2vw,62px) !important;
+  line-height:1 !important;
+}
+
+.footer-refined-email:hover{
+  color:#f2d17b !important;
+}
+
+/* Większe i czytelniejsze teksty w stopce */
+.footer-refined{
+  padding-top:58px;
+}
+
+.footer-refined-top{
+  gap:58px;
+  padding-bottom:46px;
+}
+
+.footer-refined-brand p{
+  font-size:14px !important;
+  line-height:1.65;
+}
+
+.footer-refined-top nav>p,
+.footer-refined-top>div>p{
+  font-size:10px !important;
+}
+
+.footer-refined-top a{
+  font-size:14px !important;
+  line-height:1.65;
+}
+
+.footer-refined-bottom{
+  font-size:11px !important;
+  line-height:1.5;
+}
+
+@media(max-width:720px){
+  .prefooter-cta{
+    padding:60px 18px !important;
+  }
+
+  .prefooter-inner h2{
+    font-size:clamp(42px,13vw,62px);
+  }
+
+  .footer-refined-email{
+    margin-left:-18px;
+    margin-right:-18px;
+    padding:22px 18px 24px !important;
+    font-size:clamp(27px,9vw,44px) !important;
+    overflow-wrap:anywhere;
+  }
+
+  .footer-refined-brand p,
+  .footer-refined-top a{
+    font-size:13px !important;
+  }
+}
