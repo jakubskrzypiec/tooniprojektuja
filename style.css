@@ -1,0 +1,45 @@
+TO ONI PROJEKTUJĄ — HOME PAGE / KONCEPT V1
+
+Pliki do wrzucenia do głównego folderu repo:
+- index.html
+- style.css
+- script.js
+- assets/img/logo-transparent.png
+- assets/img/favicon.png
+
+Strona oczekuje w głównym folderze repo następujących zdjęć:
+- garderoba.jpg
+- kuchnia1.jpg
+- kuchnia2.jpg
+- lazienka1.jpg
+- lazienka2.jpg
+- park1.jpg
+- park2.jpg
+- park3.jpg
+- park4.jpg
+- sypialnia.jpg
+
+Co działa:
+- sticky header,
+- mobilne menu,
+- automatycznie przesuwana galeria projektów,
+- drag galerii myszką / palcem,
+- pop-out projektu w oknie dialogowym,
+- rozwijane pakiety,
+- galeria projektu parku,
+- animacje wejścia przy scrollowaniu,
+- formularz tworzący gotową wiadomość e-mail,
+- pełny responsive desktop / tablet / mobile,
+- podstawowe SEO i Schema.org.
+
+EDYCJA PROJEKTÓW:
+Lista projektów znajduje się na samej górze script.js w tablicy:
+const projects = [...]
+
+Dodanie kolejnego projektu wymaga dopisania jednego obiektu z polami:
+image, title, meta, tag, description.
+
+UWAGA:
+- Obecnie jest to wersja statyczna.
+- Automatyczna edycja galerii jak postów na Instagramie wymaga CMS/backendu.
+- Panel klienta z logowaniem i dokumentacją jest osobnym etapem.
