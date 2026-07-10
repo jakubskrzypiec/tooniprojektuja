@@ -1,34 +1,17 @@
-TO ONI PROJEKTUJĄ — HOME PAGE V4 FINAL
+TO ONI PROJEKTUJĄ — HOME V5
 
-W paczce znajdują się:
-- index.html
-- style.css
-- script.js
-- logo-transparent.png
-- favicon.png
-- hero-generated.jpg
-- about-generated.jpg
-- package-consultation.jpg
-- package-functional.jpg
-- package-comprehensive.jpg
-- package-supervision.jpg
+Zmiany względem V4:
+- usunięty dodatkowy tekst i blok „01 / Start” z hero,
+- informacje przeniesione do czystego paska pod otwarciem strony,
+- nowa sekcja O nas z wygenerowanym obrazem i pełniejszym tekstem klienta,
+- dodane cztery zasady pracowni,
+- dodana duża sekcja CTA przed kontaktem,
+- całkowicie przebudowana stopka,
+- dodany subtelny popup sprzedażowy,
+- dodane delikatne animacje hover i wejścia.
 
-Nowa wersja zawiera:
-- przezroczysty pasek nawigacji, który zmienia się po scrollowaniu,
-- nowe wygenerowane hero,
-- zmieniające się słowo w hero,
-- przebudowaną sekcję O nas bez zdjęcia właścicieli,
-- działający automatyczny slider realizacji,
-- popup po kliknięciu realizacji,
-- nowe wygenerowane zdjęcia pakietów,
-- niebieską sekcję Szuwary bez prostokątnych tagów,
-- nowy proces inwestycji z obrazem zmieniającym się przy etapach,
-- rozbudowaną sekcję kontaktową,
-- większą stopkę,
-- animacje wejścia sekcji.
-
-UWAGA:
-Kod nadal korzysta z oryginalnych zdjęć klienta znajdujących się już w repo:
+Paczka zawiera wygenerowane obrazy oraz pliki strony.
+Oryginalne zdjęcia realizacji klienta pozostaw w repo pod dotychczasowymi nazwami:
 garderoba.jpg
 kuchnia1.jpg
 kuchnia2.jpg
@@ -39,5 +22,3 @@ park2.jpg
 park3.jpg
 park4.jpg
 sypialnia.jpg
-
-Nie usuwaj tych plików. Wszystkie pliki z tej paczki wrzuć do głównego folderu repozytorium.

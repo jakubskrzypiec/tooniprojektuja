@@ -161,3 +161,30 @@ ${data.get("message") || ""}`
   );
   window.location.href = `mailto:tooniprojektuja@gmail.com?subject=${subject}&body=${body}`;
 });
+
+/* V5 — subtle contact popup */
+const projectPop = document.querySelector("[data-project-pop]");
+const projectPopClose = projectPop?.querySelector(".project-pop-close");
+let projectPopShown = false;
+
+const showProjectPop = () => {
+  if (!projectPop || projectPopShown) return;
+  projectPopShown = true;
+  projectPop.classList.add("visible");
+  projectPop.setAttribute("aria-hidden", "false");
+};
+
+const hideProjectPop = () => {
+  projectPop?.classList.remove("visible");
+  projectPop?.setAttribute("aria-hidden", "true");
+};
+
+window.setTimeout(showProjectPop, 7000);
+
+window.addEventListener("scroll", () => {
+  const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+  if (pageHeight > 0 && window.scrollY / pageHeight > 0.34) showProjectPop();
+}, { passive: true });
+
+projectPopClose?.addEventListener("click", hideProjectPop);
+projectPop?.querySelector('a[href="#kontakt"]')?.addEventListener("click", hideProjectPop);
