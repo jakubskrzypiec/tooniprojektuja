@@ -1,0 +1,12 @@
+TO ONI PROJEKTUJĄ — V7
+
+Zmiana wyłącznie kolorystyczna:
+- sekcja „Nowa inwestycja” ponownie jest osobnym granatowo-niebieskim pasem,
+- kontakt pozostaje beżowy,
+- stopka ma ciemniejszy beż,
+- adres e-mail w stopce znajduje się na osobnym granatowym pasie.
+
+Podmień tylko:
+- style.css
+
+Nie zmieniaj index.html ani script.js.

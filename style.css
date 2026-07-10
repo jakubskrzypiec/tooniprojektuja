@@ -1027,3 +1027,114 @@ p{color:var(--muted);line-height:1.72}
     padding:75px 18px;
   }
 }
+
+
+/* =========================================================
+   V7 — WYRAŹNE ROZDZIELENIE KOLORÓW KOŃCÓWKI STRONY
+   Tylko kolory i separacja sekcji — bez zmian układu.
+   ========================================================= */
+
+/* "Nowa inwestycja" wraca jako mocny, osobny pasek */
+.prefooter-cta{
+  position:relative;
+  overflow:hidden;
+  color:#fff;
+  background:#345798 !important;
+  border-top:1px solid rgba(255,255,255,.13);
+  border-bottom:1px solid rgba(255,255,255,.13);
+}
+
+.prefooter-cta::before{
+  content:"";
+  position:absolute;
+  inset:-35% auto auto -5%;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.11);
+  pointer-events:none;
+}
+
+.prefooter-cta::after{
+  content:"";
+  position:absolute;
+  right:-130px;
+  bottom:-220px;
+  width:520px;
+  height:520px;
+  border-radius:50%;
+  background:rgba(195,139,9,.12);
+  pointer-events:none;
+}
+
+.prefooter-inner{
+  position:relative;
+  z-index:1;
+}
+
+.prefooter-inner .eyebrow{
+  color:#f2d17b !important;
+}
+
+.prefooter-inner h2{
+  color:#fff;
+}
+
+.prefooter-inner>a{
+  color:#fff;
+  border-bottom-color:rgba(255,255,255,.45);
+}
+
+.prefooter-inner>a span{
+  color:#f2d17b;
+}
+
+/* Kontakt pozostaje beżowy, ale dostaje wyraźną górną granicę */
+.contact-section--beige{
+  border-top:10px solid #e9e2d6;
+  background:#e9e2d6 !important;
+}
+
+/* Stopka: ciemniejszy beż + granatowy pas e-mail, żeby nie zlewała się z kontaktem */
+.footer-refined{
+  color:var(--ink);
+  background:#ddd3c4 !important;
+  border-top:1px solid rgba(21,27,37,.16);
+}
+
+.footer-refined-email{
+  margin-left:-5vw;
+  margin-right:-5vw;
+  padding-left:5vw;
+  padding-right:5vw;
+  color:#fff !important;
+  background:#142746;
+  border-top:1px solid rgba(255,255,255,.12);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.footer-refined-email:hover{
+  color:#f2d17b !important;
+}
+
+.footer-refined-email span{
+  color:#f2d17b;
+}
+
+.footer-refined-bottom{
+  padding-top:24px;
+}
+
+@media(max-width:720px){
+  .prefooter-cta{
+    padding-top:82px;
+    padding-bottom:82px;
+  }
+
+  .footer-refined-email{
+    margin-left:-18px;
+    margin-right:-18px;
+    padding-left:18px;
+    padding-right:18px;
+  }
+}
