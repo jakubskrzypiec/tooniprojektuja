@@ -1,10 +1,17 @@
+const header = document.querySelector("[data-header]");
 const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector(".mobile-menu");
 
+const updateHeader = () => {
+  header?.classList.toggle("is-scrolled", window.scrollY > 38);
+};
+updateHeader();
+window.addEventListener("scroll", updateHeader, { passive: true });
+
 menuToggle?.addEventListener("click", () => {
   const open = mobileMenu.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", String(open));
   mobileMenu.setAttribute("aria-hidden", String(!open));
+  menuToggle.setAttribute("aria-expanded", String(open));
   document.body.classList.toggle("menu-open", open);
 });
 
@@ -17,6 +24,23 @@ mobileMenu?.querySelectorAll("a").forEach(link => {
   });
 });
 
+/* Hero rotating word */
+const rotatingWord = document.querySelector("[data-rotating-word]");
+const words = ["działają.", "uspokajają.", "dojrzewają.", "zostają."];
+let wordIndex = 0;
+
+if (rotatingWord) {
+  window.setInterval(() => {
+    rotatingWord.classList.add("is-changing");
+    window.setTimeout(() => {
+      wordIndex = (wordIndex + 1) % words.length;
+      rotatingWord.textContent = words[wordIndex];
+      rotatingWord.classList.remove("is-changing");
+    }, 280);
+  }, 2300);
+}
+
+/* Reveal animation */
 const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -28,25 +52,27 @@ const revealObserver = new IntersectionObserver(entries => {
 
 document.querySelectorAll(".reveal").forEach(element => revealObserver.observe(element));
 
+/* Project marquee */
 const marquee = document.querySelector("[data-marquee]");
 const track = document.querySelector("[data-project-track]");
 
-if (track && marquee) {
+if (marquee && track) {
   track.innerHTML += track.innerHTML;
 
   let paused = false;
   let dragging = false;
   let startX = 0;
   let startScroll = 0;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const loop = () => {
-    if (!paused && !dragging) {
-      marquee.scrollLeft += 0.45;
+  const move = () => {
+    if (!paused && !dragging && !reduceMotion) {
+      marquee.scrollLeft += 0.62;
       if (marquee.scrollLeft >= track.scrollWidth / 2) marquee.scrollLeft = 0;
     }
-    requestAnimationFrame(loop);
+    requestAnimationFrame(move);
   };
-  loop();
+  move();
 
   marquee.addEventListener("mouseenter", () => paused = true);
   marquee.addEventListener("mouseleave", () => paused = false);
@@ -61,45 +87,66 @@ if (track && marquee) {
     if (!dragging) return;
     marquee.scrollLeft = startScroll - (event.clientX - startX);
   });
-  const stop = () => {
+  const stopDragging = () => {
     dragging = false;
     marquee.classList.remove("dragging");
   };
-  marquee.addEventListener("pointerup", stop);
-  marquee.addEventListener("pointercancel", stop);
+  marquee.addEventListener("pointerup", stopDragging);
+  marquee.addEventListener("pointercancel", stopDragging);
 }
 
-const dialog = document.querySelector("[data-project-dialog]");
+/* Project popup */
+const projectDialog = document.querySelector("[data-project-dialog]");
 document.querySelectorAll(".project-slide").forEach(slide => {
   slide.addEventListener("click", () => {
-    if (!dialog) return;
-    dialog.querySelector("[data-dialog-image]").src = slide.dataset.image;
-    dialog.querySelector("[data-dialog-image]").alt = slide.dataset.title;
-    dialog.querySelector("[data-dialog-title]").textContent = slide.dataset.title;
-    dialog.querySelector("[data-dialog-subtitle]").textContent = slide.dataset.subtitle;
-    dialog.showModal();
+    if (!projectDialog) return;
+    const image = projectDialog.querySelector("[data-dialog-image]");
+    image.src = slide.dataset.image;
+    image.alt = slide.dataset.title;
+    projectDialog.querySelector("[data-dialog-title]").textContent = slide.dataset.title;
+    projectDialog.querySelector("[data-dialog-category]").textContent = slide.dataset.category;
+    projectDialog.showModal();
   });
 });
 
-dialog?.querySelector(".dialog-close")?.addEventListener("click", () => dialog.close());
-dialog?.addEventListener("click", event => {
-  if (event.target === dialog) dialog.close();
+projectDialog?.querySelector(".dialog-close")?.addEventListener("click", () => projectDialog.close());
+projectDialog?.addEventListener("click", event => {
+  if (event.target === projectDialog) projectDialog.close();
 });
 
+/* Park gallery */
 const parkMain = document.querySelector("[data-park-main]");
 document.querySelectorAll("[data-park-image]").forEach(button => {
   button.addEventListener("click", () => {
     document.querySelectorAll("[data-park-image]").forEach(item => item.classList.remove("active"));
     button.classList.add("active");
     if (!parkMain) return;
-    parkMain.style.opacity = ".25";
+    parkMain.style.opacity = ".2";
     window.setTimeout(() => {
       parkMain.src = button.dataset.parkImage;
       parkMain.style.opacity = "1";
-    }, 130);
+    }, 140);
   });
 });
 
+/* Process image */
+const processImage = document.querySelector("[data-process-image]");
+document.querySelectorAll(".process-row").forEach(row => {
+  const activate = () => {
+    document.querySelectorAll(".process-row").forEach(item => item.classList.remove("active"));
+    row.classList.add("active");
+    if (!processImage) return;
+    processImage.style.opacity = ".2";
+    window.setTimeout(() => {
+      processImage.src = row.dataset.processSrc;
+      processImage.style.opacity = "1";
+    }, 130);
+  };
+  row.addEventListener("mouseenter", activate);
+  row.addEventListener("click", activate);
+});
+
+/* Mail form */
 document.querySelector("[data-contact-form]")?.addEventListener("submit", event => {
   event.preventDefault();
   const data = new FormData(event.currentTarget);
