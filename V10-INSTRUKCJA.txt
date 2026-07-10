@@ -1,0 +1,18 @@
+TO ONI PROJEKTUJĄ — V10 / REWORK TYPOGRAFII
+
+Zmiany:
+- usunięty DM Serif Display,
+- nagłówki korzystają teraz z czystego, nowoczesnego fontu Manrope,
+- zmniejszone wszystkie największe nagłówki,
+- poprawione odstępy i wysokość linii,
+- pomniejszony tekst CTA oraz adres e-mail w stopce,
+- pakiety i proces mają bardziej czytelne nagłówki,
+- kolory firmowe pozostają dokładnie:
+  Niebieski #345798
+  Żółty #C38B09
+
+Podmień tylko:
+- index.html
+- style.css
+
+Cache CSS: tooni10
