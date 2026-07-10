@@ -59,35 +59,15 @@
       <div class="hero-overlay"></div>
 
       <div class="hero-copy">
-        <p class="eyebrow eyebrow-light">Pracownia architektury wnętrz / Gliwice</p>
         <h1>
           Projektujemy wnętrza, które
           <span class="rotating-word" data-rotating-word>działają.</span>
         </h1>
-        <div class="hero-buttons">
-          <a class="button button-light" href="#projekty">Zobacz projekty</a>
-          <a class="button button-outline" href="#kontakt">Umów rozmowę</a>
-        </div>
       </div>
     </section>
 
     <section class="statement-band">
       <p class="reveal">Nie projektujemy wnętrz do oglądania. Projektujemy miejsca, w których dobrze się żyje.</p>
-    </section>
-
-    <section class="principles-strip" aria-label="Najważniejsze informacje">
-      <div>
-        <span>01</span>
-        <p>Dwa spojrzenia. Jeden spójny proces.</p>
-      </div>
-      <div>
-        <span>02</span>
-        <p>Od układu funkcjonalnego po dokumentację i nadzór.</p>
-      </div>
-      <div>
-        <span>03</span>
-        <p>Wnętrza prywatne i przestrzenie wspólne.</p>
-      </div>
     </section>
 
     <section class="about-editorial section-pad" id="onas">
@@ -121,13 +101,6 @@
 
           <a class="about-text-link" href="#pakiety">Poznaj zakres współpracy <span>↗</span></a>
         </div>
-      </div>
-
-      <div class="about-values reveal">
-        <div><span>01</span><strong>Funkcja</strong><p>Układ i codzienne użytkowanie są punktem wyjścia.</p></div>
-        <div><span>02</span><strong>Światło</strong><p>Buduje rytm, nastrój i sposób odbioru materiałów.</p></div>
-        <div><span>03</span><strong>Materiał</strong><p>Dobierany świadomie, bez przypadkowych dekoracji.</p></div>
-        <div><span>04</span><strong>Detal</strong><p>Domyka projekt i nadaje mu indywidualny charakter.</p></div>
       </div>
     </section>
 
@@ -301,30 +274,34 @@
       </div>
     </section>
 
-    <section class="contact-section" id="kontakt">
-      <div class="contact-inner">
-        <div class="contact-copy reveal">
-          <p class="eyebrow eyebrow-light">Kontakt</p>
+    <section class="contact-section contact-section--beige" id="kontakt">
+      <div class="contact-visual">
+        <img src="package-consultation.jpg" alt="Materiały i szkice wykorzystywane w procesie projektowym">
+      </div>
+
+      <div class="contact-panel">
+        <div class="contact-content reveal">
+          <p class="eyebrow">Kontakt</p>
           <h2>Opowiedz nam o przestrzeni, którą chcesz zmienić.</h2>
           <p>Na początek wystarczy metraż, lokalizacja i krótki opis inwestycji. Wrócimy z informacją, jaki zakres współpracy będzie najlepszy.</p>
 
-          <div class="contact-details">
+          <form class="contact-form contact-form--beige" data-contact-form>
+            <div class="form-row">
+              <label><span>Imię i nazwisko</span><input type="text" name="name" required></label>
+              <label><span>Telefon</span><input type="tel" name="phone"></label>
+            </div>
+            <label><span>E-mail</span><input type="email" name="email" required></label>
+            <label><span>Informacje o inwestycji</span><textarea name="message" rows="6" required></textarea></label>
+            <button class="button contact-submit" type="submit">Wyślij zapytanie</button>
+          </form>
+
+          <div class="contact-details contact-details--beige">
             <a href="tel:+48794530590">794 530 590</a>
             <a href="mailto:tooniprojektuja@gmail.com">tooniprojektuja@gmail.com</a>
             <a href="https://www.instagram.com/to_oni_projektuja/" target="_blank" rel="noopener">@to_oni_projektuja ↗</a>
             <span>Gliwice / Śląsk</span>
           </div>
         </div>
-
-        <form class="contact-form reveal" data-contact-form>
-          <div class="form-row">
-            <label><span>Imię i nazwisko</span><input type="text" name="name" required></label>
-            <label><span>Telefon</span><input type="tel" name="phone"></label>
-          </div>
-          <label><span>E-mail</span><input type="email" name="email" required></label>
-          <label><span>Informacje o inwestycji</span><textarea name="message" rows="6" required></textarea></label>
-          <button class="button button-light" type="submit">Wyślij zapytanie</button>
-        </form>
       </div>
     </section>
   </main>

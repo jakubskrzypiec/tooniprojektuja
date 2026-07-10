@@ -892,3 +892,138 @@ p{color:var(--muted);line-height:1.72}
     transition:none !important;
   }
 }
+
+
+/* =========================================================
+   V6 — ONLY REQUESTED FINAL CHANGES
+   ========================================================= */
+
+/* Hero remains untouched except removed eyebrow and buttons */
+.hero-copy{
+  padding-top:10px;
+}
+
+/* Contact: half image / half beige questionnaire */
+.contact-section--beige{
+  min-height:760px;
+  padding:0 !important;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  color:var(--ink);
+  background:#e9e2d6;
+}
+.contact-visual{
+  min-height:760px;
+  overflow:hidden;
+}
+.contact-visual img{
+  height:100%;
+  object-position:center;
+}
+.contact-panel{
+  display:flex;
+  align-items:center;
+  padding:clamp(70px,8vw,125px) max(38px,7vw);
+  background:#e9e2d6;
+}
+.contact-content{
+  width:100%;
+  max-width:720px;
+}
+.contact-content .eyebrow{
+  color:var(--blue);
+}
+.contact-content h2{
+  margin-bottom:23px;
+}
+.contact-content>p{
+  max-width:640px;
+  color:rgba(21,27,37,.68);
+}
+.contact-form--beige{
+  margin-top:34px;
+  padding-top:0;
+}
+.contact-form--beige label span{
+  color:rgba(21,27,37,.58);
+}
+.contact-form--beige input,
+.contact-form--beige textarea{
+  color:var(--ink);
+  border-bottom-color:rgba(21,27,37,.25);
+}
+.contact-form--beige input:focus,
+.contact-form--beige textarea:focus{
+  border-color:var(--blue);
+}
+.contact-submit{
+  color:#fff;
+  background:var(--blue);
+}
+.contact-submit:hover{
+  background:var(--blue-dark);
+}
+.contact-details--beige{
+  margin-top:30px;
+}
+.contact-details--beige a{
+  color:var(--ink);
+  font-size:23px;
+}
+.contact-details--beige span{
+  color:rgba(21,27,37,.52);
+}
+
+/* Footer in the brand beige */
+.footer-refined{
+  color:var(--ink);
+  background:#e9e2d6;
+}
+.footer-refined-brand img{
+  filter:none;
+}
+.footer-refined-brand p{
+  color:rgba(21,27,37,.58);
+}
+.footer-refined-top,
+.footer-refined-email,
+.footer-refined-bottom{
+  border-color:rgba(21,27,37,.14);
+}
+.footer-refined-top nav>p,
+.footer-refined-top>div>p{
+  color:var(--blue);
+}
+.footer-refined-top a{
+  color:rgba(21,27,37,.66);
+}
+.footer-refined-top a:hover{
+  color:var(--blue);
+}
+.footer-refined-email{
+  color:var(--ink);
+}
+.footer-refined-email:hover{
+  color:var(--blue);
+}
+.footer-refined-bottom{
+  color:rgba(21,27,37,.5);
+}
+
+@media(max-width:960px){
+  .contact-section--beige{
+    grid-template-columns:1fr;
+  }
+  .contact-visual{
+    min-height:520px;
+  }
+}
+
+@media(max-width:720px){
+  .contact-visual{
+    min-height:420px;
+  }
+  .contact-panel{
+    padding:75px 18px;
+  }
+}

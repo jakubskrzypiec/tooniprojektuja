@@ -1,0 +1,15 @@
+TO ONI PROJEKTUJĄ — V6
+
+Zmienione wyłącznie:
+- usunięty napis nad hero,
+- usunięte dwa przyciski w hero,
+- usunięty trzyczęściowy pasek pod hero,
+- usunięte cztery pola: Funkcja / Światło / Materiał / Detal,
+- kontakt przebudowany na układ pół zdjęcia / pół beżowego formularza,
+- stopka zmieniona na firmowy beż.
+
+Podmień tylko:
+- index.html
+- style.css
+
+Pozostałych plików nie zmieniaj.
