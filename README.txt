@@ -1,13 +1,12 @@
-TO ONI PROJEKTUJĄ — HOME PAGE / KONCEPT V1
+To Oni Projektują — home page v2 (flat)
 
-Pliki do wrzucenia do głównego folderu repo:
+Pliki do wrzucenia do repo / hostingu:
 - index.html
 - style.css
 - script.js
 - logo-transparent.png
 - favicon.png
-
-Strona oczekuje w głównym folderze repo następujących zdjęć:
+- team.jpg
 - garderoba.jpg
 - kuchnia1.jpg
 - kuchnia2.jpg
@@ -19,29 +18,4 @@ Strona oczekuje w głównym folderze repo następujących zdjęć:
 - park4.jpg
 - sypialnia.jpg
 
-Co działa:
-- sticky header,
-- mobilne menu,
-- automatycznie przesuwana galeria projektów,
-- drag galerii myszką / palcem,
-- pop-out projektu w oknie dialogowym,
-- rozwijane pakiety,
-- galeria projektu parku,
-- animacje wejścia przy scrollowaniu,
-- formularz tworzący gotową wiadomość e-mail,
-- pełny responsive desktop / tablet / mobile,
-- podstawowe SEO i Schema.org.
-
-EDYCJA PROJEKTÓW:
-Lista projektów znajduje się na samej górze script.js w tablicy:
-const projects = [...]
-
-Dodanie kolejnego projektu wymaga dopisania jednego obiektu z polami:
-image, title, meta, tag, description.
-
-UWAGA:
-- Obecnie jest to wersja statyczna.
-- Automatyczna edycja galerii jak postów na Instagramie wymaga CMS/backendu.
-- Panel klienta z logowaniem i dokumentacją jest osobnym etapem.
-
-WERSJA FLAT: wszystkie pliki znajdują się w głównym folderze repo. Nie trzeba tworzyć folderu assets.
+Wszystkie pliki są w jednym folderze (bez assets), więc można je od razu wrzucić do GitHuba.
