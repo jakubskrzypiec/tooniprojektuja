@@ -1395,3 +1395,139 @@ h2{
     font-size:clamp(24px,7.5vw,36px) !important;
   }
 }
+
+
+/* =========================================================
+   V11 — ELEGANT TYPOGRAPHY
+   Newsreader for headings, DM Sans for body.
+   ========================================================= */
+
+:root{
+  --serif:"Newsreader",Georgia,serif;
+}
+
+h1,h2{
+  font-family:"Newsreader",Georgia,serif;
+  font-weight:500;
+  letter-spacing:-.038em;
+}
+
+h2{
+  font-size:clamp(44px,5.35vw,80px);
+  line-height:.98;
+}
+
+.hero h1{
+  max-width:980px;
+  font-family:"Newsreader",Georgia,serif;
+  font-size:clamp(60px,7.7vw,118px);
+  font-weight:500;
+  line-height:.88;
+  letter-spacing:-.045em;
+}
+
+.rotating-word{
+  min-height:1em;
+  line-height:.98;
+}
+
+.statement-band p{
+  font-family:"Newsreader",Georgia,serif;
+  font-size:clamp(32px,4.35vw,61px);
+  font-weight:500;
+  line-height:1.04;
+  letter-spacing:-.035em;
+}
+
+.about-editorial-lead{
+  font-family:"Newsreader",Georgia,serif;
+  font-size:clamp(23px,2.1vw,32px);
+  font-weight:500;
+  line-height:1.32;
+  letter-spacing:-.022em;
+}
+
+.package-item h3,
+.process-row h3,
+.contact-details a,
+.prefooter-inner h2,
+.footer-refined-email,
+.project-dialog>div h2{
+  font-family:"Newsreader",Georgia,serif;
+}
+
+.package-item h3{
+  font-size:29px;
+  font-weight:500;
+  line-height:1.08;
+  letter-spacing:-.025em;
+}
+
+.process-row h3{
+  font-size:clamp(30px,2.7vw,39px);
+  font-weight:500;
+  line-height:1.04;
+  letter-spacing:-.03em;
+}
+
+.contact-details a{
+  font-size:24px;
+  font-weight:500;
+  letter-spacing:-.02em;
+}
+
+.image-interlude-copy h2{
+  font-size:clamp(46px,5.65vw,84px);
+  line-height:.98;
+}
+
+.prefooter-inner h2{
+  max-width:1000px;
+  font-size:clamp(46px,6vw,80px);
+  font-weight:500;
+  line-height:.98;
+  letter-spacing:-.035em;
+}
+
+.footer-refined-email{
+  font-size:clamp(30px,3.8vw,56px) !important;
+  font-weight:500;
+  letter-spacing:-.035em;
+}
+
+.project-dialog>div h2{
+  font-size:46px;
+  font-weight:500;
+  line-height:1;
+}
+
+@media(max-width:720px){
+  .hero h1{
+    font-size:clamp(50px,15vw,72px);
+    line-height:.94;
+  }
+
+  h2{
+    font-size:clamp(38px,10.7vw,54px);
+  }
+
+  .statement-band p{
+    font-size:clamp(30px,8.5vw,43px);
+  }
+
+  .about-editorial-lead{
+    font-size:clamp(22px,6.4vw,29px);
+  }
+
+  .image-interlude-copy h2{
+    font-size:clamp(38px,10.5vw,54px);
+  }
+
+  .prefooter-inner h2{
+    font-size:clamp(38px,10.8vw,56px);
+  }
+
+  .footer-refined-email{
+    font-size:clamp(26px,8vw,39px) !important;
+  }
+}

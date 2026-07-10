@@ -1,0 +1,16 @@
+TO ONI PROJEKTUJĄ — V11 / ESTETYCZNA TYPOGRAFIA
+
+Zmiany:
+- nagłówki korzystają teraz z eleganckiej, czytelnej czcionki Newsreader,
+- tekst główny pozostaje w DM Sans,
+- nagłówki są bardziej premium, ale nie tak wąskie i ciężkie jak wcześniej,
+- rozmiary pozostają umiarkowane,
+- kolory firmowe bez zmian:
+  Niebieski #345798
+  Żółty #C38B09
+
+Podmień tylko:
+- index.html
+- style.css
+
+Cache CSS: tooni11
