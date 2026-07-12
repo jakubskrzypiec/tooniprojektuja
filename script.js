@@ -1,125 +1,121 @@
 const body = document.body;
+const intro = document.querySelector("[data-intro]");
 const header = document.querySelector("[data-header]");
-const menuToggle = document.querySelector(".menu-toggle");
+const menuButton = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector(".mobile-menu");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* Safe intro — transform and opacity only, with fallback */
-const intro = document.querySelector("[data-page-intro]");
+/* Safe intro */
 let introClosed = false;
 const closeIntro = () => {
   if (!intro || introClosed) return;
   introClosed = true;
-  intro.classList.add("is-leaving");
+  intro.classList.add("is-closing");
   body.classList.remove("intro-active");
-  window.setTimeout(() => intro.remove(), 850);
+  window.setTimeout(() => intro.remove(), 820);
 };
-
 if (intro && !reduceMotion) {
-  window.setTimeout(closeIntro, 1250);
-  window.setTimeout(closeIntro, 2600);
+  window.setTimeout(closeIntro, 1050);
+  window.setTimeout(closeIntro, 2300);
   intro.addEventListener("click", closeIntro, { once:true });
-  window.addEventListener("load", () => window.setTimeout(closeIntro, 450), { once:true });
+  window.addEventListener("load", () => window.setTimeout(closeIntro, 350), { once:true });
 } else {
   intro?.remove();
   body.classList.remove("intro-active");
 }
 
 /* Header */
-const updateHeader = () => header?.classList.toggle("is-scrolled", window.scrollY > 36);
+const updateHeader = () => header?.classList.toggle("is-scrolled", window.scrollY > 35);
 updateHeader();
 window.addEventListener("scroll", updateHeader, { passive:true });
 
-/* Mobile navigation */
-menuToggle?.addEventListener("click", () => {
+/* Mobile menu */
+menuButton?.addEventListener("click", () => {
   const open = mobileMenu.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", String(open));
+  menuButton.setAttribute("aria-expanded", String(open));
   mobileMenu.setAttribute("aria-hidden", String(!open));
   body.classList.toggle("menu-open", open);
 });
+mobileMenu?.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+  mobileMenu.classList.remove("open");
+  mobileMenu.setAttribute("aria-hidden","true");
+  menuButton?.setAttribute("aria-expanded","false");
+  body.classList.remove("menu-open");
+}));
 
-mobileMenu?.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", () => {
-    mobileMenu.classList.remove("open");
-    menuToggle?.setAttribute("aria-expanded", "false");
-    mobileMenu.setAttribute("aria-hidden", "true");
-    body.classList.remove("menu-open");
-  });
-});
-
-/* Old hero rotating text */
-const rotatingWord = document.querySelector("[data-rotating-word]");
-const heroWords = ["działają.", "uspokajają.", "dojrzewają.", "zostają."];
-let heroIndex = 0;
-if (rotatingWord && !reduceMotion) {
+/* Rotating hero */
+const rotating = document.querySelector("[data-rotating-word]");
+const words = ["działają.", "uspokajają.", "dojrzewają.", "zostają."];
+let wordIndex = 0;
+if (rotating && !reduceMotion) {
   window.setInterval(() => {
-    rotatingWord.classList.add("is-changing");
+    rotating.classList.add("is-changing");
     window.setTimeout(() => {
-      heroIndex = (heroIndex + 1) % heroWords.length;
-      rotatingWord.textContent = heroWords[heroIndex];
-      rotatingWord.classList.remove("is-changing");
-    }, 270);
-  }, 2500);
+      wordIndex = (wordIndex + 1) % words.length;
+      rotating.textContent = words[wordIndex];
+      rotating.classList.remove("is-changing");
+    }, 260);
+  }, 2450);
 }
 
 /* Reveal */
 const revealItems = document.querySelectorAll(".reveal");
 if ("IntersectionObserver" in window && !reduceMotion) {
-  const observer = new IntersectionObserver(entries => {
+  const revealObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
+        revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold:.11, rootMargin:"0px 0px -35px 0px" });
-  revealItems.forEach(item => observer.observe(item));
+  }, { threshold:.11, rootMargin:"0px 0px -30px 0px" });
+  revealItems.forEach(item => revealObserver.observe(item));
 } else {
   revealItems.forEach(item => item.classList.add("visible"));
 }
 
-/* Projects carousel */
-const carousel = document.querySelector("[data-project-carousel]");
-const prev = document.querySelector("[data-project-prev]");
-const next = document.querySelector("[data-project-next]");
-let carouselPaused = false;
+/* Projects autoplay */
+const projectTrack = document.querySelector("[data-project-track]");
+const prevProject = document.querySelector("[data-project-prev]");
+const nextProject = document.querySelector("[data-project-next]");
+let projectPaused = false;
 
-const carouselStep = () => {
-  const card = carousel?.querySelector("[data-project-card]");
+const projectStep = () => {
+  const card = projectTrack?.querySelector("[data-project-card]");
   return card ? card.getBoundingClientRect().width + 22 : 0;
 };
 
-const moveCarousel = direction => {
-  if (!carousel) return;
-  const max = carousel.scrollWidth - carousel.clientWidth;
-  const target = carousel.scrollLeft + direction * carouselStep();
-  if (direction > 0 && target >= max - 12) carousel.scrollTo({ left:0, behavior:"smooth" });
-  else if (direction < 0 && target <= 0) carousel.scrollTo({ left:max, behavior:"smooth" });
-  else carousel.scrollBy({ left:direction * carouselStep(), behavior:"smooth" });
+const moveProjects = direction => {
+  if (!projectTrack) return;
+  const max = projectTrack.scrollWidth - projectTrack.clientWidth;
+  const target = projectTrack.scrollLeft + direction * projectStep();
+  if (direction > 0 && target >= max - 12) projectTrack.scrollTo({ left:0, behavior:"smooth" });
+  else if (direction < 0 && target <= 0) projectTrack.scrollTo({ left:max, behavior:"smooth" });
+  else projectTrack.scrollBy({ left:direction * projectStep(), behavior:"smooth" });
 };
 
-prev?.addEventListener("click", () => moveCarousel(-1));
-next?.addEventListener("click", () => moveCarousel(1));
-carousel?.addEventListener("mouseenter", () => carouselPaused = true);
-carousel?.addEventListener("mouseleave", () => carouselPaused = false);
-carousel?.addEventListener("focusin", () => carouselPaused = true);
-carousel?.addEventListener("focusout", () => carouselPaused = false);
+prevProject?.addEventListener("click", () => moveProjects(-1));
+nextProject?.addEventListener("click", () => moveProjects(1));
+projectTrack?.addEventListener("mouseenter", () => projectPaused = true);
+projectTrack?.addEventListener("mouseleave", () => projectPaused = false);
+projectTrack?.addEventListener("focusin", () => projectPaused = true);
+projectTrack?.addEventListener("focusout", () => projectPaused = false);
 
-if (carousel && !reduceMotion) {
-  window.setInterval(() => { if (!carouselPaused) moveCarousel(1); }, 4400);
+if (projectTrack && !reduceMotion) {
+  window.setInterval(() => { if (!projectPaused) moveProjects(1); }, 4200);
 }
 
 /* Project modal */
-const modal = document.querySelector("[data-project-modal]");
+const modal = document.querySelector("[data-modal]");
 const modalImage = modal?.querySelector("[data-modal-image]");
 const modalTitle = modal?.querySelector("[data-modal-title]");
 const modalCategory = modal?.querySelector("[data-modal-category]");
-const modalClose = modal?.querySelector(".project-modal__close");
-let previousFocus = null;
+const modalClose = modal?.querySelector(".modal-close");
+let lastFocus = null;
 
 const openModal = card => {
   if (!modal || !modalImage || !modalTitle || !modalCategory) return;
-  previousFocus = document.activeElement;
+  lastFocus = document.activeElement;
   modalImage.src = card.dataset.image;
   modalImage.alt = card.dataset.title;
   modalTitle.textContent = card.dataset.title;
@@ -134,70 +130,141 @@ const closeModal = () => {
   modal?.classList.remove("is-open");
   modal?.setAttribute("aria-hidden","true");
   body.classList.remove("modal-open");
-  previousFocus?.focus();
+  lastFocus?.focus();
 };
 
 document.querySelectorAll("[data-project-card]").forEach(card => {
-  card.querySelector(".project-open")?.addEventListener("click", () => openModal(card));
+  card.querySelector("button")?.addEventListener("click", () => openModal(card));
 });
 modalClose?.addEventListener("click", closeModal);
 modal?.addEventListener("click", event => { if (event.target === modal) closeModal(); });
 document.addEventListener("keydown", event => { if (event.key === "Escape") closeModal(); });
 
-/* Process */
-const processData = [
+/* Packages */
+const packageData = [
   {
-    stage:"Etap / Analiza",
-    title:"Analiza lokalu",
-    image:"tooni-blueprints.jpg",
-    description:"Poznajemy miejsce, sposób jego użytkowania oraz oczekiwania inwestora. Ustalamy priorytety i ograniczenia, które będą wpływać na cały projekt.",
-    items:["rozmowa o potrzebach","analiza możliwości lokalu","ustalenie zakresu"],
-    result:"Jasny kierunek dalszej pracy i zakres projektu."
-  },
-  {
-    stage:"Etap / Pomiary",
-    title:"Inwentaryzacja",
-    image:"tooni-blueprints.jpg",
-    description:"Dokładnie mierzymy lokal i dokumentujemy jego stan. Ten etap tworzy wiarygodną bazę do pracy nad funkcją, instalacjami i detalem.",
-    items:["pomiary pomieszczeń","dokumentacja fotograficzna","rzuty stanu istniejącego"],
-    result:"Komplet dokładnych materiałów wyjściowych do projektowania."
-  },
-  {
-    stage:"Etap / Funkcja",
-    title:"Układ funkcjonalny",
-    image:"garderoba.jpg",
-    description:"Przygotowujemy warianty rozmieszczenia funkcji, wyposażenia i komunikacji. Wspólnie wybieramy rozwiązanie najlepiej dopasowane do codzienności.",
-    items:["warianty układu","analiza ergonomii","wybór kierunku"],
-    result:"Wybrany układ, który porządkuje sposób korzystania z wnętrza."
-  },
-  {
-    stage:"Etap / Koncepcja",
-    title:"Projekt koncepcyjny",
-    image:"tooni-materials.jpg",
-    description:"Budujemy charakter wnętrza. Łączymy materiały, kolorystykę, oświetlenie i wyposażenie w jeden czytelny kierunek.",
-    items:["moodboard i materiały","wizualizacje","dobór wyposażenia"],
-    result:"Spójny kierunek wizualny i zestaw najważniejszych decyzji."
-  },
-  {
-    stage:"Etap / Dokumentacja",
-    title:"Projekt wykonawczy",
-    image:"tooni-blueprints.jpg",
-    description:"Przekładamy koncepcję na dokumentację potrzebną ekipom wykonawczym. Każda ważna decyzja zostaje opisana i uporządkowana.",
-    items:["rysunki techniczne","zestawienia materiałów","wytyczne dla wykonawców"],
-    result:"Komplet informacji potrzebnych do sprawnej realizacji."
-  },
-  {
-    stage:"Etap / Realizacja",
-    title:"Nadzór autorski",
+    label:"Pakiet 01",
+    title:"Konsultacja projektowa",
     image:"tooni-stilllife.jpg",
-    description:"Pomagamy zachować spójność projektu podczas realizacji. Odpowiadamy na pytania wykonawców i wspieramy inwestora przy zmianach.",
-    items:["wizyty na miejscu","konsultacje wykonawcze","kontrola zgodności"],
-    result:"Wsparcie w utrzymaniu zgodności realizacji z projektem."
+    description:"Spotkanie poświęcone przestrzeni, stylowi i najważniejszym decyzjom. Pozwala uporządkować temat przed rozpoczęciem większego projektu.",
+    items:["analiza potrzeb","wstępny kierunek","rekomendacje dalszych etapów"]
+  },
+  {
+    label:"Pakiet 02",
+    title:"Projekt funkcjonalny",
+    image:"garderoba.jpg",
+    description:"Opracowanie układu pomieszczeń, komunikacji i wyposażenia. Celem jest rozwiązanie, które odpowiada sposobowi codziennego użytkowania.",
+    items:["inwentaryzacja","warianty układu","wybór najlepszego rozwiązania"]
+  },
+  {
+    label:"Pakiet 03",
+    title:"Projekt kompleksowy",
+    image:"tooni-materials.jpg",
+    description:"Pełne opracowanie wnętrza: od układu, przez materiały i wizualizacje, aż po dokumentację dla wykonawców.",
+    items:["koncepcja wnętrza","materiały i wyposażenie","dokumentacja techniczna"]
+  },
+  {
+    label:"Pakiet 04",
+    title:"Nadzór autorski",
+    image:"tooni-blueprints.jpg",
+    description:"Wsparcie w trakcie realizacji, konsultowanie zmian i pomoc w zachowaniu zgodności wykonywanych prac z projektem.",
+    items:["wizyty na miejscu","kontakt z wykonawcami","kontrola zgodności"]
   }
 ];
 
-const tabs = [...document.querySelectorAll("[data-process-index]")];
+const packageRows = [...document.querySelectorAll("[data-package-index]")];
+const packageImage = document.querySelector("[data-package-image]");
+const packageLabel = document.querySelector("[data-package-label]");
+const packageTitle = document.querySelector("[data-package-title]");
+const packageDescription = document.querySelector("[data-package-description]");
+const packageList = document.querySelector("[data-package-list]");
+
+const activatePackage = index => {
+  const data = packageData[index];
+  if (!data) return;
+  packageRows.forEach((row, i) => row.classList.toggle("is-active", i === index));
+  if (packageImage) {
+    packageImage.style.opacity = ".18";
+    window.setTimeout(() => {
+      packageImage.src = data.image;
+      packageImage.alt = data.title;
+      packageImage.style.opacity = "1";
+    }, 130);
+  }
+  if (packageLabel) packageLabel.textContent = data.label;
+  if (packageTitle) packageTitle.textContent = data.title;
+  if (packageDescription) packageDescription.textContent = data.description;
+  if (packageList) packageList.innerHTML = data.items.map(item => `<li>${item}</li>`).join("");
+};
+
+packageRows.forEach(row => {
+  const index = Number(row.dataset.packageIndex);
+  row.addEventListener("click", () => activatePackage(index));
+  row.addEventListener("mouseenter", () => activatePackage(index));
+  row.addEventListener("focus", () => activatePackage(index));
+});
+
+/* Process */
+const processData = [
+  {
+    stage:"Etap 01",
+    title:"Analiza lokalu",
+    image:"tooni-blueprints.jpg",
+    photoLabel:"analiza / kierunek",
+    description:"Poznajemy miejsce, potrzeby inwestora, sposób użytkowania oraz ograniczenia techniczne. To etap, który ustawia właściwy kierunek całego projektu.",
+    items:["rozmowa o potrzebach","analiza możliwości lokalu","ustalenie zakresu"],
+    result:"Jasny kierunek dalszej pracy."
+  },
+  {
+    stage:"Etap 02",
+    title:"Inwentaryzacja",
+    image:"tooni-blueprints.jpg",
+    photoLabel:"pomiary / stan istniejący",
+    description:"Dokładnie mierzymy przestrzeń i dokumentujemy jej stan. Powstaje wiarygodna baza do dalszej pracy nad funkcją i rozwiązaniami technicznymi.",
+    items:["pomiary pomieszczeń","dokumentacja fotograficzna","rzuty stanu istniejącego"],
+    result:"Komplet materiałów wyjściowych."
+  },
+  {
+    stage:"Etap 03",
+    title:"Układ funkcjonalny",
+    image:"garderoba.jpg",
+    photoLabel:"funkcja / ergonomia",
+    description:"Przygotowujemy warianty rozmieszczenia funkcji, wyposażenia i komunikacji. Wspólnie wybieramy układ najlepiej dopasowany do codzienności.",
+    items:["warianty układu","analiza ergonomii","wybór rozwiązania"],
+    result:"Układ, który porządkuje przestrzeń."
+  },
+  {
+    stage:"Etap 04",
+    title:"Projekt koncepcyjny",
+    image:"tooni-materials.jpg",
+    photoLabel:"materiał / atmosfera",
+    description:"Budujemy charakter wnętrza. Łączymy kolorystykę, materiały, światło i wyposażenie w jeden spójny kierunek.",
+    items:["paleta materiałów","wizualizacje","dobór wyposażenia"],
+    result:"Spójna koncepcja wnętrza."
+  },
+  {
+    stage:"Etap 05",
+    title:"Projekt wykonawczy",
+    image:"tooni-blueprints.jpg",
+    photoLabel:"rysunki / dokumentacja",
+    description:"Przekładamy koncepcję na rysunki i informacje potrzebne ekipom wykonawczym. Każda kluczowa decyzja zostaje opisana.",
+    items:["rysunki techniczne","zestawienia materiałów","wytyczne dla wykonawców"],
+    result:"Dokumentacja gotowa do realizacji."
+  },
+  {
+    stage:"Etap 06",
+    title:"Nadzór autorski",
+    image:"tooni-stilllife.jpg",
+    photoLabel:"realizacja / kontrola",
+    description:"Wspieramy inwestora w trakcie prac, odpowiadamy na pytania wykonawców i pomagamy utrzymać spójność realizacji z projektem.",
+    items:["wizyty na miejscu","konsultacje zmian","kontrola zgodności"],
+    result:"Wsparcie podczas realizacji."
+  }
+];
+
+const processSteps = [...document.querySelectorAll("[data-process-index]")];
 const processImage = document.querySelector("[data-process-image]");
+const processPhotoLabel = document.querySelector("[data-process-photo-label]");
 const processStage = document.querySelector("[data-process-stage]");
 const processTitle = document.querySelector("[data-process-title]");
 const processDescription = document.querySelector("[data-process-description]");
@@ -207,19 +274,16 @@ const processResult = document.querySelector("[data-process-result]");
 const activateProcess = index => {
   const data = processData[index];
   if (!data) return;
-  tabs.forEach((tab, i) => {
-    const active = i === index;
-    tab.classList.toggle("is-active", active);
-    tab.setAttribute("aria-selected", String(active));
-  });
+  processSteps.forEach((step, i) => step.classList.toggle("is-active", i === index));
   if (processImage) {
     processImage.style.opacity = ".18";
     window.setTimeout(() => {
       processImage.src = data.image;
       processImage.alt = data.title;
       processImage.style.opacity = "1";
-    }, 135);
+    }, 130);
   }
+  if (processPhotoLabel) processPhotoLabel.textContent = data.photoLabel;
   if (processStage) processStage.textContent = data.stage;
   if (processTitle) processTitle.textContent = data.title;
   if (processDescription) processDescription.textContent = data.description;
@@ -227,15 +291,15 @@ const activateProcess = index => {
   if (processResult) processResult.textContent = data.result;
 };
 
-tabs.forEach(tab => {
-  const index = Number(tab.dataset.processIndex);
-  tab.addEventListener("click", () => activateProcess(index));
-  tab.addEventListener("mouseenter", () => activateProcess(index));
-  tab.addEventListener("focus", () => activateProcess(index));
+processSteps.forEach(step => {
+  const index = Number(step.dataset.processIndex);
+  step.addEventListener("click", () => activateProcess(index));
+  step.addEventListener("mouseenter", () => activateProcess(index));
+  step.addEventListener("focus", () => activateProcess(index));
 });
 
-/* Form success state */
+/* Success */
 const params = new URLSearchParams(window.location.search);
 if (params.get("wyslano") === "1") {
-  document.querySelector("[data-form-success]")?.classList.add("is-visible");
+  document.querySelector("[data-success]")?.classList.add("is-visible");
 }
