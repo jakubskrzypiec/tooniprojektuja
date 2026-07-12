@@ -3,36 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#345798">
+  <meta name="theme-color" content="#f3efe8">
   <meta name="robots" content="index,follow">
-  <meta name="description" content="To Oni Projektują — pracownia architektury wnętrz z Gliwic. Projekty wnętrz prywatnych i przestrzeni wspólnych.">
-  <title>To Oni Projektują | Architektura wnętrz</title>
+  <meta name="description" content="To Oni Projektują — pracownia architektury wnętrz z Gliwic. Projekty wnętrz prywatnych, komercyjnych i przestrzeni wspólnych.">
+  <title>To Oni Projektują | Architektura wnętrz Gliwice</title>
 
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=tooni11">
+  <link rel="stylesheet" href="style.css?v=tooni12">
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ProfessionalService",
+    "name":"To Oni Projektują",
+    "description":"Pracownia architektury wnętrz z Gliwic.",
+    "telephone":"+48794530590",
+    "email":"tooniprojektuja@gmail.com",
+    "areaServed":"Śląsk",
+    "address":{
+      "@type":"PostalAddress",
+      "addressLocality":"Gliwice",
+      "postalCode":"44-100",
+      "addressCountry":"PL"
+    },
+    "sameAs":["https://www.instagram.com/to_oni_projektuja/"]
+  }
+  </script>
 </head>
 
 <body>
   <header class="site-header" data-header>
     <div class="header-inner">
-      <a class="brand" href="#start" aria-label="To Oni Projektują — strona główna">
+      <a class="brand" href="#start" aria-label="To Oni Projektują — start">
         <img src="logo-transparent.png" alt="To Oni Projektują">
       </a>
 
-      <nav class="desktop-nav" aria-label="Nawigacja główna">
+      <nav class="desktop-nav" aria-label="Menu główne">
         <a href="#onas">O nas</a>
         <a href="#projekty">Projekty</a>
         <a href="#pakiety">Pakiety</a>
-        <a href="#proces">Proces inwestycji</a>
+        <a href="#proces">Proces</a>
         <a href="#kontakt">Kontakt</a>
       </nav>
 
       <div class="header-actions">
-        <a class="instagram-link" href="https://www.instagram.com/to_oni_projektuja/" target="_blank" rel="noopener">Instagram ↗</a>
-        <a class="header-button" href="#kontakt">Porozmawiajmy</a>
+        <a class="icon-button" href="https://www.instagram.com/to_oni_projektuja/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+        </a>
+        <a class="header-cta" href="#kontakt">Porozmawiajmy</a>
       </div>
 
       <button class="menu-toggle" type="button" aria-label="Otwórz menu" aria-expanded="false">
@@ -46,316 +67,334 @@
       <a href="#pakiety">Pakiety</a>
       <a href="#proces">Proces inwestycji</a>
       <a href="#kontakt">Kontakt</a>
-      <div class="mobile-contact">
+      <div class="mobile-menu__bottom">
+        <a class="icon-button" href="https://www.instagram.com/to_oni_projektuja/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+        </a>
         <a href="tel:+48794530590">794 530 590</a>
-        <a href="mailto:tooniprojektuja@gmail.com">tooniprojektuja@gmail.com</a>
       </div>
     </div>
   </header>
 
   <main>
     <section class="hero" id="start">
-      <img class="hero-image" src="hero-generated.jpg" alt="Nowoczesne wnętrze w spokojnej, naturalnej palecie">
+      <img class="hero-image" src="hero-generated.jpg" alt="Spokojne, nowoczesne wnętrze">
       <div class="hero-overlay"></div>
 
       <div class="hero-copy">
+        <p class="hero-label">To Oni Projektują / Gliwice</p>
         <h1>
           Projektujemy wnętrza, które
           <span class="rotating-word" data-rotating-word>działają.</span>
         </h1>
       </div>
+
+      <a class="hero-scroll" href="#onas" aria-label="Przejdź dalej">
+        <span>Przewiń</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"></path></svg>
+      </a>
     </section>
 
-    <section class="statement-band">
-      <p class="reveal">Nie projektujemy wnętrz do oglądania. Projektujemy miejsca, w których dobrze się żyje.</p>
-    </section>
+    <section class="about section-pad" id="onas">
+      <div class="about-layout">
+        <div class="about-mark reveal" aria-hidden="true">
+          <span>TO</span>
+          <span>ONI</span>
+        </div>
 
-    <section class="about-editorial section-pad" id="onas">
-      <div class="about-editorial-inner">
-        <figure class="about-editorial-image reveal">
-          <img src="about-generated.jpg" alt="Szkice, materiały i próbki wykorzystywane podczas projektowania wnętrza">
-          <figcaption>02 / O nas</figcaption>
+        <figure class="about-photo reveal">
+          <img src="about-generated.jpg" alt="Materiały, próbki i szkice projektowe">
+          <figcaption>Każdy projekt zaczyna się od rozmowy i poznania miejsca.</figcaption>
         </figure>
 
-        <div class="about-editorial-copy reveal">
+        <div class="about-copy reveal">
           <p class="eyebrow">O nas</p>
-          <h2>Jedna pracownia. Dwa sposoby patrzenia na przestrzeń.</h2>
-
-          <p class="about-editorial-lead">
-            To Oni Projektują to pracownia architektury wnętrz, która łączy funkcjonalność
-            z indywidualnym podejściem do każdego projektu.
-          </p>
-
-          <div class="about-editorial-columns">
-            <p>
-              Tworzymy spójne, estetyczne i dopasowane do stylu życia klientów przestrzenie
-              — zarówno prywatne, jak i wspólne. Każdy projekt zaczynamy od poznania miejsca,
-              potrzeb użytkowników i sposobu, w jaki wnętrze ma działać na co dzień.
-            </p>
-            <p>
-              Nasze projekty wyróżniają się dbałością o detal, przemyślanym układem
-              oraz świadomym łączeniem nowoczesnych rozwiązań z ponadczasowym designem.
-              Prowadzimy inwestycję od analizy i koncepcji po dokumentację oraz nadzór.
-            </p>
+          <h2>Dwie perspektywy, jeden wspólny kierunek.</h2>
+          <p class="about-lead">To Oni Projektują to pracownia architektury wnętrz, która łączy funkcjonalność z indywidualnym podejściem do każdego projektu.</p>
+          <div class="about-columns">
+            <p>Projektujemy wnętrza prywatne, komercyjne i przestrzenie wspólne. Zaczynamy od potrzeb użytkowników, rytmu codzienności oraz możliwości konkretnego miejsca.</p>
+            <p>Dbamy o spójny układ, świadomy dobór materiałów i detal, który nie dominuje nad funkcją. Prowadzimy inwestycję od pierwszej analizy po dokumentację i wsparcie podczas realizacji.</p>
           </div>
-
-          <a class="about-text-link" href="#pakiety">Poznaj zakres współpracy <span>↗</span></a>
+          <blockquote>Nie narzucamy gotowego stylu. Szukamy rozwiązania, które ma sens właśnie w tej przestrzeni.</blockquote>
         </div>
       </div>
     </section>
 
-    <section class="projects-section section-pad" id="projekty">
-      <div class="section-title reveal">
-        <p class="eyebrow">Wybrane projekty</p>
-        <h2>Realizacje w ciągłym ruchu.</h2>
+    <section class="projects section-pad" id="projekty">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow">Wybrane projekty</p>
+          <h2>Realizacje, które można oglądać bez końca.</h2>
+        </div>
+        <div class="carousel-controls">
+          <button type="button" data-project-prev aria-label="Poprzedni projekt">
+            <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"></path></svg>
+          </button>
+          <button type="button" data-project-next aria-label="Następny projekt">
+            <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
+          </button>
+        </div>
       </div>
 
-      <div class="projects-marquee" data-marquee>
-        <div class="projects-track" data-project-track>
-          <button class="project-slide" type="button" data-image="garderoba.jpg" data-title="Garderoba na wymiar" data-category="Projekt wnętrza">
+      <div class="project-carousel" data-project-carousel>
+        <article class="project-card reveal" data-project-card data-image="garderoba.jpg" data-title="Garderoba na wymiar" data-category="Projekt wnętrza">
+          <button type="button" class="project-card__open" aria-label="Powiększ projekt Garderoba na wymiar">
             <img src="garderoba.jpg" alt="Projekt garderoby na wymiar">
-            <span><small>Projekt wnętrza</small><strong>Garderoba na wymiar</strong></span>
+            <span class="project-card__zoom">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l5 5M11 8v6M8 11h6"></path></svg>
+            </span>
           </button>
-          <button class="project-slide" type="button" data-image="lazienka1.jpg" data-title="Łazienka / detal" data-category="Projekt koncepcyjny">
-            <img src="lazienka1.jpg" alt="Projekt łazienki">
-            <span><small>Projekt koncepcyjny</small><strong>Łazienka / detal</strong></span>
+          <div class="project-card__meta">
+            <span>Projekt wnętrza</span>
+            <h3>Garderoba na wymiar</h3>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-project-card data-image="lazienka1.jpg" data-title="Łazienka / detal" data-category="Projekt koncepcyjny">
+          <button type="button" class="project-card__open" aria-label="Powiększ projekt łazienki">
+            <img src="lazienka1.jpg" alt="Projekt ciemnej łazienki">
+            <span class="project-card__zoom">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l5 5M11 8v6M8 11h6"></path></svg>
+            </span>
           </button>
-          <button class="project-slide" type="button" data-image="kuchnia2.jpg" data-title="Strefa dzienna" data-category="Projekt kompleksowy">
+          <div class="project-card__meta">
+            <span>Projekt koncepcyjny</span>
+            <h3>Łazienka / detal</h3>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-project-card data-image="kuchnia2.jpg" data-title="Strefa dzienna" data-category="Projekt kompleksowy">
+          <button type="button" class="project-card__open" aria-label="Powiększ projekt strefy dziennej">
             <img src="kuchnia2.jpg" alt="Projekt strefy dziennej">
-            <span><small>Projekt kompleksowy</small><strong>Strefa dzienna</strong></span>
+            <span class="project-card__zoom">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l5 5M11 8v6M8 11h6"></path></svg>
+            </span>
           </button>
-          <button class="project-slide" type="button" data-image="sypialnia.jpg" data-title="Sypialnia i wyciszenie" data-category="Projekt wnętrza">
+          <div class="project-card__meta">
+            <span>Projekt kompleksowy</span>
+            <h3>Strefa dzienna</h3>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-project-card data-image="sypialnia.jpg" data-title="Sypialnia i wyciszenie" data-category="Projekt wnętrza">
+          <button type="button" class="project-card__open" aria-label="Powiększ projekt sypialni">
             <img src="sypialnia.jpg" alt="Projekt sypialni">
-            <span><small>Projekt wnętrza</small><strong>Sypialnia i wyciszenie</strong></span>
+            <span class="project-card__zoom">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l5 5M11 8v6M8 11h6"></path></svg>
+            </span>
           </button>
-          <button class="project-slide" type="button" data-image="park1.jpg" data-title="Szuwary / Zielona Dolina" data-category="Przestrzeń wspólna">
-            <img src="park1.jpg" alt="Projekt przestrzeni wspólnej">
-            <span><small>Przestrzeń wspólna</small><strong>Szuwary / Zielona Dolina</strong></span>
+          <div class="project-card__meta">
+            <span>Projekt wnętrza</span>
+            <h3>Sypialnia i wyciszenie</h3>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-project-card data-image="lazienka2.jpg" data-title="Spokojna łazienka" data-category="Projekt wykonawczy">
+          <button type="button" class="project-card__open" aria-label="Powiększ projekt jasnej łazienki">
+            <img src="lazienka2.jpg" alt="Projekt jasnej łazienki">
+            <span class="project-card__zoom">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l5 5M11 8v6M8 11h6"></path></svg>
+            </span>
           </button>
-          <button class="project-slide" type="button" data-image="lazienka2.jpg" data-title="Spokojna łazienka" data-category="Projekt wykonawczy">
-            <img src="lazienka2.jpg" alt="Projekt łazienki">
-            <span><small>Projekt wykonawczy</small><strong>Spokojna łazienka</strong></span>
-          </button>
+          <div class="project-card__meta">
+            <span>Projekt wykonawczy</span>
+            <h3>Spokojna łazienka</h3>
+          </div>
+        </article>
+      </div>
+
+      <p class="carousel-note">Galeria przesuwa się automatycznie. Najedź kursorem, aby ją zatrzymać.</p>
+    </section>
+
+    <section class="packages section-pad" id="pakiety">
+      <div class="section-heading center reveal">
+        <div>
+          <p class="eyebrow">Zakres współpracy</p>
+          <h2>Pakiet dopasowany do etapu inwestycji.</h2>
         </div>
-      </div>
-
-      <div class="projects-hint">Przeciągnij / najedź, aby zatrzymać / kliknij, aby powiększyć</div>
-    </section>
-
-    <section class="image-interlude">
-      <img src="package-consultation.jpg" alt="Stół projektowy, próbki materiałów i wnętrze">
-      <div class="image-interlude-overlay"></div>
-      <div class="image-interlude-copy reveal">
-        <p class="eyebrow eyebrow-light">Kierunek</p>
-        <h2>Każdy projekt zaczyna się od rozmowy o tym, jak naprawdę chcesz mieszkać.</h2>
-      </div>
-    </section>
-
-    <section class="packages-section section-pad" id="pakiety">
-      <div class="section-title center reveal">
-        <p class="eyebrow">Pakiety projektowe</p>
-        <h2>Zakres dopasowany do etapu inwestycji.</h2>
       </div>
 
       <div class="packages-grid">
-        <article class="package-item reveal">
-          <figure><img src="package-consultation.jpg" alt="Konsultacja projektowa"></figure>
-          <span>01</span>
-          <h3>Konsultacja projektowa</h3>
-          <p>Spotkanie poświęcone przestrzeni, stylowi i najważniejszym decyzjom.</p>
-          <ul>
-            <li>analiza potrzeb</li>
-            <li>wstępny kierunek</li>
-            <li>rekomendacje dalszych etapów</li>
-          </ul>
-        </article>
-
-        <article class="package-item reveal">
-          <figure><img src="package-functional.jpg" alt="Projekt funkcjonalny"></figure>
-          <span>02</span>
-          <h3>Projekt funkcjonalny</h3>
-          <p>Układ pomieszczeń, komunikacja i rozwiązania porządkujące codzienność.</p>
-          <ul>
-            <li>inwentaryzacja</li>
-            <li>warianty układu</li>
-            <li>wybór rozwiązania</li>
-          </ul>
-        </article>
-
-        <article class="package-item reveal">
-          <figure><img src="package-comprehensive.jpg" alt="Projekt kompleksowy"></figure>
-          <span>03</span>
-          <h3>Projekt kompleksowy</h3>
-          <p>Pełne opracowanie wnętrza od koncepcji po dokumentację wykonawczą.</p>
-          <ul>
-            <li>układ i koncepcja</li>
-            <li>materiały i wyposażenie</li>
-            <li>dokumentacja techniczna</li>
-          </ul>
-        </article>
-
-        <article class="package-item reveal">
-          <figure><img src="package-supervision.jpg" alt="Nadzór autorski"></figure>
-          <span>04</span>
-          <h3>Nadzór autorski</h3>
-          <p>Wsparcie podczas realizacji i kontakt z wykonawcami na budowie.</p>
-          <ul>
-            <li>wizyty na miejscu</li>
-            <li>konsultacje zmian</li>
-            <li>kontrola zgodności</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="park-section section-pad">
-      <div class="park-inner">
-        <div class="park-copy reveal">
-          <p class="eyebrow eyebrow-light">Projekt przestrzeni wspólnej</p>
-          <h2>„Szuwary” — przestrzeń osiedla Zielona Dolina.</h2>
-          <p>Za każdą ścieżką, ławką i zbiornikiem wodnym stoi wiele decyzji projektowych. Najważniejsze było znalezienie równowagi pomiędzy potrzebami mieszkańców a charakterem istniejącego krajobrazu.</p>
-          <p>Naturalne ukształtowanie terenu i istniejące zbiorniki zostały wykorzystane jako część koncepcji, a nie przeszkoda do ukrycia.</p>
-        </div>
-
-        <div class="park-gallery reveal">
-          <figure class="park-main"><img src="park1.jpg" alt="Projekt Szuwary" data-park-main></figure>
-          <nav class="park-nav" aria-label="Zdjęcia projektu Szuwary">
-            <button class="active" type="button" data-park-image="park1.jpg">01</button>
-            <button type="button" data-park-image="park2.jpg">02</button>
-            <button type="button" data-park-image="park3.jpg">03</button>
-            <button type="button" data-park-image="park4.jpg">04</button>
-          </nav>
-        </div>
-      </div>
-    </section>
-
-    <section class="process-section section-pad" id="proces">
-      <div class="process-layout">
-        <aside class="process-sticky reveal">
-          <p class="eyebrow">Proces inwestycji</p>
-          <h2>Sześć etapów. Jeden czytelny kierunek.</h2>
-          <figure><img src="package-consultation.jpg" alt="Etap procesu projektowego" data-process-image></figure>
-        </aside>
-
-        <div class="process-list">
-          <article class="process-row active reveal" data-process-src="package-consultation.jpg">
+        <article class="package-card reveal">
+          <img src="package-consultation.jpg" alt="Konsultacja projektowa">
+          <div>
             <span>01</span>
-            <div><h3>Analiza lokalu</h3><p>Poznanie miejsca, potrzeb inwestora i ograniczeń technicznych.</p></div>
-          </article>
-          <article class="process-row reveal" data-process-src="package-functional.jpg">
-            <span>02</span>
-            <div><h3>Inwentaryzacja</h3><p>Pomiary, dokumentacja fotograficzna i przygotowanie materiału do pracy.</p></div>
-          </article>
-          <article class="process-row reveal" data-process-src="package-consultation.jpg">
-            <span>03</span>
-            <div><h3>Układ funkcjonalny</h3><p>Warianty przestrzeni i wybór rozwiązania odpowiadającego codzienności.</p></div>
-          </article>
-          <article class="process-row reveal" data-process-src="package-comprehensive.jpg">
-            <span>04</span>
-            <div><h3>Projekt koncepcyjny</h3><p>Materiały, kolorystyka, wyposażenie i charakter całego wnętrza.</p></div>
-          </article>
-          <article class="process-row reveal" data-process-src="package-functional.jpg">
-            <span>05</span>
-            <div><h3>Projekt wykonawczy</h3><p>Dokumentacja techniczna, zestawienia oraz informacje dla wykonawców.</p></div>
-          </article>
-          <article class="process-row reveal" data-process-src="package-supervision.jpg">
-            <span>06</span>
-            <div><h3>Nadzór autorski</h3><p>Wsparcie podczas realizacji i kontrola zgodności prac z projektem.</p></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="prefooter-cta">
-      <div class="prefooter-inner reveal">
-        <p class="eyebrow">Nowa inwestycja</p>
-        <h2>Masz przestrzeń, która potrzebuje dobrego planu?</h2>
-        <a href="#kontakt">Zacznijmy od rozmowy <span>↗</span></a>
-      </div>
-    </section>
-
-    <section class="contact-section contact-section--beige" id="kontakt">
-      <div class="contact-visual">
-        <img src="package-consultation.jpg" alt="Materiały i szkice wykorzystywane w procesie projektowym">
-      </div>
-
-      <div class="contact-panel">
-        <div class="contact-content reveal">
-          <p class="eyebrow">Kontakt</p>
-          <h2>Opowiedz nam o przestrzeni, którą chcesz zmienić.</h2>
-          <p>Na początek wystarczy metraż, lokalizacja i krótki opis inwestycji. Wrócimy z informacją, jaki zakres współpracy będzie najlepszy.</p>
-
-          <form class="contact-form contact-form--beige" data-contact-form>
-            <div class="form-row">
-              <label><span>Imię i nazwisko</span><input type="text" name="name" required></label>
-              <label><span>Telefon</span><input type="tel" name="phone"></label>
-            </div>
-            <label><span>E-mail</span><input type="email" name="email" required></label>
-            <label><span>Informacje o inwestycji</span><textarea name="message" rows="6" required></textarea></label>
-            <button class="button contact-submit" type="submit">Wyślij zapytanie</button>
-          </form>
-
-          <div class="contact-details contact-details--beige">
-            <a href="tel:+48794530590">794 530 590</a>
-            <a href="mailto:tooniprojektuja@gmail.com">tooniprojektuja@gmail.com</a>
-            <a href="https://www.instagram.com/to_oni_projektuja/" target="_blank" rel="noopener">@to_oni_projektuja ↗</a>
-            <span>Gliwice / Śląsk</span>
+            <h3>Konsultacja projektowa</h3>
+            <p>Rozmowa o miejscu, potrzebach, stylu i najważniejszych decyzjach.</p>
+            <ul><li>analiza potrzeb</li><li>wstępny kierunek</li><li>rekomendacje</li></ul>
           </div>
+        </article>
+
+        <article class="package-card reveal">
+          <img src="package-functional.jpg" alt="Projekt funkcjonalny">
+          <div>
+            <span>02</span>
+            <h3>Projekt funkcjonalny</h3>
+            <p>Układ pomieszczeń i rozwiązania odpowiadające codziennemu użytkowaniu.</p>
+            <ul><li>inwentaryzacja</li><li>warianty układu</li><li>wybór rozwiązania</li></ul>
+          </div>
+        </article>
+
+        <article class="package-card reveal">
+          <img src="package-comprehensive.jpg" alt="Projekt kompleksowy">
+          <div>
+            <span>03</span>
+            <h3>Projekt kompleksowy</h3>
+            <p>Pełne opracowanie od koncepcji po dokumentację wykonawczą.</p>
+            <ul><li>układ i koncepcja</li><li>materiały</li><li>dokumentacja</li></ul>
+          </div>
+        </article>
+
+        <article class="package-card reveal">
+          <img src="package-supervision.jpg" alt="Nadzór autorski">
+          <div>
+            <span>04</span>
+            <h3>Nadzór autorski</h3>
+            <p>Wsparcie podczas realizacji i kontakt z wykonawcami.</p>
+            <ul><li>wizyty na miejscu</li><li>konsultacje zmian</li><li>kontrola zgodności</li></ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="process section-pad" id="proces">
+      <div class="process-heading reveal">
+        <p class="eyebrow">Proces inwestycji</p>
+        <h2>Wybierz etap i zobacz, co dokładnie dzieje się w jego trakcie.</h2>
+        <p>Każdy krok ma konkretny cel i przygotowuje inwestycję do kolejnej decyzji. Najedź lub kliknij wybrany etap.</p>
+      </div>
+
+      <div class="process-layout">
+        <div class="process-tabs" role="tablist" aria-label="Etapy procesu inwestycji">
+          <button class="process-tab is-active reveal" type="button" role="tab" aria-selected="true" data-process-index="0">
+            <span class="process-tab__arrow">→</span><strong>Analiza lokalu</strong><small>Poznanie miejsca i potrzeb inwestora</small>
+          </button>
+          <button class="process-tab reveal" type="button" role="tab" aria-selected="false" data-process-index="1">
+            <span class="process-tab__arrow">→</span><strong>Inwentaryzacja</strong><small>Pomiary i dokumentacja stanu istniejącego</small>
+          </button>
+          <button class="process-tab reveal" type="button" role="tab" aria-selected="false" data-process-index="2">
+            <span class="process-tab__arrow">→</span><strong>Układ funkcjonalny</strong><small>Warianty i wybór najlepszego rozwiązania</small>
+          </button>
+          <button class="process-tab reveal" type="button" role="tab" aria-selected="false" data-process-index="3">
+            <span class="process-tab__arrow">→</span><strong>Projekt koncepcyjny</strong><small>Materiały, kolor i charakter wnętrza</small>
+          </button>
+          <button class="process-tab reveal" type="button" role="tab" aria-selected="false" data-process-index="4">
+            <span class="process-tab__arrow">→</span><strong>Projekt wykonawczy</strong><small>Dokumentacja dla wykonawców</small>
+          </button>
+          <button class="process-tab reveal" type="button" role="tab" aria-selected="false" data-process-index="5">
+            <span class="process-tab__arrow">→</span><strong>Nadzór autorski</strong><small>Wsparcie podczas realizacji</small>
+          </button>
+        </div>
+
+        <article class="process-detail reveal" data-process-detail>
+          <figure><img src="package-consultation.jpg" alt="" data-process-image></figure>
+          <div class="process-detail__content">
+            <span data-process-step>Etap 01</span>
+            <h3 data-process-title>Analiza lokalu</h3>
+            <p data-process-description>Rozpoczynamy od poznania miejsca, sposobu użytkowania wnętrza oraz oczekiwań inwestora. Ustalamy priorytety i ograniczenia, które będą wpływać na cały projekt.</p>
+            <ul data-process-list>
+              <li>rozmowa o potrzebach i stylu życia</li>
+              <li>analiza możliwości lokalu</li>
+              <li>ustalenie zakresu i dalszych etapów</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact section-pad" id="kontakt">
+      <div class="contact-grid">
+        <div class="contact-intro reveal">
+          <p class="eyebrow">Kontakt</p>
+          <h2>Porozmawiajmy o przestrzeni, którą chcesz zmienić.</h2>
+          <p>Na początek wystarczy lokalizacja, metraż i krótki opis inwestycji. Odpowiemy, jaki zakres współpracy będzie najlepszy.</p>
+
+          <div class="contact-details">
+            <a href="tel:+48794530590"><span>Telefon</span><strong>794 530 590</strong></a>
+            <a href="mailto:tooniprojektuja@gmail.com"><span>E-mail</span><strong>tooniprojektuja@gmail.com</strong></a>
+            <a href="https://www.instagram.com/to_oni_projektuja/" target="_blank" rel="noopener"><span>Instagram</span><strong>@to_oni_projektuja</strong></a>
+            <div><span>Pracownia</span><strong>Gliwice, 44-100</strong></div>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" data-contact-form>
+          <div class="form-row">
+            <label><span>Imię i nazwisko</span><input type="text" name="name" required></label>
+            <label><span>Telefon</span><input type="tel" name="phone"></label>
+          </div>
+          <label><span>E-mail</span><input type="email" name="email" required></label>
+          <label><span>Rodzaj inwestycji</span>
+            <select name="type">
+              <option>Wnętrze prywatne</option>
+              <option>Wnętrze komercyjne</option>
+              <option>Przestrzeń wspólna</option>
+              <option>Konsultacja</option>
+            </select>
+          </label>
+          <label><span>Informacje o inwestycji</span><textarea name="message" rows="6" required></textarea></label>
+          <button class="button" type="submit">Wyślij zapytanie</button>
+        </form>
+      </div>
+
+      <div class="map-wrap reveal">
+        <iframe
+          title="Mapa — To Oni Projektują, Gliwice"
+          src="https://www.google.com/maps?q=Gliwice,+Poland,+44-100&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="map-card">
+          <span>Pracownia</span>
+          <strong>Gliwice / Śląsk</strong>
+          <p>Spotkania po wcześniejszym umówieniu.</p>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer-refined">
-    <div class="footer-refined-top">
-      <div class="footer-refined-brand">
-        <img src="logo-transparent.png" alt="To Oni Projektują">
-        <p>Pracownia architektury wnętrz<br>Gliwice / Śląsk</p>
-      </div>
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <a class="footer-brand" href="#start"><img src="logo-transparent.png" alt="To Oni Projektują"></a>
 
       <nav>
-        <p>Nawigacja</p>
+        <span>Menu</span>
         <a href="#onas">O nas</a>
         <a href="#projekty">Projekty</a>
         <a href="#pakiety">Pakiety</a>
-        <a href="#proces">Proces inwestycji</a>
+        <a href="#proces">Proces</a>
       </nav>
 
       <div>
-        <p>Kontakt</p>
+        <span>Kontakt</span>
         <a href="tel:+48794530590">794 530 590</a>
         <a href="mailto:tooniprojektuja@gmail.com">tooniprojektuja@gmail.com</a>
-        <a href="https://www.instagram.com/to_oni_projektuja/" target="_blank" rel="noopener">Instagram ↗</a>
+      </div>
+
+      <div>
+        <span>Social media</span>
+        <a class="footer-social" href="https://www.instagram.com/to_oni_projektuja/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+        </a>
       </div>
     </div>
 
-    <a class="footer-refined-email" href="mailto:tooniprojektuja@gmail.com">
-      tooniprojektuja@gmail.com <span>↗</span>
-    </a>
-
-    <div class="footer-refined-bottom">
+    <div class="footer-bottom">
       <span>© 2026 To Oni Projektują</span>
       <span>Architektura wnętrz / Gliwice</span>
       <a href="#start">Wróć na górę ↑</a>
     </div>
   </footer>
 
-  <aside class="project-pop" data-project-pop aria-hidden="true">
-    <button type="button" class="project-pop-close" aria-label="Zamknij">×</button>
-    <span>Masz projekt?</span>
-    <p>Opowiedz nam o miejscu, które chcesz zmienić.</p>
-    <a href="#kontakt">Porozmawiajmy <b>↗</b></a>
-  </aside>
-
-  <dialog class="project-dialog" data-project-dialog>
-    <button class="dialog-close" type="button" aria-label="Zamknij">×</button>
-    <img src="" alt="" data-dialog-image>
-    <div>
-      <p data-dialog-category></p>
-      <h2 data-dialog-title></h2>
+  <div class="project-modal" data-project-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+    <button class="project-modal__close" type="button" aria-label="Zamknij">×</button>
+    <div class="project-modal__inner">
+      <img src="" alt="" data-modal-image>
+      <div class="project-modal__caption">
+        <span data-modal-category></span>
+        <h2 id="project-modal-title" data-modal-title></h2>
+      </div>
     </div>
-  </dialog>
+  </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=tooni12"></script>
 </body>
 </html>
