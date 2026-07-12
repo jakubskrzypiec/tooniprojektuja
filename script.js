@@ -141,42 +141,48 @@ const processData = [
     title: "Analiza lokalu",
     image: "package-consultation.jpg",
     description: "Rozpoczynamy od poznania miejsca, sposobu użytkowania wnętrza oraz oczekiwań inwestora. Ustalamy priorytety i ograniczenia, które będą wpływać na cały projekt.",
-    items: ["rozmowa o potrzebach i stylu życia", "analiza możliwości lokalu", "ustalenie zakresu i dalszych etapów"]
+    items: ["rozmowa o potrzebach i stylu życia", "analiza możliwości lokalu", "ustalenie zakresu i dalszych etapów"],
+    result: "Jasno określony kierunek dalszej pracy i zakres projektu."
   },
   {
     step: "Etap 02",
     title: "Inwentaryzacja",
     image: "package-functional.jpg",
     description: "Dokładnie mierzymy lokal i dokumentujemy jego stan. Ten etap tworzy wiarygodną bazę do dalszej pracy nad funkcją i detalem.",
-    items: ["pomiary pomieszczeń", "dokumentacja fotograficzna", "rzuty stanu istniejącego"]
+    items: ["pomiary pomieszczeń", "dokumentacja fotograficzna", "rzuty stanu istniejącego"],
+    result: "Dokładne materiały wyjściowe do projektowania kolejnych etapów."
   },
   {
     step: "Etap 03",
     title: "Układ funkcjonalny",
     image: "garderoba.jpg",
     description: "Przygotowujemy warianty rozmieszczenia funkcji, wyposażenia i komunikacji. Wspólnie wybieramy rozwiązanie najlepiej dopasowane do codzienności.",
-    items: ["warianty układu", "analiza ergonomii", "wybór kierunku do rozwinięcia"]
+    items: ["warianty układu", "analiza ergonomii", "wybór kierunku do rozwinięcia"],
+    result: "Wybrany układ funkcjonalny, który porządkuje codzienne użytkowanie."
   },
   {
     step: "Etap 04",
     title: "Projekt koncepcyjny",
     image: "package-comprehensive.jpg",
     description: "Budujemy charakter wnętrza. Łączymy materiały, kolorystykę, oświetlenie i wyposażenie w jeden czytelny kierunek.",
-    items: ["moodboard i paleta materiałów", "wizualizacje wnętrza", "dobór wyposażenia"]
+    items: ["moodboard i paleta materiałów", "wizualizacje wnętrza", "dobór wyposażenia"],
+    result: "Spójny kierunek wizualny wnętrza wraz z najważniejszymi decyzjami materiałowymi."
   },
   {
     step: "Etap 05",
     title: "Projekt wykonawczy",
     image: "kuchnia2.jpg",
     description: "Przekładamy koncepcję na dokumentację potrzebną ekipom wykonawczym. Każda ważna decyzja zostaje opisana i uporządkowana.",
-    items: ["rysunki techniczne", "zestawienia materiałów", "wytyczne dla wykonawców"]
+    items: ["rysunki techniczne", "zestawienia materiałów", "wytyczne dla wykonawców"],
+    result: "Komplet informacji i rysunków potrzebnych wykonawcom."
   },
   {
     step: "Etap 06",
     title: "Nadzór autorski",
     image: "package-supervision.jpg",
     description: "Pomagamy zachować spójność projektu podczas realizacji. Odpowiadamy na pytania wykonawców i wspieramy inwestora przy zmianach.",
-    items: ["wizyty na miejscu", "konsultacje wykonawcze", "kontrola zgodności z projektem"]
+    items: ["wizyty na miejscu", "konsultacje wykonawcze", "kontrola zgodności z projektem"],
+    result: "Wsparcie w utrzymaniu zgodności realizacji z przyjętym projektem."
   }
 ];
 
@@ -186,6 +192,7 @@ const processStep = document.querySelector("[data-process-step]");
 const processTitle = document.querySelector("[data-process-title]");
 const processDescription = document.querySelector("[data-process-description]");
 const processList = document.querySelector("[data-process-list]");
+const processResult = document.querySelector("[data-process-result]");
 
 const activateProcess = index => {
   const data = processData[index];
@@ -210,6 +217,7 @@ const activateProcess = index => {
   if (processList) {
     processList.innerHTML = data.items.map(item => `<li>${item}</li>`).join("");
   }
+  if (processResult) processResult.textContent = data.result;
 };
 
 processTabs.forEach(tab => {
