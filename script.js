@@ -130,10 +130,16 @@ let sliderMode = '';
 const sliderSpeed = 56;
 
 const bindProjectCards = root => {
-  root.querySelectorAll('[data-project-card] button').forEach(button => {
-    if (button.dataset.bound === '1') return;
-    button.dataset.bound = '1';
-    button.addEventListener('click', () => openModal(button.closest('[data-project-card]')));
+  if (!root || root.dataset.projectClickBound === '1') return;
+  root.dataset.projectClickBound = '1';
+
+  // Delegacja kliknięć działa również dla kart sklonowanych później przez slider.
+  root.addEventListener('click', event => {
+    const button = event.target.closest('[data-project-card] button');
+    if (!button || !root.contains(button)) return;
+
+    const card = button.closest('[data-project-card]');
+    if (card) openModal(card);
   });
 };
 
