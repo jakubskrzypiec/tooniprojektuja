@@ -223,3 +223,17 @@ if (philosophySection) {
 
   philosophyObserver.observe(philosophySection);
 }
+
+
+document.querySelectorAll('.philosophy-v27__visual, .philosophy-v27__copy').forEach((element) => {
+  const observer = new IntersectionObserver((entries, instance) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        instance.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.22 });
+
+  observer.observe(element);
+});
