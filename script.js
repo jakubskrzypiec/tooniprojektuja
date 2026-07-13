@@ -115,12 +115,11 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') closeModal();
 });
 
-/* Project slider — desktop loop / native mobile swipe */
+/* Project slider — faster desktop loop / native mobile swipe */
 const viewport = document.querySelector('[data-project-viewport]');
 const track = document.querySelector('[data-project-track]');
 const prevProject = document.querySelector('[data-project-prev]');
 const nextProject = document.querySelector('[data-project-next]');
-const projectHint = document.querySelector('.project-heading-side p');
 const projectsMobile = window.matchMedia('(max-width: 780px)');
 let sliderPaused = false;
 let sliderRaf = 0;
@@ -128,9 +127,7 @@ let sliderOffset = 0;
 let sliderLast = 0;
 let setWidth = 0;
 let sliderMode = '';
-const sliderSpeed = 34;
-const desktopHint = 'Galeria przesuwa się automatycznie. Najedź, aby zatrzymać. Kliknij zdjęcie, aby otworzyć podgląd.';
-const mobileHint = 'Przesuń realizacje palcem lub użyj strzałek. Dotknij zdjęcia, aby otworzyć podgląd.';
+const sliderSpeed = 56;
 
 const bindProjectCards = root => {
   root.querySelectorAll('[data-project-card] button').forEach(button => {
@@ -186,7 +183,6 @@ if (viewport && track) {
     setWidth = 0;
     track.style.transform = 'none';
     viewport.scrollLeft = 0;
-    if (projectHint) projectHint.textContent = mobileHint;
   };
 
   const setupDesktopProjects = () => {
@@ -206,7 +202,6 @@ if (viewport && track) {
     sliderOffset = 0;
     track.style.transform = 'translate3d(0,0,0)';
     setWidth = measureSetWidth(originals.length);
-    if (projectHint) projectHint.textContent = desktopHint;
     sliderRaf = requestAnimationFrame(runDesktopLoop);
   };
 

@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=tooni32-mobile">
+  <link rel="stylesheet" href="style.css?v=tooni33-visual">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "InteriorDesigner", "name": "To Oni Projektują", "url": "https://jakubskrzypiec.github.io/tooniprojektuja/", "image": "https://jakubskrzypiec.github.io/tooniprojektuja/hero-generated.jpg", "telephone": "+48 794 530 590", "email": "tooniprojektuja@gmail.com", "address": {"@type": "PostalAddress", "addressLocality": "Gliwice", "postalCode": "44-100", "addressCountry": "PL"}, "sameAs": ["https://www.instagram.com/to_oni_projektuja/", "https://www.facebook.com/61583774015406/"]}</script>
 </head>
 
@@ -459,7 +459,7 @@
       </div>
     </section>
 
-    <section class="contact contact--brief" id="kontakt">
+    <section class="contact" id="kontakt">
       <div class="contact-decor" aria-hidden="true">
         <span>TO</span><span>ONI</span>
       </div>
@@ -484,60 +484,26 @@
             <strong>Zacznijmy od konkretów.</strong>
           </div>
 
-          <form class="contact-form project-brief" action="https://formsubmit.co/jakubskrzypiec.dev@gmail.com" method="POST">
+          <form class="contact-form" action="https://formsubmit.co/jakubskrzypiec.dev@gmail.com" method="POST">
             <input type="hidden" name="_subject" value="Nowe zapytanie — To Oni Projektują">
             <input type="hidden" name="_next" value="https://jakubskrzypiec.github.io/tooniprojektuja/?wyslano=1#kontakt">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_captcha" value="false">
             <input class="honey" type="text" name="_honey" tabindex="-1" autocomplete="off">
 
-            <div class="brief-route" aria-hidden="true">
-              <span><b>01</b> Kontakt</span>
-              <i></i>
-              <span><b>02</b> Miejsce</span>
-              <i></i>
-              <span><b>03</b> Potrzeby</span>
+            <div class="form-row">
+              <label><span>Imię i nazwisko</span><input type="text" name="Imię i nazwisko" required></label>
+              <label><span>Telefon</span><input type="tel" name="Telefon"></label>
             </div>
-
-            <fieldset class="brief-section">
-              <legend><b>01</b><span>Jak możemy się z Tobą skontaktować?</span></legend>
-              <div class="brief-grid brief-grid--contact">
-                <label><span>Imię i nazwisko</span><input type="text" name="Imię i nazwisko" autocomplete="name" placeholder="Jan Kowalski" required></label>
-                <label><span>E-mail</span><input type="email" name="_replyto" autocomplete="email" placeholder="adres@email.pl" required></label>
-                <label><span>Telefon</span><input type="tel" name="Telefon" autocomplete="tel" inputmode="tel" placeholder="+48 000 000 000"></label>
-              </div>
-            </fieldset>
-
-            <fieldset class="brief-section">
-              <legend><b>02</b><span>Jakiego miejsca dotyczy projekt?</span></legend>
-              <div class="choice-grid" aria-label="Rodzaj inwestycji">
-                <label class="choice-chip"><input type="radio" name="Rodzaj inwestycji" value="Mieszkanie" required><span>Mieszkanie</span></label>
-                <label class="choice-chip"><input type="radio" name="Rodzaj inwestycji" value="Dom"><span>Dom</span></label>
-                <label class="choice-chip"><input type="radio" name="Rodzaj inwestycji" value="Lokal usługowy"><span>Lokal</span></label>
-                <label class="choice-chip"><input type="radio" name="Rodzaj inwestycji" value="Inne"><span>Inne</span></label>
-              </div>
-              <div class="brief-grid brief-grid--place">
-                <label><span>Lokalizacja</span><input type="text" name="Lokalizacja" placeholder="Miasto / okolica"></label>
-                <label><span>Metraż</span><input type="text" name="Metraż" inputmode="decimal" placeholder="np. 65 m²"></label>
-                <label><span>Planowany start</span><select name="Termin"><option value="">Wybierz orientacyjnie</option><option>Jak najszybciej</option><option>1–3 miesiące</option><option>3–6 miesięcy</option><option>Powyżej 6 miesięcy</option></select></label>
-              </div>
-            </fieldset>
-
-            <fieldset class="brief-section brief-section--last">
-              <legend><b>03</b><span>Jakiego wsparcia potrzebujesz?</span></legend>
-              <div class="choice-grid choice-grid--scope" aria-label="Zakres współpracy">
-                <label class="choice-chip"><input type="radio" name="Zakres współpracy" value="Konsultacja" required><span>Konsultacja</span></label>
-                <label class="choice-chip"><input type="radio" name="Zakres współpracy" value="Projekt funkcjonalny"><span>Funkcja</span></label>
-                <label class="choice-chip"><input type="radio" name="Zakres współpracy" value="Projekt kompleksowy"><span>Kompleksowo</span></label>
-                <label class="choice-chip"><input type="radio" name="Zakres współpracy" value="Nadzór autorski"><span>Nadzór</span></label>
-              </div>
-              <label class="brief-message"><span>Opowiedz krótko o inwestycji</span><textarea name="Wiadomość" rows="4" placeholder="Co chcesz zmienić, na czym najbardziej Ci zależy i jaki klimat wnętrza lubisz?" required></textarea></label>
-            </fieldset>
-
-            <div class="brief-submit">
-              <label class="consent"><input type="checkbox" required><span>Zgadzam się na kontakt w sprawie projektu.</span></label>
-              <button class="button" type="submit">Wyślij brief <span>→</span></button>
+            <label><span>E-mail</span><input type="email" name="_replyto" required></label>
+            <div class="form-row">
+              <label><span>Lokalizacja</span><input type="text" name="Lokalizacja"></label>
+              <label><span>Metraż</span><input type="text" name="Metraż"></label>
             </div>
+            <label><span>Planowany termin</span><input type="text" name="Termin"></label>
+            <label><span>Informacje o inwestycji</span><textarea name="Wiadomość" rows="5" required></textarea></label>
+            <label class="consent"><input type="checkbox" required><span>Zgadzam się na kontakt w sprawie projektu.</span></label>
+            <button class="button" type="submit">Wyślij zapytanie <span>→</span></button>
             <p class="success" data-success>Wiadomość została wysłana. Dziękujemy.</p>
           </form>
         </div>
@@ -576,6 +542,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=tooni32-mobile"></script>
+  <script src="script.js?v=tooni33-visual"></script>
 </body>
 </html>
