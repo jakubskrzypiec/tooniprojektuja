@@ -208,3 +208,18 @@ if (params.get('wyslano') === '1') {
 window.addEventListener('beforeunload', () => {
   if (sliderRaf) cancelAnimationFrame(sliderRaf);
 });
+
+
+const philosophySection = document.querySelector('.philosophy-animated');
+if (philosophySection) {
+  const philosophyObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.22 });
+
+  philosophyObserver.observe(philosophySection);
+}
