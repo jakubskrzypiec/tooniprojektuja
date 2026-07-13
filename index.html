@@ -11,20 +11,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=tooni16">
+  <link rel="stylesheet" href="style.css?v=tooni17">
 </head>
 
 <body class="intro-active">
-  <div class="split-intro" data-intro aria-hidden="true">
-    <div class="split-intro__panel split-intro__panel--left">
-      <span>TO</span>
-    </div>
-    <div class="split-intro__panel split-intro__panel--right">
-      <span>ONI</span>
-    </div>
-    <div class="split-intro__center">
+  <div class="arch-intro" data-intro aria-hidden="true">
+    <div class="arch-intro__grid"></div>
+    <div class="arch-intro__line arch-intro__line--h"></div>
+    <div class="arch-intro__line arch-intro__line--v"></div>
+    <div class="arch-intro__word arch-intro__word--left">TO</div>
+    <div class="arch-intro__word arch-intro__word--right">ONI</div>
+    <div class="arch-intro__mark">
       <img src="logo-transparent.png" alt="">
-      <p>Dwie perspektywy. Jedna przestrzeń.</p>
+      <span>Dwie perspektywy / jeden projekt</span>
     </div>
   </div>
 
@@ -90,50 +89,63 @@
       <a class="hero-scroll" href="#onas">Przewiń <span>↓</span></a>
     </section>
 
-    <section class="about" id="onas">
-      <div class="about-image reveal">
+    <section class="about shell-wide" id="onas">
+      <figure class="about-image reveal">
         <img src="tooni-team.jpg" alt="Zespół To Oni Projektują">
-        <div class="about-stamp">
+        <figcaption>
           <span>Dwie perspektywy</span>
           <strong>Jedna pracownia.</strong>
-        </div>
-      </div>
-
-      <div class="about-content reveal">
-        <p class="eyebrow">O nas</p>
-        <h2>Najpierw poznajemy człowieka. Dopiero później projektujemy wnętrze.</h2>
-        <p class="lead">To Oni Projektują to pracownia z Gliwic, która łączy funkcjonalność, spokojną estetykę i indywidualne podejście do każdego miejsca.</p>
-        <p class="about-body">Pracujemy z wnętrzami prywatnymi, komercyjnymi i przestrzeniami wspólnymi. Prowadzimy inwestycję od pierwszej rozmowy po dokumentację i nadzór, dzięki czemu każda decyzja ma swoje uzasadnienie i wynika z poprzedniego etapu.</p>
-        <div class="about-note">Wnętrza prywatne / komercyjne / przestrzenie wspólne</div>
-      </div>
-
-      <div class="about-watermark" aria-hidden="true">TO ONI</div>
-    </section>
-
-    <section class="approach" aria-label="Nasze podejście">
-      <figure class="approach-visual reveal">
-        <img src="tooni-materials.jpg" alt="Szkice, próbki materiałów i dokumentacja projektu">
-        <div class="approach-panel">
-          <p class="eyebrow">Nasze podejście</p>
-          <h2>Nie zaczynamy od stylu. Zaczynamy od sposobu użytkowania.</h2>
-          <p>Estetyka jest wynikiem dobrze podjętych decyzji — nie punktem wyjścia.</p>
-        </div>
+        </figcaption>
       </figure>
 
-      <div class="approach-path shell">
-        <article class="approach-step is-active" tabindex="0" data-approach-step>
-          <span>01</span><strong>Funkcja</strong><p>Układ musi wspierać codzienność.</p>
+      <div class="about-copy reveal">
+        <p class="eyebrow">O nas</p>
+        <h2>Najpierw poznajemy człowieka.</h2>
+        <p class="lead">Dopiero później projektujemy wnętrze.</p>
+        <p>To Oni Projektują to pracownia z Gliwic. Łączymy funkcjonalność, spokojną estetykę i indywidualne podejście do miejsca. Prowadzimy inwestycję od pierwszej rozmowy po dokumentację i nadzór.</p>
+        <a class="line-link" href="#proces">Zobacz, jak pracujemy</a>
+      </div>
+
+      <div class="about-ghost" aria-hidden="true">TO<br>ONI</div>
+    </section>
+
+    <section class="principles section-space">
+      <div class="shell principles-head reveal">
+        <p class="eyebrow">Nasze podejście</p>
+        <h2>Projekt nie zaczyna się od stylu.</h2>
+        <p>Zaczyna się od pytania, jak przestrzeń ma działać — dziś i za kilka lat.</p>
+      </div>
+
+      <div class="shell principles-list">
+        <article class="principle reveal">
+          <span>01 / Funkcja</span>
+          <h3>Najpierw porządkujemy codzienność.</h3>
+          <p>Układ, komunikacja i ergonomia wyznaczają punkt wyjścia.</p>
         </article>
-        <article class="approach-step" tabindex="0" data-approach-step>
-          <span>02</span><strong>Światło</strong><p>Buduje rytm i atmosferę.</p>
+
+        <article class="principle reveal">
+          <span>02 / Światło</span>
+          <h3>Potem budujemy atmosferę.</h3>
+          <p>Światło naturalne i sztuczne porządkuje rytm wnętrza.</p>
         </article>
-        <article class="approach-step" tabindex="0" data-approach-step>
-          <span>03</span><strong>Materiał</strong><p>Nadaje przestrzeni charakter.</p>
+
+        <article class="principle reveal">
+          <span>03 / Materiał</span>
+          <h3>Następnie nadajemy charakter.</h3>
+          <p>Kolor, faktura i proporcja tworzą spójność bez nadmiaru.</p>
         </article>
-        <article class="approach-step" tabindex="0" data-approach-step>
-          <span>04</span><strong>Detal</strong><p>Domyka całość i nadaje precyzję.</p>
+
+        <article class="principle reveal">
+          <span>04 / Detal</span>
+          <h3>Na końcu pojawia się precyzja.</h3>
+          <p>To detal decyduje, czy projekt pozostaje dobry po realizacji.</p>
         </article>
       </div>
+
+      <figure class="principles-image shell-wide reveal">
+        <img src="tooni-materials.jpg" alt="Szkice i próbki materiałów">
+        <figcaption>funkcja → światło → materiał → detal</figcaption>
+      </figure>
     </section>
 
     <section class="projects section-space" id="projekty">
@@ -142,8 +154,8 @@
           <p class="eyebrow">Projekty</p>
           <h2>Wybrane realizacje.</h2>
         </div>
-        <div class="project-heading-right">
-          <p>Galeria przesuwa się automatycznie. Zatrzymuje się po najechaniu i otwiera większy podgląd po kliknięciu.</p>
+        <div class="project-heading-side">
+          <p>Galeria porusza się automatycznie. Najedź, aby zatrzymać. Kliknij zdjęcie, aby otworzyć podgląd.</p>
           <div class="arrows">
             <button type="button" data-project-prev aria-label="Poprzedni projekt">←</button>
             <button type="button" data-project-next aria-label="Następny projekt">→</button>
@@ -151,54 +163,54 @@
         </div>
       </div>
 
-      <div class="project-marquee" data-project-marquee>
+      <div class="project-viewport" data-project-viewport>
         <div class="project-track" data-project-track>
           <article class="project-card" data-project-card data-image="garderoba.jpg" data-title="Garderoba na wymiar" data-category="Projekt wnętrza">
             <button type="button" aria-label="Powiększ projekt Garderoba na wymiar">
               <img src="garderoba.jpg" alt="Projekt garderoby na wymiar">
-              <span class="project-open">↗</span>
+              <span>↗</span>
             </button>
-            <div><span>Projekt wnętrza</span><h3>Garderoba na wymiar</h3></div>
+            <small>Projekt wnętrza</small><h3>Garderoba na wymiar</h3>
           </article>
 
           <article class="project-card" data-project-card data-image="lazienka1.jpg" data-title="Łazienka / detal" data-category="Projekt koncepcyjny">
             <button type="button" aria-label="Powiększ projekt Łazienka detal">
               <img src="lazienka1.jpg" alt="Projekt ciemnej łazienki">
-              <span class="project-open">↗</span>
+              <span>↗</span>
             </button>
-            <div><span>Projekt koncepcyjny</span><h3>Łazienka / detal</h3></div>
+            <small>Projekt koncepcyjny</small><h3>Łazienka / detal</h3>
           </article>
 
           <article class="project-card" data-project-card data-image="kuchnia2.jpg" data-title="Strefa dzienna" data-category="Projekt kompleksowy">
             <button type="button" aria-label="Powiększ projekt Strefa dzienna">
               <img src="kuchnia2.jpg" alt="Projekt strefy dziennej">
-              <span class="project-open">↗</span>
+              <span>↗</span>
             </button>
-            <div><span>Projekt kompleksowy</span><h3>Strefa dzienna</h3></div>
+            <small>Projekt kompleksowy</small><h3>Strefa dzienna</h3>
           </article>
 
           <article class="project-card" data-project-card data-image="sypialnia.jpg" data-title="Sypialnia i wyciszenie" data-category="Projekt wnętrza">
             <button type="button" aria-label="Powiększ projekt Sypialnia i wyciszenie">
               <img src="sypialnia.jpg" alt="Projekt sypialni">
-              <span class="project-open">↗</span>
+              <span>↗</span>
             </button>
-            <div><span>Projekt wnętrza</span><h3>Sypialnia i wyciszenie</h3></div>
+            <small>Projekt wnętrza</small><h3>Sypialnia i wyciszenie</h3>
           </article>
 
           <article class="project-card" data-project-card data-image="lazienka2.jpg" data-title="Spokojna łazienka" data-category="Projekt wykonawczy">
             <button type="button" aria-label="Powiększ projekt Spokojna łazienka">
               <img src="lazienka2.jpg" alt="Projekt jasnej łazienki">
-              <span class="project-open">↗</span>
+              <span>↗</span>
             </button>
-            <div><span>Projekt wykonawczy</span><h3>Spokojna łazienka</h3></div>
+            <small>Projekt wykonawczy</small><h3>Spokojna łazienka</h3>
           </article>
 
           <article class="project-card" data-project-card data-image="kuchnia1.jpg" data-title="Kuchnia / codzienność" data-category="Projekt wnętrza">
             <button type="button" aria-label="Powiększ projekt Kuchnia codzienność">
               <img src="kuchnia1.jpg" alt="Projekt kuchni">
-              <span class="project-open">↗</span>
+              <span>↗</span>
             </button>
-            <div><span>Projekt wnętrza</span><h3>Kuchnia / codzienność</h3></div>
+            <small>Projekt wnętrza</small><h3>Kuchnia / codzienność</h3>
           </article>
         </div>
       </div>
@@ -206,54 +218,62 @@
 
     <section class="packages section-space" id="pakiety">
       <div class="shell packages-grid">
-        <div class="packages-photo reveal">
-          <img src="garderoba.jpg" alt="Projekt wnętrza">
-          <div class="packages-photo__label">zakres / dopasowany / do inwestycji</div>
-        </div>
+        <figure class="packages-image reveal">
+          <img src="tooni-blueprints.jpg" alt="Dokumentacja i szkice projektowe">
+          <figcaption>Zakres dopasowany do inwestycji</figcaption>
+        </figure>
 
-        <div class="packages-content reveal">
+        <div class="packages-copy reveal">
           <p class="eyebrow">Pakiety projektowe</p>
-          <h2>Zakres dopasowany do inwestycji.</h2>
-          <p class="packages-intro">Każdy wariant można rozszerzyć lub połączyć z kolejnym etapem.</p>
+          <h2>Wybieramy tyle, ile naprawdę potrzebujesz.</h2>
+          <p class="packages-lead">Zakres można rozpocząć od konsultacji albo zbudować jako pełny proces projektowy.</p>
 
-          <div class="package-accordion">
+          <div class="package-list">
             <article class="package-item is-open">
-              <button type="button" data-package-toggle>
-                <span>01</span><strong>Konsultacja projektowa</strong><b>→</b>
+              <button type="button" data-package-toggle aria-expanded="true">
+                <span>01</span><strong>Konsultacja projektowa</strong><b>↓</b>
               </button>
               <div class="package-answer">
-                <p>Rozmowa, analiza potrzeb i określenie kierunku dalszych działań.</p>
-                <ul><li>analiza potrzeb</li><li>wstępny kierunek</li><li>rekomendacje kolejnych etapów</li></ul>
+                <div>
+                  <p>Rozmowa, analiza potrzeb i określenie kierunku dalszych działań.</p>
+                  <ul><li>analiza potrzeb</li><li>wstępny kierunek</li><li>rekomendacje kolejnych etapów</li></ul>
+                </div>
               </div>
             </article>
 
             <article class="package-item">
-              <button type="button" data-package-toggle>
-                <span>02</span><strong>Projekt funkcjonalny</strong><b>→</b>
+              <button type="button" data-package-toggle aria-expanded="false">
+                <span>02</span><strong>Projekt funkcjonalny</strong><b>↓</b>
               </button>
               <div class="package-answer">
-                <p>Układ pomieszczeń, komunikacja i ergonomia dopasowane do codziennego użytkowania.</p>
-                <ul><li>inwentaryzacja</li><li>warianty układu</li><li>wybór rozwiązania</li></ul>
+                <div>
+                  <p>Układ pomieszczeń, komunikacja i ergonomia dopasowane do codziennego użytkowania.</p>
+                  <ul><li>inwentaryzacja</li><li>warianty układu</li><li>wybór rozwiązania</li></ul>
+                </div>
               </div>
             </article>
 
             <article class="package-item">
-              <button type="button" data-package-toggle>
-                <span>03</span><strong>Projekt kompleksowy</strong><b>→</b>
+              <button type="button" data-package-toggle aria-expanded="false">
+                <span>03</span><strong>Projekt kompleksowy</strong><b>↓</b>
               </button>
               <div class="package-answer">
-                <p>Koncepcja, materiały, wizualizacje i dokumentacja dla wykonawców.</p>
-                <ul><li>koncepcja wnętrza</li><li>materiały i wyposażenie</li><li>dokumentacja techniczna</li></ul>
+                <div>
+                  <p>Koncepcja, materiały, wizualizacje i dokumentacja dla wykonawców.</p>
+                  <ul><li>koncepcja wnętrza</li><li>materiały i wyposażenie</li><li>dokumentacja techniczna</li></ul>
+                </div>
               </div>
             </article>
 
             <article class="package-item">
-              <button type="button" data-package-toggle>
-                <span>04</span><strong>Nadzór autorski</strong><b>→</b>
+              <button type="button" data-package-toggle aria-expanded="false">
+                <span>04</span><strong>Nadzór autorski</strong><b>↓</b>
               </button>
               <div class="package-answer">
-                <p>Wsparcie podczas realizacji, konsultowanie zmian i kontakt z wykonawcami.</p>
-                <ul><li>wizyty na miejscu</li><li>konsultacje zmian</li><li>kontrola zgodności</li></ul>
+                <div>
+                  <p>Wsparcie podczas realizacji, konsultowanie zmian i kontakt z wykonawcami.</p>
+                  <ul><li>wizyty na miejscu</li><li>konsultacje zmian</li><li>kontrola zgodności</li></ul>
+                </div>
               </div>
             </article>
           </div>
@@ -264,109 +284,161 @@
     </section>
 
     <section class="process section-space" id="proces">
-      <div class="shell process-heading reveal">
-        <p class="eyebrow">Proces inwestycji</p>
-        <h2>Każdy etap odpowiada na inne pytanie.</h2>
-        <p>Kliknij etap. Podświetlana strzałka pokazuje aktywny krok i prowadzi przez cały proces.</p>
-      </div>
-
-      <div class="shell process-path reveal" role="tablist" aria-label="Etapy procesu inwestycji">
-        <button class="process-node is-active" type="button" data-process-index="0"><span>→</span><strong>Analiza</strong></button>
-        <button class="process-node" type="button" data-process-index="1"><span>→</span><strong>Pomiary</strong></button>
-        <button class="process-node" type="button" data-process-index="2"><span>→</span><strong>Funkcja</strong></button>
-        <button class="process-node" type="button" data-process-index="3"><span>→</span><strong>Koncepcja</strong></button>
-        <button class="process-node" type="button" data-process-index="4"><span>→</span><strong>Dokumentacja</strong></button>
-        <button class="process-node" type="button" data-process-index="5"><span>→</span><strong>Nadzór</strong></button>
-      </div>
-
-      <div class="shell process-stage">
-        <div class="process-copy reveal">
-          <p data-process-stage>Etap 01</p>
-          <h3 data-process-title>Analiza lokalu</h3>
-          <p data-process-description>Poznajemy miejsce, potrzeby inwestora, sposób użytkowania oraz ograniczenia techniczne. To etap, który ustawia właściwy kierunek całego projektu.</p>
-
-          <div class="process-columns">
-            <div>
-              <span>Co dzieje się na tym etapie?</span>
-              <ul data-process-list>
-                <li>rozmowa o potrzebach</li>
-                <li>analiza możliwości lokalu</li>
-                <li>ustalenie zakresu</li>
-              </ul>
-            </div>
-            <div>
-              <span>Co otrzymujesz?</span>
-              <strong data-process-result>Jasny kierunek dalszej pracy.</strong>
-            </div>
-          </div>
+      <div class="shell process-grid">
+        <div class="process-intro reveal">
+          <p class="eyebrow">Proces inwestycji</p>
+          <h2>Sześć etapów. Każdy ma konkretny cel.</h2>
+          <p>Wybierz etap, aby zobaczyć, co dzieje się w danym momencie i jaki rezultat otrzymuje inwestor.</p>
+          <div class="process-index" aria-hidden="true"><span>01</span><i></i><span>06</span></div>
         </div>
 
-        <figure class="process-image reveal">
-          <img src="tooni-blueprints.jpg" alt="Dokumentacja i materiały projektowe" data-process-image>
-          <figcaption data-process-caption>analiza / kierunek</figcaption>
-        </figure>
+        <div class="process-list reveal">
+          <article class="process-item is-open">
+            <button type="button" data-process-toggle aria-expanded="true">
+              <span>→</span><strong>Analiza lokalu</strong><small>Rozpoznanie miejsca i potrzeb.</small>
+            </button>
+            <div class="process-answer">
+              <div>
+                <p>Poznajemy sposób użytkowania, możliwości lokalu i ograniczenia techniczne.</p>
+                <b>Rezultat: jasny kierunek dalszej pracy.</b>
+              </div>
+            </div>
+          </article>
+
+          <article class="process-item">
+            <button type="button" data-process-toggle aria-expanded="false">
+              <span>→</span><strong>Inwentaryzacja</strong><small>Pomiary i dokumentacja stanu istniejącego.</small>
+            </button>
+            <div class="process-answer">
+              <div>
+                <p>Dokładnie mierzymy przestrzeń i przygotowujemy materiał wyjściowy do projektu.</p>
+                <b>Rezultat: komplet danych do dalszych decyzji.</b>
+              </div>
+            </div>
+          </article>
+
+          <article class="process-item">
+            <button type="button" data-process-toggle aria-expanded="false">
+              <span>→</span><strong>Układ funkcjonalny</strong><small>Komunikacja, ergonomia i wyposażenie.</small>
+            </button>
+            <div class="process-answer">
+              <div>
+                <p>Przygotowujemy warianty układu i wybieramy rozwiązanie najlepiej dopasowane do codzienności.</p>
+                <b>Rezultat: przestrzeń, która naprawdę działa.</b>
+              </div>
+            </div>
+          </article>
+
+          <article class="process-item">
+            <button type="button" data-process-toggle aria-expanded="false">
+              <span>→</span><strong>Projekt koncepcyjny</strong><small>Atmosfera, materiały i wizualizacje.</small>
+            </button>
+            <div class="process-answer">
+              <div>
+                <p>Łączymy kolorystykę, światło, materiały i wyposażenie w jeden kierunek.</p>
+                <b>Rezultat: spójna wizja wnętrza.</b>
+              </div>
+            </div>
+          </article>
+
+          <article class="process-item">
+            <button type="button" data-process-toggle aria-expanded="false">
+              <span>→</span><strong>Projekt wykonawczy</strong><small>Rysunki i informacje dla wykonawców.</small>
+            </button>
+            <div class="process-answer">
+              <div>
+                <p>Przekładamy zaakceptowaną koncepcję na dokumentację techniczną.</p>
+                <b>Rezultat: projekt gotowy do realizacji.</b>
+              </div>
+            </div>
+          </article>
+
+          <article class="process-item">
+            <button type="button" data-process-toggle aria-expanded="false">
+              <span>→</span><strong>Nadzór autorski</strong><small>Wsparcie podczas realizacji.</small>
+            </button>
+            <div class="process-answer">
+              <div>
+                <p>Konsultujemy zmiany, odpowiadamy na pytania wykonawców i pilnujemy spójności z projektem.</p>
+                <b>Rezultat: świadomie prowadzona realizacja.</b>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="faq section-space">
       <div class="shell faq-grid">
         <div class="faq-title reveal">
-          <p class="eyebrow">Najczęstsze pytania</p>
-          <h2>Zanim zaczniemy.</h2>
+          <p class="eyebrow">Przed rozpoczęciem</p>
+          <h2>Trzy krótkie odpowiedzi.</h2>
         </div>
         <div class="faq-list">
           <details class="reveal">
             <summary>Jak wygląda pierwszy kontakt?<span>+</span></summary>
-            <p>Krótka rozmowa o przestrzeni, potrzebach i planowanym zakresie współpracy.</p>
+            <p>Zaczynamy od krótkiej rozmowy o przestrzeni, potrzebach i planowanym zakresie.</p>
           </details>
           <details class="reveal">
-            <summary>Czy zakres projektu można dopasować?<span>+</span></summary>
-            <p>Tak. Współpraca może obejmować pojedynczy etap albo pełny proces projektowy.</p>
+            <summary>Czy zakres można dopasować?<span>+</span></summary>
+            <p>Tak. Współpraca może obejmować pojedynczy etap albo cały proces projektowy.</p>
           </details>
           <details class="reveal">
             <summary>Czy nadzór autorski jest obowiązkowy?<span>+</span></summary>
-            <p>Nie. Jest osobnym zakresem i można go dobrać zależnie od rodzaju inwestycji.</p>
+            <p>Nie. Jest osobnym zakresem, który można dobrać zależnie od inwestycji.</p>
           </details>
         </div>
       </div>
     </section>
 
-    <section class="contact section-space" id="kontakt">
+    <section class="contact" id="kontakt">
+      <div class="contact-decor" aria-hidden="true">
+        <span>TO</span><span>ONI</span>
+      </div>
+
       <div class="shell contact-grid">
         <div class="contact-copy reveal">
           <p class="eyebrow">Kontakt</p>
           <h2>Opowiedz nam o miejscu, które chcesz zmienić.</h2>
-          <p class="lead">Na początek wystarczy lokalizacja, metraż, planowany termin i krótki opis inwestycji.</p>
-
-          <div class="contact-check">
-            <span>Warto przesłać</span>
-            <ul><li>lokalizację i metraż</li><li>planowany termin</li><li>krótki opis potrzeb</li></ul>
-          </div>
+          <p class="lead">Na początek wystarczy lokalizacja, metraż, termin i krótki opis inwestycji.</p>
 
           <div class="contact-data">
             <a href="tel:+48794530590"><span>Telefon</span><strong>794 530 590</strong></a>
             <a href="mailto:tooniprojektuja@gmail.com"><span>E-mail</span><strong>tooniprojektuja@gmail.com</strong></a>
             <a href="https://www.instagram.com/to_oni_projektuja/" target="_blank" rel="noopener"><span>Instagram</span><strong>@to_oni_projektuja</strong></a>
+            <div><span>Pracownia</span><strong>Gliwice / Śląsk</strong></div>
           </div>
         </div>
 
-        <form class="contact-form reveal" action="https://formsubmit.co/jakubskrzypiec.dev@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="Nowe zapytanie — To Oni Projektują">
-          <input type="hidden" name="_next" value="https://jakubskrzypiec.github.io/tooniprojektuja/?wyslano=1#kontakt">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <input class="honey" type="text" name="_honey" tabindex="-1" autocomplete="off">
-
-          <div class="form-row">
-            <label><span>Imię i nazwisko</span><input type="text" name="Imię i nazwisko" required></label>
-            <label><span>Telefon</span><input type="tel" name="Telefon"></label>
+        <div class="contact-form-wrap reveal">
+          <div class="contact-form-head">
+            <span>Nowa inwestycja</span>
+            <strong>Zacznijmy od konkretów.</strong>
           </div>
-          <label><span>E-mail</span><input type="email" name="_replyto" required></label>
-          <label><span>Informacje o inwestycji</span><textarea name="Wiadomość" rows="6" required></textarea></label>
-          <label class="consent"><input type="checkbox" required><span>Zgadzam się na kontakt w sprawie projektu.</span></label>
-          <button class="button" type="submit">Wyślij zapytanie <span>→</span></button>
-          <p class="success" data-success>Wiadomość została wysłana. Dziękujemy.</p>
-        </form>
+
+          <form class="contact-form" action="https://formsubmit.co/jakubskrzypiec.dev@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="Nowe zapytanie — To Oni Projektują">
+            <input type="hidden" name="_next" value="https://jakubskrzypiec.github.io/tooniprojektuja/?wyslano=1#kontakt">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input class="honey" type="text" name="_honey" tabindex="-1" autocomplete="off">
+
+            <div class="form-row">
+              <label><span>Imię i nazwisko</span><input type="text" name="Imię i nazwisko" required></label>
+              <label><span>Telefon</span><input type="tel" name="Telefon"></label>
+            </div>
+            <label><span>E-mail</span><input type="email" name="_replyto" required></label>
+            <div class="form-row">
+              <label><span>Lokalizacja</span><input type="text" name="Lokalizacja"></label>
+              <label><span>Metraż</span><input type="text" name="Metraż"></label>
+            </div>
+            <label><span>Planowany termin</span><input type="text" name="Termin"></label>
+            <label><span>Informacje o inwestycji</span><textarea name="Wiadomość" rows="5" required></textarea></label>
+            <label class="consent"><input type="checkbox" required><span>Zgadzam się na kontakt w sprawie projektu.</span></label>
+            <button class="button" type="submit">Wyślij zapytanie <span>→</span></button>
+            <p class="success" data-success>Wiadomość została wysłana. Dziękujemy.</p>
+          </form>
+        </div>
       </div>
 
       <div class="shell map reveal">
@@ -400,6 +472,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=tooni16"></script>
+  <script src="script.js?v=tooni17"></script>
 </body>
 </html>
