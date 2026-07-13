@@ -12,13 +12,13 @@ const closeIntro = () => {
   introClosed = true;
   intro.classList.add("is-closing");
   body.classList.remove("intro-active");
-  window.setTimeout(() => intro.remove(), 420);
+  window.setTimeout(() => intro.remove(), 820);
 };
 
 if (intro && !reduceMotion) {
-  window.setTimeout(closeIntro, 3200);
+  window.setTimeout(closeIntro, 3600);
   intro.addEventListener("click", closeIntro, { once: true });
-  window.addEventListener("load", () => window.setTimeout(closeIntro, 2400), { once: true });
+  window.addEventListener("load", () => window.setTimeout(closeIntro, 3000), { once: true });
   window.addEventListener("keydown", event => {
     if (event.key === "Escape") closeIntro();
   });
@@ -125,7 +125,7 @@ let sliderRaf = 0;
 let sliderOffset = 0;
 let sliderLast = 0;
 let setWidth = 0;
-const sliderSpeed = 38;
+const sliderSpeed = 34;
 
 const bindProjectCards = root => {
   root.querySelectorAll('[data-project-card] button').forEach(button => {
