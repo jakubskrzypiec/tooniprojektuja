@@ -12,12 +12,12 @@ const closeIntro = () => {
   introClosed = true;
   intro.classList.add("is-closing");
   body.classList.remove("intro-active");
-  window.setTimeout(() => intro.remove(), 950);
+  window.setTimeout(() => intro.remove(), 820);
 };
 
 if (intro && !reduceMotion) {
   requestAnimationFrame(() => intro.classList.add("is-ready"));
-  window.setTimeout(closeIntro, 2550);
+  window.setTimeout(closeIntro, 2400);
   intro.addEventListener("click", closeIntro, { once: true });
   window.addEventListener("keydown", event => {
     if (event.key === "Escape") closeIntro();

@@ -2435,3 +2435,114 @@ summary:focus-visible {
     transform: none;
   }
 }
+
+
+/* === V31: clean intro + uniform section spacing === */
+
+:root {
+  --section-gap-v29: 46px;
+  --uniform-section-gap-v31: 46px;
+}
+
+/* Every section uses exactly the same visual gap */
+main > section:not(.hero) {
+  margin-top: var(--uniform-section-gap-v31) !important;
+}
+
+/* Slightly taller editorial divider */
+.interlude-v30 {
+  height: clamp(220px, 27vh, 290px) !important;
+  margin-top: var(--uniform-section-gap-v31) !important;
+}
+
+/* Seamless intro-to-hero transition */
+.arch-intro--v30 {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: opacity .78s cubic-bezier(.2,.8,.2,1) !important;
+  background: #11161d !important;
+}
+
+.arch-intro--v30 .arch-intro__bg {
+  inset: 0 !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  transform: none !important;
+  animation: none !important;
+  filter: none !important;
+}
+
+.arch-intro--v30 .arch-intro__overlay {
+  background:
+    linear-gradient(90deg, rgba(7,10,15,.8), rgba(7,10,15,.19) 70%),
+    linear-gradient(0deg, rgba(7,10,15,.58), transparent 54%) !important;
+  transition: opacity .58s ease !important;
+}
+
+.arch-intro--v30 .arch-intro__title--clean {
+  transition: opacity .36s ease, transform .5s cubic-bezier(.2,.8,.2,1) !important;
+}
+
+.arch-intro--v30.is-closing {
+  opacity: 0 !important;
+  transform: none !important;
+}
+
+.arch-intro--v30.is-closing .arch-intro__overlay,
+.arch-intro--v30.is-closing .arch-intro__title--clean {
+  opacity: 0 !important;
+}
+
+.arch-intro--v30.is-closing .arch-intro__title--clean {
+  transform: translate3d(0,-12px,0) !important;
+}
+
+/* Prevent the hero image from visually jumping under the intro */
+.hero-image {
+  transform: none !important;
+  animation: none !important;
+}
+
+/* Keep section viewport calculations aligned with the exact same gap */
+@media (min-width: 1101px) and (min-height: 720px) {
+  :root {
+    --section-height-v29: calc(100svh - 80px - var(--uniform-section-gap-v31));
+  }
+
+  .about,
+  .philosophy-v29,
+  .projects,
+  .packages,
+  .process,
+  .faq,
+  .contact,
+  .location-v28 {
+    height: var(--section-height-v29) !important;
+    min-height: var(--section-height-v29) !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  :root {
+    --uniform-section-gap-v31: 28px;
+  }
+
+  main > section:not(.hero),
+  .interlude-v30 {
+    margin-top: var(--uniform-section-gap-v31) !important;
+  }
+
+  .interlude-v30 {
+    height: 200px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --uniform-section-gap-v31: 20px;
+  }
+
+  .interlude-v30 {
+    height: 185px !important;
+  }
+}
