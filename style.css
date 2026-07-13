@@ -1756,3 +1756,407 @@ main > section {
     margin-top: 0;
   }
 }
+
+
+/* === V29: client-ready final polish === */
+
+:root {
+  --section-gap-v29: clamp(34px, 3vw, 52px);
+  --page-progress: 0%;
+}
+
+main {
+  position: relative;
+}
+
+.scroll-progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: var(--page-progress);
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--yellow));
+  transition: width .08s linear;
+  pointer-events: none;
+}
+
+.nav a.is-active::after {
+  width: 100%;
+  background: var(--yellow);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 4px;
+}
+
+/* Visual breathing room between sections */
+@media (min-width: 1101px) and (min-height: 720px) {
+  :root {
+    --section-height-v29: calc(100svh - 80px - var(--section-gap-v29));
+  }
+
+  main > section:not(.hero) {
+    margin-top: var(--section-gap-v29);
+  }
+
+  .about,
+  .philosophy-v29,
+  .projects,
+  .packages,
+  .process,
+  .faq,
+  .contact,
+  .location-v28 {
+    height: var(--section-height-v29);
+    min-height: var(--section-height-v29);
+  }
+
+  .about {
+    margin-bottom: 0;
+  }
+}
+
+/* Philosophy: horizontal editorial composition, unlike About */
+.philosophy-v29 {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(52,87,152,.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: 120px 100%;
+}
+
+.philosophy-v29::before {
+  content: "TO ONI";
+  position: absolute;
+  right: -26px;
+  top: 50%;
+  color: rgba(52,87,152,.035);
+  font-family: var(--serif);
+  font-size: clamp(150px, 22vw, 360px);
+  line-height: .7;
+  letter-spacing: -.08em;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.philosophy-v29__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.philosophy-v29__head {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: clamp(34px, 5vw, 80px);
+  align-items: start;
+  margin-bottom: clamp(28px, 4vh, 48px);
+}
+
+.philosophy-v29__headline {
+  display: grid;
+  grid-template-columns: minmax(420px, 1.1fr) minmax(280px, .9fr);
+  gap: clamp(40px, 6vw, 94px);
+  align-items: end;
+}
+
+.philosophy-v29__headline h2 {
+  max-width: 10ch;
+  font-size: clamp(54px, 6.2vw, 102px);
+  line-height: .86;
+}
+
+.philosophy-v29__headline h2 span {
+  display: block;
+  opacity: 0;
+  transform: translateY(42px);
+}
+
+.philosophy-v29.is-visible .philosophy-v29__headline h2 span {
+  animation: philosophyV29Title .82s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+.philosophy-v29.is-visible .philosophy-v29__headline h2 span:nth-child(2) {
+  animation-delay: .12s;
+  color: var(--blue);
+}
+
+.philosophy-v29__headline > p {
+  max-width: 560px;
+  padding-bottom: 8px;
+  font-family: var(--serif);
+  font-size: clamp(19px, 1.7vw, 28px);
+  line-height: 1.38;
+}
+
+.philosophy-v29__sequence {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.philosophy-v29__sequence article {
+  min-height: 170px;
+  padding: 24px 26px 26px;
+  border-right: 1px solid var(--line);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: background .3s ease;
+}
+
+.philosophy-v29__sequence article:last-child {
+  border-right: 0;
+}
+
+.philosophy-v29__sequence article:hover {
+  background: rgba(255,255,255,.38);
+}
+
+.philosophy-v29.is-visible .philosophy-v29__sequence article {
+  animation: philosophyV29Step .68s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+.philosophy-v29.is-visible .philosophy-v29__sequence article:nth-child(1) { animation-delay: .18s; }
+.philosophy-v29.is-visible .philosophy-v29__sequence article:nth-child(2) { animation-delay: .28s; }
+.philosophy-v29.is-visible .philosophy-v29__sequence article:nth-child(3) { animation-delay: .38s; }
+.philosophy-v29.is-visible .philosophy-v29__sequence article:nth-child(4) { animation-delay: .48s; }
+
+.philosophy-v29__sequence span {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--yellow);
+  font-family: var(--serif);
+  font-size: 22px;
+}
+
+.philosophy-v29__sequence h3 {
+  margin-bottom: 9px;
+  font-size: clamp(29px, 2.2vw, 40px);
+  line-height: 1;
+}
+
+.philosophy-v29__sequence p {
+  max-width: 31ch;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.philosophy-v29__panorama {
+  position: relative;
+  height: clamp(190px, 25vh, 280px);
+  margin-top: clamp(24px, 3vh, 36px);
+  overflow: hidden;
+  border-radius: 28px;
+  clip-path: inset(0 50% 0 50% round 28px);
+}
+
+.philosophy-v29.is-visible .philosophy-v29__panorama {
+  animation: philosophyV29Image 1s .34s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+.philosophy-v29__panorama img {
+  object-position: center 52%;
+  transform: scale(1.05);
+  transition: transform 1.4s cubic-bezier(.2,.8,.2,1);
+}
+
+.philosophy-v29.is-visible .philosophy-v29__panorama img {
+  transform: scale(1);
+}
+
+.philosophy-v29__panorama::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(16,22,31,.5), transparent 62%);
+}
+
+.philosophy-v29__panorama figcaption {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: 22px;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  color: #fff;
+}
+
+.philosophy-v29__panorama figcaption span {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+@keyframes philosophyV29Title {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes philosophyV29Step {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes philosophyV29Image {
+  to { clip-path: inset(0 0 0 0 round 28px); }
+}
+
+/* Desktop: keep each section readable within one screen, now with a gap */
+@media (min-width: 1101px) and (min-height: 720px) {
+  .philosophy-v29 {
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .philosophy-v29__inner {
+    width: min(1280px, calc(100vw - 52px));
+    max-height: 100%;
+  }
+
+  .philosophy-v29__head {
+    margin-bottom: 22px;
+  }
+
+  .philosophy-v29__headline h2 {
+    font-size: clamp(48px, 4.9vw, 78px);
+  }
+
+  .philosophy-v29__headline > p {
+    font-size: clamp(17px, 1.4vw, 23px);
+  }
+
+  .philosophy-v29__sequence article {
+    min-height: 130px;
+    padding: 16px 20px 18px;
+  }
+
+  .philosophy-v29__sequence span {
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
+
+  .philosophy-v29__sequence h3 {
+    margin-bottom: 5px;
+    font-size: clamp(25px, 1.8vw, 32px);
+  }
+
+  .philosophy-v29__sequence p {
+    font-size: 10.5px;
+    line-height: 1.5;
+  }
+
+  .philosophy-v29__panorama {
+    height: clamp(170px, 21vh, 230px);
+    margin-top: 20px;
+  }
+
+  /* Override V28 heights so section + breathing gap still fit the viewport */
+  .about,
+  .projects,
+  .packages,
+  .process,
+  .faq,
+  .contact,
+  .location-v28 {
+    height: var(--section-height-v29);
+    min-height: var(--section-height-v29);
+  }
+}
+
+/* More polished transitions between backgrounds */
+.about,
+.philosophy-v29,
+.projects,
+.packages,
+.process,
+.faq,
+.contact,
+.location-v28 {
+  box-shadow: 0 -1px 0 rgba(23,28,36,.04);
+}
+
+/* Tablet and mobile */
+@media (max-width: 1100px) {
+  main > section:not(.hero) {
+    margin-top: 28px;
+  }
+
+  .philosophy-v29 {
+    padding: 80px 0;
+  }
+
+  .philosophy-v29__head,
+  .philosophy-v29__headline {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .philosophy-v29__sequence {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .philosophy-v29__sequence article:nth-child(2) {
+    border-right: 0;
+  }
+
+  .philosophy-v29__sequence article:nth-child(-n+2) {
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 640px) {
+  main > section:not(.hero) {
+    margin-top: 20px;
+  }
+
+  .philosophy-v29__headline h2 {
+    font-size: 54px;
+  }
+
+  .philosophy-v29__sequence {
+    grid-template-columns: 1fr;
+  }
+
+  .philosophy-v29__sequence article {
+    min-height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .philosophy-v29__sequence article:last-child {
+    border-bottom: 0;
+  }
+
+  .philosophy-v29__panorama {
+    height: 310px;
+    border-radius: 22px;
+  }
+
+  .philosophy-v29__panorama figcaption {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .philosophy-v29__headline h2 span,
+  .philosophy-v29__sequence article {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+
+  .philosophy-v29__panorama {
+    clip-path: none;
+    animation: none !important;
+  }
+}

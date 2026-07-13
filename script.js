@@ -210,30 +210,59 @@ window.addEventListener('beforeunload', () => {
 });
 
 
-const philosophySection = document.querySelector('.philosophy-animated');
-if (philosophySection) {
-  const philosophyObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.22 });
 
-  philosophyObserver.observe(philosophySection);
+
+
+
+/* Final page polish */
+const philosophyV29 = document.querySelector('.philosophy-v29');
+if (philosophyV29) {
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    philosophyV29.classList.add('is-visible');
+  } else {
+    const philosophyV29Observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.28 });
+    philosophyV29Observer.observe(philosophyV29);
+  }
 }
 
+const updatePageProgress = () => {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  document.documentElement.style.setProperty('--page-progress', `${Math.min(100, Math.max(0, progress))}%`);
+};
+updatePageProgress();
+window.addEventListener('scroll', updatePageProgress, { passive: true });
+window.addEventListener('resize', updatePageProgress);
 
-document.querySelectorAll('.philosophy-v27__visual, .philosophy-v27__copy').forEach((element) => {
-  const observer = new IntersectionObserver((entries, instance) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        instance.unobserve(entry.target);
-      }
+const mainNavLinks = [...document.querySelectorAll('.nav a[href^="#"]')];
+const navSections = mainNavLinks
+  .map(link => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+if ('IntersectionObserver' in window && mainNavLinks.length) {
+  const navObserver = new IntersectionObserver(entries => {
+    const visible = entries
+      .filter(entry => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+    if (!visible) return;
+    mainNavLinks.forEach(link => {
+      const active = link.getAttribute('href') === `#${visible.target.id}`;
+      link.classList.toggle('is-active', active);
+      if (active) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
     });
-  }, { threshold: 0.22 });
+  }, {
+    rootMargin: '-25% 0px -55% 0px',
+    threshold: [0.08, 0.25, 0.5]
+  });
 
-  observer.observe(element);
-});
+  navSections.forEach(section => navObserver.observe(section));
+}
