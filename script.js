@@ -115,17 +115,22 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') closeModal();
 });
 
-/* Project slider — transform based and reliable */
+/* Project slider — desktop loop / native mobile swipe */
 const viewport = document.querySelector('[data-project-viewport]');
 const track = document.querySelector('[data-project-track]');
 const prevProject = document.querySelector('[data-project-prev]');
 const nextProject = document.querySelector('[data-project-next]');
+const projectHint = document.querySelector('.project-heading-side p');
+const projectsMobile = window.matchMedia('(max-width: 780px)');
 let sliderPaused = false;
 let sliderRaf = 0;
 let sliderOffset = 0;
 let sliderLast = 0;
 let setWidth = 0;
+let sliderMode = '';
 const sliderSpeed = 34;
+const desktopHint = 'Galeria przesuwa się automatycznie. Najedź, aby zatrzymać. Kliknij zdjęcie, aby otworzyć podgląd.';
+const mobileHint = 'Przesuń realizacje palcem lub użyj strzałek. Dotknij zdjęcia, aby otworzyć podgląd.';
 
 const bindProjectCards = root => {
   root.querySelectorAll('[data-project-card] button').forEach(button => {
@@ -135,7 +140,18 @@ const bindProjectCards = root => {
   });
 };
 
+const stopProjectLoop = () => {
+  if (sliderRaf) cancelAnimationFrame(sliderRaf);
+  sliderRaf = 0;
+  sliderLast = 0;
+};
+
+const removeProjectClones = () => {
+  track?.querySelectorAll('[data-project-clone]').forEach(clone => clone.remove());
+};
+
 const measureSetWidth = originalsLength => {
+  if (!track) return 0;
   const cards = [...track.children].slice(0, originalsLength);
   if (!cards.length) return 0;
   const gap = parseFloat(getComputedStyle(track).gap || 0);
@@ -144,15 +160,10 @@ const measureSetWidth = originalsLength => {
 
 if (viewport && track) {
   const originals = [...track.children];
-  originals.forEach(card => {
-    const clone = card.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    track.appendChild(clone);
-  });
   bindProjectCards(track);
-  setWidth = measureSetWidth(originals.length);
 
-  const tick = time => {
+  const runDesktopLoop = time => {
+    if (sliderMode !== 'desktop') return;
     if (!sliderLast) sliderLast = time;
     const delta = Math.min((time - sliderLast) / 1000, 0.05);
     sliderLast = time;
@@ -162,31 +173,78 @@ if (viewport && track) {
       if (sliderOffset >= setWidth) sliderOffset -= setWidth;
       track.style.transform = `translate3d(${-sliderOffset}px,0,0)`;
     }
-    sliderRaf = requestAnimationFrame(tick);
+    sliderRaf = requestAnimationFrame(runDesktopLoop);
   };
 
-  sliderRaf = requestAnimationFrame(tick);
+  const setupMobileProjects = () => {
+    if (sliderMode === 'mobile') return;
+    sliderMode = 'mobile';
+    stopProjectLoop();
+    removeProjectClones();
+    sliderPaused = true;
+    sliderOffset = 0;
+    setWidth = 0;
+    track.style.transform = 'none';
+    viewport.scrollLeft = 0;
+    if (projectHint) projectHint.textContent = mobileHint;
+  };
 
-  const pause = () => sliderPaused = true;
-  const resume = () => sliderPaused = false;
+  const setupDesktopProjects = () => {
+    if (sliderMode === 'desktop') return;
+    sliderMode = 'desktop';
+    stopProjectLoop();
+    removeProjectClones();
+    viewport.scrollLeft = 0;
+    originals.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.dataset.projectClone = '1';
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    });
+    bindProjectCards(track);
+    sliderPaused = false;
+    sliderOffset = 0;
+    track.style.transform = 'translate3d(0,0,0)';
+    setWidth = measureSetWidth(originals.length);
+    if (projectHint) projectHint.textContent = desktopHint;
+    sliderRaf = requestAnimationFrame(runDesktopLoop);
+  };
+
+  const syncProjectMode = () => projectsMobile.matches ? setupMobileProjects() : setupDesktopProjects();
+  syncProjectMode();
+  projectsMobile.addEventListener?.('change', syncProjectMode);
+
+  const pause = () => {
+    if (sliderMode === 'desktop') sliderPaused = true;
+  };
+  const resume = () => {
+    if (sliderMode === 'desktop') sliderPaused = false;
+  };
+
   viewport.addEventListener('mouseenter', pause);
   viewport.addEventListener('mouseleave', resume);
   viewport.addEventListener('focusin', pause);
   viewport.addEventListener('focusout', resume);
-  viewport.addEventListener('touchstart', pause, { passive: true });
-  viewport.addEventListener('touchend', () => window.setTimeout(resume, 900), { passive: true });
 
   window.addEventListener('resize', () => {
-    setWidth = measureSetWidth(originals.length);
-    if (setWidth > 0) sliderOffset = sliderOffset % setWidth;
-  });
+    if (sliderMode === 'desktop') {
+      setWidth = measureSetWidth(originals.length);
+      if (setWidth > 0) sliderOffset %= setWidth;
+    }
+  }, { passive: true });
 }
 
 const nudgeProjects = direction => {
-  if (!track) return;
+  if (!track || !viewport) return;
   const firstCard = track.querySelector('[data-project-card]');
   const gap = parseFloat(getComputedStyle(track).gap || 0);
   const step = firstCard ? firstCard.getBoundingClientRect().width + gap : 412;
+
+  if (sliderMode === 'mobile') {
+    viewport.scrollBy({ left: direction * step, behavior: reduceMotion ? 'auto' : 'smooth' });
+    return;
+  }
+
   sliderPaused = true;
   sliderOffset += direction * step;
   if (setWidth > 0) {
@@ -194,7 +252,9 @@ const nudgeProjects = direction => {
     while (sliderOffset >= setWidth) sliderOffset -= setWidth;
   }
   track.style.transform = `translate3d(${-sliderOffset}px,0,0)`;
-  window.setTimeout(() => sliderPaused = false, 900);
+  window.setTimeout(() => {
+    if (sliderMode === 'desktop') sliderPaused = false;
+  }, 650);
 };
 prevProject?.addEventListener('click', () => nudgeProjects(-1));
 nextProject?.addEventListener('click', () => nudgeProjects(1));
