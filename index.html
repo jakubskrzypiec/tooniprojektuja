@@ -11,19 +11,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=tooni17">
+  <link rel="stylesheet" href="style.css?v=tooni18">
 </head>
 
 <body class="intro-active">
   <div class="arch-intro" data-intro aria-hidden="true">
+    <div class="arch-intro__bg"></div>
+    <div class="arch-intro__overlay"></div>
     <div class="arch-intro__grid"></div>
-    <div class="arch-intro__line arch-intro__line--h"></div>
-    <div class="arch-intro__line arch-intro__line--v"></div>
-    <div class="arch-intro__word arch-intro__word--left">TO</div>
-    <div class="arch-intro__word arch-intro__word--right">ONI</div>
+    <div class="arch-intro__frame arch-intro__frame--one"></div>
+    <div class="arch-intro__frame arch-intro__frame--two"></div>
+    <div class="arch-intro__title">
+      <span>TO</span>
+      <span>ONI</span>
+      <span>PROJEKTUJĄ</span>
+    </div>
     <div class="arch-intro__mark">
       <img src="logo-transparent.png" alt="">
-      <span>Dwie perspektywy / jeden projekt</span>
+      <em>architektura wnętrz / gliwice</em>
     </div>
   </div>
 
@@ -109,43 +114,33 @@
       <div class="about-ghost" aria-hidden="true">TO<br>ONI</div>
     </section>
 
-    <section class="principles section-space">
-      <div class="shell principles-head reveal">
-        <p class="eyebrow">Nasze podejście</p>
-        <h2>Projekt nie zaczyna się od stylu.</h2>
-        <p>Zaczyna się od pytania, jak przestrzeń ma działać — dziś i za kilka lat.</p>
+    <section class="narrative section-space" id="podejscie">
+      <div class="shell narrative-grid">
+        <div class="narrative-copy reveal">
+          <p class="eyebrow">Co projektujemy</p>
+          <h2>Różne wnętrza. Jeden spokojny kierunek.</h2>
+          <p class="lead">Nie zamykamy tej części w sztucznym opisie procesu.</p>
+          <p>Skupiamy się na projektach prywatnych, komercyjnych i tych, które trzeba dopasować do konkretnego rytmu życia albo pracy. Każda inwestycja może potrzebować innego zakresu — od uporządkowania układu po dopracowanie całości.</p>
+        </div>
+
+        <div class="narrative-panels">
+          <article class="narrative-panel reveal">
+            <span>01</span>
+            <h3>Wnętrza prywatne</h3>
+            <p>Mieszkania, domy i pojedyncze pomieszczenia, w których codzienność ma być po prostu wygodna.</p>
+          </article>
+          <article class="narrative-panel reveal">
+            <span>02</span>
+            <h3>Przestrzenie komercyjne</h3>
+            <p>Miejsca do pracy, spotkań i obsługi klienta, gdzie liczy się czytelny układ i charakter.</p>
+          </article>
+          <article class="narrative-panel reveal">
+            <span>03</span>
+            <h3>Zakres szyty do inwestycji</h3>
+            <p>Od pojedynczych etapów po szersze opracowanie — bez wciskania jednego scenariusza do wszystkiego.</p>
+          </article>
+        </div>
       </div>
-
-      <div class="shell principles-list">
-        <article class="principle reveal">
-          <span>01 / Funkcja</span>
-          <h3>Najpierw porządkujemy codzienność.</h3>
-          <p>Układ, komunikacja i ergonomia wyznaczają punkt wyjścia.</p>
-        </article>
-
-        <article class="principle reveal">
-          <span>02 / Światło</span>
-          <h3>Potem budujemy atmosferę.</h3>
-          <p>Światło naturalne i sztuczne porządkuje rytm wnętrza.</p>
-        </article>
-
-        <article class="principle reveal">
-          <span>03 / Materiał</span>
-          <h3>Następnie nadajemy charakter.</h3>
-          <p>Kolor, faktura i proporcja tworzą spójność bez nadmiaru.</p>
-        </article>
-
-        <article class="principle reveal">
-          <span>04 / Detal</span>
-          <h3>Na końcu pojawia się precyzja.</h3>
-          <p>To detal decyduje, czy projekt pozostaje dobry po realizacji.</p>
-        </article>
-      </div>
-
-      <figure class="principles-image shell-wide reveal">
-        <img src="tooni-materials.jpg" alt="Szkice i próbki materiałów">
-        <figcaption>funkcja → światło → materiał → detal</figcaption>
-      </figure>
     </section>
 
     <section class="projects section-space" id="projekty">
@@ -155,7 +150,7 @@
           <h2>Wybrane realizacje.</h2>
         </div>
         <div class="project-heading-side">
-          <p>Galeria porusza się automatycznie. Najedź, aby zatrzymać. Kliknij zdjęcie, aby otworzyć podgląd.</p>
+          <p>Galeria przesuwa się automatycznie. Najedź, aby zatrzymać. Kliknij zdjęcie, aby otworzyć podgląd.</p>
           <div class="arrows">
             <button type="button" data-project-prev aria-label="Poprzedni projekt">←</button>
             <button type="button" data-project-next aria-label="Następny projekt">→</button>
@@ -165,50 +160,68 @@
 
       <div class="project-viewport" data-project-viewport>
         <div class="project-track" data-project-track>
-          <article class="project-card" data-project-card data-image="garderoba.jpg" data-title="Garderoba na wymiar" data-category="Projekt wnętrza">
+          <article class="project-card" data-project-card data-image="garderoba.jpg" data-title="Garderoba na wymiar" data-category="Projekt wnętrza" data-place="Gliwice" data-area="18 m²">
             <button type="button" aria-label="Powiększ projekt Garderoba na wymiar">
               <img src="garderoba.jpg" alt="Projekt garderoby na wymiar">
               <span>↗</span>
+              <i class="project-ghost-left">TO ONI</i>
+              <i class="project-ghost-right">PROJEKTUJĄ</i>
+              <div class="project-floating-meta"><small>Gliwice</small><small>18 m²</small></div>
             </button>
             <small>Projekt wnętrza</small><h3>Garderoba na wymiar</h3>
           </article>
 
-          <article class="project-card" data-project-card data-image="lazienka1.jpg" data-title="Łazienka / detal" data-category="Projekt koncepcyjny">
+          <article class="project-card" data-project-card data-image="lazienka1.jpg" data-title="Łazienka / detal" data-category="Projekt koncepcyjny" data-place="Bytom" data-area="9 m²">
             <button type="button" aria-label="Powiększ projekt Łazienka detal">
               <img src="lazienka1.jpg" alt="Projekt ciemnej łazienki">
               <span>↗</span>
+              <i class="project-ghost-left">TO ONI</i>
+              <i class="project-ghost-right">PROJEKTUJĄ</i>
+              <div class="project-floating-meta"><small>Bytom</small><small>9 m²</small></div>
             </button>
             <small>Projekt koncepcyjny</small><h3>Łazienka / detal</h3>
           </article>
 
-          <article class="project-card" data-project-card data-image="kuchnia2.jpg" data-title="Strefa dzienna" data-category="Projekt kompleksowy">
+          <article class="project-card" data-project-card data-image="kuchnia2.jpg" data-title="Strefa dzienna" data-category="Projekt kompleksowy" data-place="Katowice" data-area="42 m²">
             <button type="button" aria-label="Powiększ projekt Strefa dzienna">
               <img src="kuchnia2.jpg" alt="Projekt strefy dziennej">
               <span>↗</span>
+              <i class="project-ghost-left">TO ONI</i>
+              <i class="project-ghost-right">PROJEKTUJĄ</i>
+              <div class="project-floating-meta"><small>Katowice</small><small>42 m²</small></div>
             </button>
             <small>Projekt kompleksowy</small><h3>Strefa dzienna</h3>
           </article>
 
-          <article class="project-card" data-project-card data-image="sypialnia.jpg" data-title="Sypialnia i wyciszenie" data-category="Projekt wnętrza">
+          <article class="project-card" data-project-card data-image="sypialnia.jpg" data-title="Sypialnia i wyciszenie" data-category="Projekt wnętrza" data-place="Kraków" data-area="16 m²">
             <button type="button" aria-label="Powiększ projekt Sypialnia i wyciszenie">
               <img src="sypialnia.jpg" alt="Projekt sypialni">
               <span>↗</span>
+              <i class="project-ghost-left">TO ONI</i>
+              <i class="project-ghost-right">PROJEKTUJĄ</i>
+              <div class="project-floating-meta"><small>Kraków</small><small>16 m²</small></div>
             </button>
             <small>Projekt wnętrza</small><h3>Sypialnia i wyciszenie</h3>
           </article>
 
-          <article class="project-card" data-project-card data-image="lazienka2.jpg" data-title="Spokojna łazienka" data-category="Projekt wykonawczy">
+          <article class="project-card" data-project-card data-image="lazienka2.jpg" data-title="Spokojna łazienka" data-category="Projekt wykonawczy" data-place="Zabrze" data-area="12 m²">
             <button type="button" aria-label="Powiększ projekt Spokojna łazienka">
               <img src="lazienka2.jpg" alt="Projekt jasnej łazienki">
               <span>↗</span>
+              <i class="project-ghost-left">TO ONI</i>
+              <i class="project-ghost-right">PROJEKTUJĄ</i>
+              <div class="project-floating-meta"><small>Zabrze</small><small>12 m²</small></div>
             </button>
             <small>Projekt wykonawczy</small><h3>Spokojna łazienka</h3>
           </article>
 
-          <article class="project-card" data-project-card data-image="kuchnia1.jpg" data-title="Kuchnia / codzienność" data-category="Projekt wnętrza">
+          <article class="project-card" data-project-card data-image="kuchnia1.jpg" data-title="Kuchnia / codzienność" data-category="Projekt wnętrza" data-place="Gliwice" data-area="14 m²">
             <button type="button" aria-label="Powiększ projekt Kuchnia codzienność">
               <img src="kuchnia1.jpg" alt="Projekt kuchni">
               <span>↗</span>
+              <i class="project-ghost-left">TO ONI</i>
+              <i class="project-ghost-right">PROJEKTUJĄ</i>
+              <div class="project-floating-meta"><small>Gliwice</small><small>14 m²</small></div>
             </button>
             <small>Projekt wnętrza</small><h3>Kuchnia / codzienność</h3>
           </article>
@@ -217,68 +230,76 @@
     </section>
 
     <section class="packages section-space" id="pakiety">
-      <div class="shell packages-grid">
-        <figure class="packages-image reveal">
-          <img src="tooni-blueprints.jpg" alt="Dokumentacja i szkice projektowe">
-          <figcaption>Zakres dopasowany do inwestycji</figcaption>
+      <div class="shell packages-heading reveal">
+        <div>
+          <p class="eyebrow">Pakiety projektowe</p>
+          <h2>Zakres, który później doprecyzujemy.</h2>
+        </div>
+        <p>Na teraz zostawiamy jedną fotografię i cztery czytelne kafelki z treścią 1:1. Później podmienimy je pod realne warianty współpracy.</p>
+      </div>
+
+      <div class="shell packages-tiles-layout">
+        <figure class="packages-side-image reveal">
+          <img src="kuchnia2.jpg" alt="Podgląd przykładowej realizacji">
+          <figcaption>pakiet / zakres / wnętrze</figcaption>
         </figure>
 
-        <div class="packages-copy reveal">
-          <p class="eyebrow">Pakiety projektowe</p>
-          <h2>Wybieramy tyle, ile naprawdę potrzebujesz.</h2>
-          <p class="packages-lead">Zakres można rozpocząć od konsultacji albo zbudować jako pełny proces projektowy.</p>
+        <div class="package-tiles">
+          <article class="package-tile reveal">
+            <div class="package-tile__badge">01</div>
+            <h3>PROJEKT STANDARD</h3>
+            <strong>PLN 65.00</strong>
+            <p>Podstawowy pakiet projektowania wnętrz. Obejmuje część funkcjonalną i wizualną wnętrz.</p>
+            <ul>
+              <li>Pakiet obejmuje:</li>
+              <li>- Pakiet Basic</li>
+              <li>- Rysunki wykonawcze</li>
+              <li>- Kosztorys</li>
+              <li>- Wsparcie Architekta podczas wykonawstwa</li>
+            </ul>
+          </article>
 
-          <div class="package-list">
-            <article class="package-item is-open">
-              <button type="button" data-package-toggle aria-expanded="true">
-                <span>01</span><strong>Konsultacja projektowa</strong><b>↓</b>
-              </button>
-              <div class="package-answer">
-                <div>
-                  <p>Rozmowa, analiza potrzeb i określenie kierunku dalszych działań.</p>
-                  <ul><li>analiza potrzeb</li><li>wstępny kierunek</li><li>rekomendacje kolejnych etapów</li></ul>
-                </div>
-              </div>
-            </article>
+          <article class="package-tile reveal">
+            <div class="package-tile__badge">02</div>
+            <h3>PROJEKT STANDARD</h3>
+            <strong>PLN 65.00</strong>
+            <p>Podstawowy pakiet projektowania wnętrz. Obejmuje część funkcjonalną i wizualną wnętrz.</p>
+            <ul>
+              <li>Pakiet obejmuje:</li>
+              <li>- Pakiet Basic</li>
+              <li>- Rysunki wykonawcze</li>
+              <li>- Kosztorys</li>
+              <li>- Wsparcie Architekta podczas wykonawstwa</li>
+            </ul>
+          </article>
 
-            <article class="package-item">
-              <button type="button" data-package-toggle aria-expanded="false">
-                <span>02</span><strong>Projekt funkcjonalny</strong><b>↓</b>
-              </button>
-              <div class="package-answer">
-                <div>
-                  <p>Układ pomieszczeń, komunikacja i ergonomia dopasowane do codziennego użytkowania.</p>
-                  <ul><li>inwentaryzacja</li><li>warianty układu</li><li>wybór rozwiązania</li></ul>
-                </div>
-              </div>
-            </article>
+          <article class="package-tile reveal">
+            <div class="package-tile__badge">03</div>
+            <h3>PROJEKT STANDARD</h3>
+            <strong>PLN 65.00</strong>
+            <p>Podstawowy pakiet projektowania wnętrz. Obejmuje część funkcjonalną i wizualną wnętrz.</p>
+            <ul>
+              <li>Pakiet obejmuje:</li>
+              <li>- Pakiet Basic</li>
+              <li>- Rysunki wykonawcze</li>
+              <li>- Kosztorys</li>
+              <li>- Wsparcie Architekta podczas wykonawstwa</li>
+            </ul>
+          </article>
 
-            <article class="package-item">
-              <button type="button" data-package-toggle aria-expanded="false">
-                <span>03</span><strong>Projekt kompleksowy</strong><b>↓</b>
-              </button>
-              <div class="package-answer">
-                <div>
-                  <p>Koncepcja, materiały, wizualizacje i dokumentacja dla wykonawców.</p>
-                  <ul><li>koncepcja wnętrza</li><li>materiały i wyposażenie</li><li>dokumentacja techniczna</li></ul>
-                </div>
-              </div>
-            </article>
-
-            <article class="package-item">
-              <button type="button" data-package-toggle aria-expanded="false">
-                <span>04</span><strong>Nadzór autorski</strong><b>↓</b>
-              </button>
-              <div class="package-answer">
-                <div>
-                  <p>Wsparcie podczas realizacji, konsultowanie zmian i kontakt z wykonawcami.</p>
-                  <ul><li>wizyty na miejscu</li><li>konsultacje zmian</li><li>kontrola zgodności</li></ul>
-                </div>
-              </div>
-            </article>
-          </div>
-
-          <a class="line-link" href="#kontakt">Zapytaj o zakres</a>
+          <article class="package-tile reveal">
+            <div class="package-tile__badge">04</div>
+            <h3>PROJEKT STANDARD</h3>
+            <strong>PLN 65.00</strong>
+            <p>Podstawowy pakiet projektowania wnętrz. Obejmuje część funkcjonalną i wizualną wnętrz.</p>
+            <ul>
+              <li>Pakiet obejmuje:</li>
+              <li>- Pakiet Basic</li>
+              <li>- Rysunki wykonawcze</li>
+              <li>- Kosztorys</li>
+              <li>- Wsparcie Architekta podczas wykonawstwa</li>
+            </ul>
+          </article>
         </div>
       </div>
     </section>
@@ -472,6 +493,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=tooni17"></script>
+  <script src="script.js?v=tooni18"></script>
 </body>
 </html>
