@@ -351,3 +351,92 @@ if ('IntersectionObserver' in window && mainNavLinks.length) {
 
   navSections.forEach(section => navObserver.observe(section));
 }
+
+
+/* === V35: premium pointer interactions — desktop only === */
+(() => {
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  if (!finePointer.matches || reduceMotion) return;
+
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+  /* Cursor-position light inside package and process rows. */
+  document.querySelectorAll('.package-v26, .process-item').forEach(card => {
+    card.addEventListener('pointermove', event => {
+      const rect = card.getBoundingClientRect();
+      const x = clamp(event.clientX - rect.left, 0, rect.width);
+      const y = clamp(event.clientY - rect.top, 0, rect.height);
+      card.style.setProperty('--hover-x', `${x}px`);
+      card.style.setProperty('--hover-y', `${y}px`);
+    }, { passive: true });
+
+    card.addEventListener('pointerleave', () => {
+      card.style.removeProperty('--hover-x');
+      card.style.removeProperty('--hover-y');
+    }, { passive: true });
+  });
+
+  /* Very subtle magnetic movement. It never changes layout. */
+  document.querySelectorAll(
+    '.header-button, .hero-action, .contact-form > .button, .social, .arrows button, .line-link'
+  ).forEach(element => {
+    element.classList.add('magnetic-v35');
+
+    element.addEventListener('pointermove', event => {
+      const rect = element.getBoundingClientRect();
+      const strength = element.matches('.social, .arrows button') ? 5 : 7;
+      const x = ((event.clientX - rect.left) / rect.width - .5) * strength;
+      const y = ((event.clientY - rect.top) / rect.height - .5) * strength;
+      element.style.setProperty('--mag-x', `${x.toFixed(2)}px`);
+      element.style.setProperty('--mag-y', `${y.toFixed(2)}px`);
+    }, { passive: true });
+
+    element.addEventListener('pointerleave', () => {
+      element.style.setProperty('--mag-x', '0px');
+      element.style.setProperty('--mag-y', '0px');
+    }, { passive: true });
+  });
+
+  /* Process preview number and progress follow hover/focus, then return to opened step. */
+  const processGridV35 = document.querySelector('.process-grid');
+  const processIntroV35 = processGridV35?.querySelector('.process-intro');
+  const processItemsV35 = [...(processGridV35?.querySelectorAll('.process-item') || [])];
+
+  if (processGridV35 && processIntroV35 && processItemsV35.length) {
+    let changeTimer = 0;
+
+    const showProcessStep = index => {
+      const safeIndex = clamp(index, 0, processItemsV35.length - 1);
+      const label = String(safeIndex + 1).padStart(2, '0');
+      const progress = processItemsV35.length > 1
+        ? (safeIndex / (processItemsV35.length - 1)) * 100
+        : 100;
+
+      if (processIntroV35.dataset.activeStep !== label) {
+        processIntroV35.classList.add('is-step-changing');
+        window.clearTimeout(changeTimer);
+        changeTimer = window.setTimeout(() => {
+          processIntroV35.dataset.activeStep = label;
+          processIntroV35.classList.remove('is-step-changing');
+        }, 115);
+      }
+
+      processGridV35.style.setProperty('--process-progress', `${progress}%`);
+    };
+
+    const restoreOpenedStep = () => {
+      const openIndex = processItemsV35.findIndex(item => item.classList.contains('is-open'));
+      showProcessStep(openIndex >= 0 ? openIndex : 0);
+    };
+
+    processItemsV35.forEach((item, index) => {
+      item.addEventListener('pointerenter', () => showProcessStep(index), { passive: true });
+      item.addEventListener('pointerleave', restoreOpenedStep, { passive: true });
+      item.addEventListener('focusin', () => showProcessStep(index));
+      item.addEventListener('focusout', restoreOpenedStep);
+      item.addEventListener('click', () => requestAnimationFrame(restoreOpenedStep));
+    });
+
+    restoreOpenedStep();
+  }
+})();

@@ -3085,3 +3085,661 @@ main > section:not(.hero) {
     transition: none !important;
   }
 }
+
+
+/* === V35: premium desktop hover system — visual only, no content changes === */
+
+@media (hover:hover) and (pointer:fine) {
+  /* Shared motion language */
+  .nav a,
+  .line-link,
+  .hero-action,
+  .button,
+  .header-button,
+  .social,
+  .arrows button,
+  .project-card > button,
+  .about-image,
+  .philosophy-v29__sequence article,
+  .faq-list details,
+  .contact-data > * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Navigation — a finer branded underline */
+  .nav a::after {
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg,var(--yellow),var(--blue));
+    transform: translateX(-50%);
+    transition: width .38s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .nav a:hover::after,
+  .nav a.is-active::after {
+    width: 100%;
+  }
+
+  .nav a {
+    transition: color .25s ease, letter-spacing .3s ease;
+  }
+
+  .nav a:hover {
+    letter-spacing: .18em;
+  }
+
+  /* Branded magnetic controls. JS only updates the CSS translate values. */
+  .magnetic-v35 {
+    --mag-x: 0px;
+    --mag-y: 0px;
+    translate: var(--mag-x) var(--mag-y);
+    transition: translate .34s cubic-bezier(.2,.8,.2,1), background .25s ease,
+      color .25s ease, border-color .25s ease, box-shadow .25s ease;
+    will-change: translate;
+  }
+
+  .button,
+  .header-button {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .button::before,
+  .header-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(110deg,transparent 18%,rgba(255,255,255,.26) 45%,transparent 72%);
+    transform: translateX(-130%);
+    transition: transform .7s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .button:hover::before,
+  .header-button:hover::before {
+    transform: translateX(130%);
+  }
+
+  .button:hover,
+  .header-button:hover {
+    box-shadow: 0 18px 42px rgba(52,87,152,.23);
+  }
+
+  .social {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .social::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: .11;
+    transform: scale(0);
+    transition: transform .38s cubic-bezier(.2,.8,.2,1), opacity .25s ease;
+  }
+
+  .social:hover::before {
+    opacity: .15;
+    transform: scale(1);
+  }
+
+  .social svg {
+    transition: transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .social:hover svg {
+    transform: scale(1.09) rotate(-5deg);
+  }
+
+  .line-link {
+    position: relative;
+    border-bottom-color: rgba(23,28,36,.25);
+    transition: color .25s ease, letter-spacing .3s ease;
+  }
+
+  .line-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .38s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .line-link:hover {
+    color: var(--blue);
+    letter-spacing: .16em;
+  }
+
+  .line-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* About + philosophy — gentle image/detail movement */
+  .about-image {
+    overflow: hidden;
+  }
+
+  .about-image img {
+    transition: transform 1.05s cubic-bezier(.2,.8,.2,1), filter .65s ease;
+  }
+
+  .about-image:hover img {
+    transform: scale(1.035);
+    filter: saturate(1.025) contrast(1.015);
+  }
+
+  .about-image figcaption {
+    transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
+  }
+
+  .about-image:hover figcaption {
+    transform: translate(7px,-7px);
+    box-shadow: 0 18px 44px rgba(17,22,29,.18);
+  }
+
+  .philosophy-v29__sequence article {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform .42s cubic-bezier(.2,.8,.2,1), background .35s ease,
+      box-shadow .35s ease;
+  }
+
+  .philosophy-v29__sequence article::before {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    z-index: -1;
+    height: 3px;
+    background: linear-gradient(90deg,var(--yellow),var(--blue));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .42s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .philosophy-v29__sequence article:hover {
+    z-index: 2;
+    transform: translateY(-7px);
+    background: rgba(255,255,255,.56);
+    box-shadow: 0 22px 55px rgba(23,28,36,.08);
+  }
+
+  .philosophy-v29__sequence article:hover::before {
+    transform: scaleX(1);
+  }
+
+  .philosophy-v29__sequence article span,
+  .philosophy-v29__sequence article h3,
+  .philosophy-v29__sequence article p {
+    transition: transform .38s cubic-bezier(.2,.8,.2,1), color .3s ease;
+  }
+
+  .philosophy-v29__sequence article:hover span,
+  .philosophy-v29__sequence article:hover h3,
+  .philosophy-v29__sequence article:hover p {
+    transform: translateY(-2px);
+  }
+
+  .philosophy-v29__sequence article:hover h3 {
+    color: var(--blue);
+  }
+
+  /* Project hover — precise border and moving launch icon */
+  .project-card > button::after {
+    content: "";
+    position: absolute;
+    inset: 11px;
+    z-index: 2;
+    border: 1px solid rgba(255,255,255,.72);
+    border-radius: 14px;
+    opacity: 0;
+    transform: scale(.97);
+    transition: opacity .4s ease, transform .55s cubic-bezier(.2,.8,.2,1);
+    pointer-events: none;
+  }
+
+  .project-card > button:hover::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .project-card > button > span {
+    z-index: 3;
+    transition: transform .42s cubic-bezier(.2,.8,.2,1), background .3s ease;
+  }
+
+  .project-card > button:hover > span {
+    transform: translate(3px,-3px) rotate(45deg);
+    background: var(--blue);
+  }
+
+  .project-card h3,
+  .project-card > small {
+    transition: transform .38s cubic-bezier(.2,.8,.2,1), color .28s ease;
+  }
+
+  .project-card:hover > small,
+  .project-card:hover h3 {
+    transform: translateX(7px);
+  }
+
+  .project-card:hover h3 {
+    color: var(--blue);
+  }
+
+  .arrows button {
+    position: relative;
+    overflow: hidden;
+    transition: color .3s ease, border-color .3s ease, box-shadow .3s ease,
+      translate .34s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .arrows button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 50%;
+    background: var(--blue);
+    transform: scale(0);
+    transition: transform .38s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .arrows button:hover {
+    color: #fff;
+    border-color: var(--blue);
+    box-shadow: 0 14px 30px rgba(52,87,152,.18);
+  }
+
+  .arrows button:hover::before {
+    transform: scale(1);
+  }
+
+  /* Packages / Zakres współpracy */
+  .packages-v26__grid {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .package-v26 {
+    --hover-x: 50%;
+    --hover-y: 50%;
+    isolation: isolate;
+    transform: translate3d(0,0,0);
+    transition: transform .48s cubic-bezier(.2,.8,.2,1), opacity .32s ease,
+      background .35s ease, box-shadow .4s ease;
+  }
+
+  .package-v26::before {
+    z-index: -2;
+    background:
+      linear-gradient(180deg,rgba(52,87,152,.085),transparent 42%),
+      linear-gradient(90deg,rgba(255,255,255,.55),rgba(255,255,255,.08));
+    transform: translateY(14px);
+    transition: opacity .42s ease, transform .55s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .package-v26::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(circle 180px at var(--hover-x) var(--hover-y),rgba(195,139,9,.13),transparent 68%);
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+
+  .packages-v26__grid:has(.package-v26:hover) .package-v26:not(:hover) {
+    opacity: .56;
+    transform: scale(.987);
+  }
+
+  .package-v26:hover {
+    z-index: 4;
+    transform: translateY(-10px);
+    background: rgba(255,255,255,.44);
+    box-shadow: inset 0 3px 0 var(--yellow), 0 30px 65px rgba(23,28,36,.1);
+  }
+
+  .package-v26:hover::before {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .package-v26:hover::after {
+    opacity: 1;
+  }
+
+  .package-v26__roman {
+    transform-origin: left top;
+    transition: transform .7s cubic-bezier(.2,.8,.2,1), color .45s ease;
+  }
+
+  .package-v26:hover .package-v26__roman {
+    color: rgba(52,87,152,.22);
+    transform: translate(8px,-6px) scale(1.045) rotate(-2deg);
+  }
+
+  .package-v26__content {
+    transition: transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .package-v26:hover .package-v26__content {
+    transform: translateY(-4px);
+  }
+
+  .package-v26__content h3,
+  .package-v26__content strong,
+  .package-v26__content > p,
+  .package-v26__content li {
+    transition: transform .38s cubic-bezier(.2,.8,.2,1), color .3s ease,
+      opacity .3s ease;
+  }
+
+  .package-v26:hover .package-v26__content h3 {
+    color: var(--blue);
+    transform: translateX(5px);
+  }
+
+  .package-v26:hover .package-v26__content strong {
+    transform: translateX(5px);
+  }
+
+  .package-v26:hover .package-v26__content > p {
+    color: #464e59;
+  }
+
+  .package-v26:hover .package-v26__content li:nth-child(2) { transform: translateX(4px); }
+  .package-v26:hover .package-v26__content li:nth-child(3) { transform: translateX(7px); }
+  .package-v26:hover .package-v26__content li:nth-child(4) { transform: translateX(10px); }
+  .package-v26:hover .package-v26__content li:nth-child(5) { transform: translateX(13px); }
+
+  /* Process — hover preview, moving number and cursor light */
+  .process-intro {
+    isolation: isolate;
+  }
+
+  .process-intro > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .process-intro::after {
+    content: attr(data-active-step);
+    position: absolute;
+    right: -5px;
+    top: 44%;
+    z-index: 0;
+    color: rgba(52,87,152,.055);
+    font-family: var(--serif);
+    font-size: clamp(108px,10vw,176px);
+    line-height: .7;
+    letter-spacing: -.08em;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: opacity .32s ease, transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .process-intro.is-step-changing::after {
+    opacity: 0;
+    transform: translateY(-44%) scale(.96);
+  }
+
+  .process-index i {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .process-index i::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--process-progress,0%);
+    background: linear-gradient(90deg,var(--yellow),var(--blue));
+    transition: width .5s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .process-list {
+    isolation: isolate;
+  }
+
+  .process-item {
+    --hover-x: 50%;
+    --hover-y: 50%;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: opacity .3s ease, transform .42s cubic-bezier(.2,.8,.2,1),
+      background .35s ease, border-color .3s ease;
+  }
+
+  .process-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -2;
+    width: 3px;
+    background: var(--yellow);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform .42s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .process-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    pointer-events: none;
+    background:
+      radial-gradient(circle 220px at var(--hover-x) var(--hover-y),rgba(52,87,152,.105),transparent 67%),
+      linear-gradient(90deg,rgba(255,255,255,.48),rgba(255,255,255,.06));
+    opacity: 0;
+    transform: translateX(-2%);
+    transition: opacity .34s ease, transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .process-list:has(.process-item:hover) .process-item:not(:hover) {
+    opacity: .5;
+  }
+
+  .process-item:hover,
+  .process-item:focus-within,
+  .process-item.is-open {
+    background: rgba(255,255,255,.42);
+    border-color: rgba(52,87,152,.2);
+  }
+
+  .process-item:hover {
+    transform: translateX(9px);
+  }
+
+  .process-item:hover::before,
+  .process-item:focus-within::before,
+  .process-item.is-open::before {
+    transform: scaleY(1);
+  }
+
+  .process-item:hover::after,
+  .process-item:focus-within::after {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .process-item > button {
+    transition: padding .42s cubic-bezier(.2,.8,.2,1), color .28s ease;
+  }
+
+  .process-item:hover > button {
+    padding-left: 17px;
+    padding-right: 17px;
+  }
+
+  .process-item > button span {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .process-item > button span::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.28);
+    opacity: 0;
+    transform: scale(.65);
+    transition: opacity .3s ease, transform .42s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .process-item:hover > button span,
+  .process-item:focus-within > button span {
+    color: #fff;
+    background: var(--blue);
+    border-color: var(--blue);
+    transform: translateX(4px) rotate(90deg) !important;
+    box-shadow: 0 10px 24px rgba(52,87,152,.18);
+  }
+
+  .process-item:hover > button span::after,
+  .process-item:focus-within > button span::after {
+    opacity: 1;
+    transform: scale(.82);
+  }
+
+  .process-item > button strong,
+  .process-item > button small {
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), color .3s ease,
+      opacity .3s ease;
+  }
+
+  .process-item:hover > button strong,
+  .process-item:focus-within > button strong {
+    color: var(--blue);
+    transform: translateX(5px);
+  }
+
+  .process-item:hover > button small,
+  .process-item:focus-within > button small {
+    color: #3f4854;
+    transform: translateX(5px);
+  }
+
+  .process-answer > div {
+    transition: transform .45s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .process-item.is-open .process-answer > div {
+    transform: translateX(7px);
+  }
+
+  /* FAQ and contact micro-interactions */
+  .faq-list details {
+    position: relative;
+    overflow: hidden;
+    transition: background .3s ease, padding .38s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .faq-list details::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--yellow);
+    transform: scaleY(0);
+    transition: transform .38s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .faq-list details:hover,
+  .faq-list details[open] {
+    padding-inline: 16px;
+    background: rgba(255,255,255,.38);
+  }
+
+  .faq-list details:hover::before,
+  .faq-list details[open]::before {
+    transform: scaleY(1);
+  }
+
+  .faq-list summary,
+  .faq-list summary span {
+    transition: color .28s ease, transform .38s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .faq-list details:hover summary {
+    color: var(--blue);
+  }
+
+  .faq-list details:hover summary span {
+    transform: rotate(90deg);
+  }
+
+  .contact-data > * {
+    position: relative;
+    transition: transform .38s cubic-bezier(.2,.8,.2,1), background .3s ease,
+      padding .38s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .contact-data > *::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--yellow);
+    transition: width .35s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .contact-data > *:hover {
+    padding-left: 18px;
+    background: rgba(255,255,255,.28);
+  }
+
+  .contact-data > *:hover::before {
+    width: 10px;
+  }
+
+  .footer a {
+    transition: color .25s ease, transform .32s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .footer nav a:hover,
+  .footer-main > div a:not(.social):hover {
+    color: var(--yellow);
+    transform: translateX(5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .magnetic-v35 {
+    translate: 0 0 !important;
+  }
+
+  .package-v26,
+  .process-item,
+  .philosophy-v29__sequence article,
+  .about-image img,
+  .project-card > button::after,
+  .faq-list details,
+  .contact-data > * {
+    transition-duration: .01ms !important;
+  }
+}
