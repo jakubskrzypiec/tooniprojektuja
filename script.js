@@ -16,9 +16,9 @@ const closeIntro = () => {
 };
 
 if (intro && !reduceMotion) {
-  window.setTimeout(closeIntro, 1900);
+  window.setTimeout(closeIntro, 3200);
   intro.addEventListener("click", closeIntro, { once: true });
-  window.addEventListener("load", () => window.setTimeout(closeIntro, 900), { once: true });
+  window.addEventListener("load", () => window.setTimeout(closeIntro, 2400), { once: true });
   window.addEventListener("keydown", event => {
     if (event.key === "Escape") closeIntro();
   });
