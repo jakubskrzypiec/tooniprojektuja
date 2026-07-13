@@ -12,13 +12,13 @@ const closeIntro = () => {
   introClosed = true;
   intro.classList.add("is-closing");
   body.classList.remove("intro-active");
-  window.setTimeout(() => intro.remove(), 820);
+  window.setTimeout(() => intro.remove(), 950);
 };
 
 if (intro && !reduceMotion) {
-  window.setTimeout(closeIntro, 3600);
+  requestAnimationFrame(() => intro.classList.add("is-ready"));
+  window.setTimeout(closeIntro, 2550);
   intro.addEventListener("click", closeIntro, { once: true });
-  window.addEventListener("load", () => window.setTimeout(closeIntro, 3000), { once: true });
   window.addEventListener("keydown", event => {
     if (event.key === "Escape") closeIntro();
   });
@@ -198,6 +198,30 @@ const nudgeProjects = direction => {
 };
 prevProject?.addEventListener('click', () => nudgeProjects(-1));
 nextProject?.addEventListener('click', () => nudgeProjects(1));
+
+
+/* Process accordion */
+document.querySelectorAll('[data-process-toggle]').forEach(button => {
+  if (button.dataset.processBound === '1') return;
+  button.dataset.processBound = '1';
+
+  button.addEventListener('click', () => {
+    const currentItem = button.closest('.process-item');
+    if (!currentItem) return;
+
+    const wasOpen = currentItem.classList.contains('is-open');
+
+    document.querySelectorAll('.process-item').forEach(item => {
+      item.classList.remove('is-open');
+      item.querySelector('[data-process-toggle]')?.setAttribute('aria-expanded', 'false');
+    });
+
+    if (!wasOpen) {
+      currentItem.classList.add('is-open');
+      button.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
 
 /* Form success */
 const params = new URLSearchParams(window.location.search);
