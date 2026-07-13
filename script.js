@@ -5,20 +5,20 @@ const menuButton = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector(".mobile-menu");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* Safe intro */
+/* Split intro */
 let introClosed = false;
 const closeIntro = () => {
   if (!intro || introClosed) return;
   introClosed = true;
   intro.classList.add("is-closing");
   body.classList.remove("intro-active");
-  window.setTimeout(() => intro.remove(), 820);
+  window.setTimeout(() => intro.remove(), 780);
 };
 if (intro && !reduceMotion) {
-  window.setTimeout(closeIntro, 1050);
-  window.setTimeout(closeIntro, 2300);
+  window.setTimeout(closeIntro, 1150);
+  window.setTimeout(closeIntro, 2400);
   intro.addEventListener("click", closeIntro, { once:true });
-  window.addEventListener("load", () => window.setTimeout(closeIntro, 350), { once:true });
+  window.addEventListener("load", () => window.setTimeout(closeIntro, 450), { once:true });
 } else {
   intro?.remove();
   body.classList.remove("intro-active");
@@ -74,36 +74,51 @@ if ("IntersectionObserver" in window && !reduceMotion) {
   revealItems.forEach(item => item.classList.add("visible"));
 }
 
-/* Projects autoplay */
-const projectTrack = document.querySelector("[data-project-track]");
+/* Approach hover */
+const approachSteps = [...document.querySelectorAll("[data-approach-step]")];
+approachSteps.forEach(step => {
+  const activate = () => {
+    approachSteps.forEach(item => item.classList.remove("is-active"));
+    step.classList.add("is-active");
+  };
+  step.addEventListener("mouseenter", activate);
+  step.addEventListener("focus", activate);
+});
+
+/* Seamless projects */
+const marquee = document.querySelector("[data-project-marquee]");
+const track = document.querySelector("[data-project-track]");
 const prevProject = document.querySelector("[data-project-prev]");
 const nextProject = document.querySelector("[data-project-next]");
-let projectPaused = false;
 
-const projectStep = () => {
-  const card = projectTrack?.querySelector("[data-project-card]");
-  return card ? card.getBoundingClientRect().width + 22 : 0;
-};
+if (track && marquee) {
+  const originals = [...track.children];
+  originals.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    track.appendChild(clone);
+  });
+  if (!reduceMotion) marquee.classList.add("is-animated");
 
-const moveProjects = direction => {
-  if (!projectTrack) return;
-  const max = projectTrack.scrollWidth - projectTrack.clientWidth;
-  const target = projectTrack.scrollLeft + direction * projectStep();
-  if (direction > 0 && target >= max - 12) projectTrack.scrollTo({ left:0, behavior:"smooth" });
-  else if (direction < 0 && target <= 0) projectTrack.scrollTo({ left:max, behavior:"smooth" });
-  else projectTrack.scrollBy({ left:direction * projectStep(), behavior:"smooth" });
-};
-
-prevProject?.addEventListener("click", () => moveProjects(-1));
-nextProject?.addEventListener("click", () => moveProjects(1));
-projectTrack?.addEventListener("mouseenter", () => projectPaused = true);
-projectTrack?.addEventListener("mouseleave", () => projectPaused = false);
-projectTrack?.addEventListener("focusin", () => projectPaused = true);
-projectTrack?.addEventListener("focusout", () => projectPaused = false);
-
-if (projectTrack && !reduceMotion) {
-  window.setInterval(() => { if (!projectPaused) moveProjects(1); }, 4200);
+  marquee.addEventListener("mouseenter", () => marquee.classList.add("is-paused"));
+  marquee.addEventListener("mouseleave", () => marquee.classList.remove("is-paused"));
+  marquee.addEventListener("focusin", () => marquee.classList.add("is-paused"));
+  marquee.addEventListener("focusout", () => marquee.classList.remove("is-paused"));
 }
+
+const nudgeProjects = direction => {
+  if (!track || !marquee) return;
+  marquee.classList.add("is-paused");
+  const current = new DOMMatrixReadOnly(getComputedStyle(track).transform).m41 || 0;
+  track.style.transform = `translateX(${current + direction * 412}px)`;
+  window.setTimeout(() => {
+    track.style.transform = "";
+    marquee.classList.remove("is-paused");
+  }, 850);
+};
+
+prevProject?.addEventListener("click", () => nudgeProjects(1));
+nextProject?.addEventListener("click", () => nudgeProjects(-1));
 
 /* Project modal */
 const modal = document.querySelector("[data-modal]");
@@ -140,68 +155,15 @@ modalClose?.addEventListener("click", closeModal);
 modal?.addEventListener("click", event => { if (event.target === modal) closeModal(); });
 document.addEventListener("keydown", event => { if (event.key === "Escape") closeModal(); });
 
-/* Packages */
-const packageData = [
-  {
-    label:"Pakiet 01",
-    title:"Konsultacja projektowa",
-    image:"tooni-stilllife.jpg",
-    description:"Spotkanie poświęcone przestrzeni, stylowi i najważniejszym decyzjom. Pozwala uporządkować temat przed rozpoczęciem większego projektu.",
-    items:["analiza potrzeb","wstępny kierunek","rekomendacje dalszych etapów"]
-  },
-  {
-    label:"Pakiet 02",
-    title:"Projekt funkcjonalny",
-    image:"garderoba.jpg",
-    description:"Opracowanie układu pomieszczeń, komunikacji i wyposażenia. Celem jest rozwiązanie, które odpowiada sposobowi codziennego użytkowania.",
-    items:["inwentaryzacja","warianty układu","wybór najlepszego rozwiązania"]
-  },
-  {
-    label:"Pakiet 03",
-    title:"Projekt kompleksowy",
-    image:"tooni-materials.jpg",
-    description:"Pełne opracowanie wnętrza: od układu, przez materiały i wizualizacje, aż po dokumentację dla wykonawców.",
-    items:["koncepcja wnętrza","materiały i wyposażenie","dokumentacja techniczna"]
-  },
-  {
-    label:"Pakiet 04",
-    title:"Nadzór autorski",
-    image:"tooni-blueprints.jpg",
-    description:"Wsparcie w trakcie realizacji, konsultowanie zmian i pomoc w zachowaniu zgodności wykonywanych prac z projektem.",
-    items:["wizyty na miejscu","kontakt z wykonawcami","kontrola zgodności"]
-  }
-];
-
-const packageRows = [...document.querySelectorAll("[data-package-index]")];
-const packageImage = document.querySelector("[data-package-image]");
-const packageLabel = document.querySelector("[data-package-label]");
-const packageTitle = document.querySelector("[data-package-title]");
-const packageDescription = document.querySelector("[data-package-description]");
-const packageList = document.querySelector("[data-package-list]");
-
-const activatePackage = index => {
-  const data = packageData[index];
-  if (!data) return;
-  packageRows.forEach((row, i) => row.classList.toggle("is-active", i === index));
-  if (packageImage) {
-    packageImage.style.opacity = ".18";
-    window.setTimeout(() => {
-      packageImage.src = data.image;
-      packageImage.alt = data.title;
-      packageImage.style.opacity = "1";
-    }, 130);
-  }
-  if (packageLabel) packageLabel.textContent = data.label;
-  if (packageTitle) packageTitle.textContent = data.title;
-  if (packageDescription) packageDescription.textContent = data.description;
-  if (packageList) packageList.innerHTML = data.items.map(item => `<li>${item}</li>`).join("");
-};
-
-packageRows.forEach(row => {
-  const index = Number(row.dataset.packageIndex);
-  row.addEventListener("click", () => activatePackage(index));
-  row.addEventListener("mouseenter", () => activatePackage(index));
-  row.addEventListener("focus", () => activatePackage(index));
+/* Packages accordion */
+const packageItems = [...document.querySelectorAll(".package-item")];
+packageItems.forEach(item => {
+  item.querySelector("[data-package-toggle]")?.addEventListener("click", () => {
+    packageItems.forEach(other => {
+      if (other !== item) other.classList.remove("is-open");
+    });
+    item.classList.toggle("is-open");
+  });
 });
 
 /* Process */
@@ -210,7 +172,7 @@ const processData = [
     stage:"Etap 01",
     title:"Analiza lokalu",
     image:"tooni-blueprints.jpg",
-    photoLabel:"analiza / kierunek",
+    caption:"analiza / kierunek",
     description:"Poznajemy miejsce, potrzeby inwestora, sposób użytkowania oraz ograniczenia techniczne. To etap, który ustawia właściwy kierunek całego projektu.",
     items:["rozmowa o potrzebach","analiza możliwości lokalu","ustalenie zakresu"],
     result:"Jasny kierunek dalszej pracy."
@@ -219,7 +181,7 @@ const processData = [
     stage:"Etap 02",
     title:"Inwentaryzacja",
     image:"tooni-blueprints.jpg",
-    photoLabel:"pomiary / stan istniejący",
+    caption:"pomiary / stan istniejący",
     description:"Dokładnie mierzymy przestrzeń i dokumentujemy jej stan. Powstaje wiarygodna baza do dalszej pracy nad funkcją i rozwiązaniami technicznymi.",
     items:["pomiary pomieszczeń","dokumentacja fotograficzna","rzuty stanu istniejącego"],
     result:"Komplet materiałów wyjściowych."
@@ -228,7 +190,7 @@ const processData = [
     stage:"Etap 03",
     title:"Układ funkcjonalny",
     image:"garderoba.jpg",
-    photoLabel:"funkcja / ergonomia",
+    caption:"funkcja / ergonomia",
     description:"Przygotowujemy warianty rozmieszczenia funkcji, wyposażenia i komunikacji. Wspólnie wybieramy układ najlepiej dopasowany do codzienności.",
     items:["warianty układu","analiza ergonomii","wybór rozwiązania"],
     result:"Układ, który porządkuje przestrzeń."
@@ -237,7 +199,7 @@ const processData = [
     stage:"Etap 04",
     title:"Projekt koncepcyjny",
     image:"tooni-materials.jpg",
-    photoLabel:"materiał / atmosfera",
+    caption:"materiał / atmosfera",
     description:"Budujemy charakter wnętrza. Łączymy kolorystykę, materiały, światło i wyposażenie w jeden spójny kierunek.",
     items:["paleta materiałów","wizualizacje","dobór wyposażenia"],
     result:"Spójna koncepcja wnętrza."
@@ -246,7 +208,7 @@ const processData = [
     stage:"Etap 05",
     title:"Projekt wykonawczy",
     image:"tooni-blueprints.jpg",
-    photoLabel:"rysunki / dokumentacja",
+    caption:"rysunki / dokumentacja",
     description:"Przekładamy koncepcję na rysunki i informacje potrzebne ekipom wykonawczym. Każda kluczowa decyzja zostaje opisana.",
     items:["rysunki techniczne","zestawienia materiałów","wytyczne dla wykonawców"],
     result:"Dokumentacja gotowa do realizacji."
@@ -255,16 +217,16 @@ const processData = [
     stage:"Etap 06",
     title:"Nadzór autorski",
     image:"tooni-stilllife.jpg",
-    photoLabel:"realizacja / kontrola",
+    caption:"realizacja / kontrola",
     description:"Wspieramy inwestora w trakcie prac, odpowiadamy na pytania wykonawców i pomagamy utrzymać spójność realizacji z projektem.",
     items:["wizyty na miejscu","konsultacje zmian","kontrola zgodności"],
     result:"Wsparcie podczas realizacji."
   }
 ];
 
-const processSteps = [...document.querySelectorAll("[data-process-index]")];
+const processNodes = [...document.querySelectorAll("[data-process-index]")];
 const processImage = document.querySelector("[data-process-image]");
-const processPhotoLabel = document.querySelector("[data-process-photo-label]");
+const processCaption = document.querySelector("[data-process-caption]");
 const processStage = document.querySelector("[data-process-stage]");
 const processTitle = document.querySelector("[data-process-title]");
 const processDescription = document.querySelector("[data-process-description]");
@@ -274,16 +236,20 @@ const processResult = document.querySelector("[data-process-result]");
 const activateProcess = index => {
   const data = processData[index];
   if (!data) return;
-  processSteps.forEach((step, i) => step.classList.toggle("is-active", i === index));
+  processNodes.forEach((node, i) => node.classList.toggle("is-active", i === index));
+
   if (processImage) {
-    processImage.style.opacity = ".18";
+    processImage.style.opacity = ".15";
+    processImage.style.transform = "scale(1.02)";
     window.setTimeout(() => {
       processImage.src = data.image;
       processImage.alt = data.title;
       processImage.style.opacity = "1";
-    }, 130);
+      processImage.style.transform = "scale(1)";
+    }, 140);
   }
-  if (processPhotoLabel) processPhotoLabel.textContent = data.photoLabel;
+
+  if (processCaption) processCaption.textContent = data.caption;
   if (processStage) processStage.textContent = data.stage;
   if (processTitle) processTitle.textContent = data.title;
   if (processDescription) processDescription.textContent = data.description;
@@ -291,14 +257,14 @@ const activateProcess = index => {
   if (processResult) processResult.textContent = data.result;
 };
 
-processSteps.forEach(step => {
-  const index = Number(step.dataset.processIndex);
-  step.addEventListener("click", () => activateProcess(index));
-  step.addEventListener("mouseenter", () => activateProcess(index));
-  step.addEventListener("focus", () => activateProcess(index));
+processNodes.forEach(node => {
+  const index = Number(node.dataset.processIndex);
+  node.addEventListener("click", () => activateProcess(index));
+  node.addEventListener("mouseenter", () => activateProcess(index));
+  node.addEventListener("focus", () => activateProcess(index));
 });
 
-/* Success */
+/* Form success */
 const params = new URLSearchParams(window.location.search);
 if (params.get("wyslano") === "1") {
   document.querySelector("[data-success]")?.classList.add("is-visible");
