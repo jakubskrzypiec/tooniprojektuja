@@ -1375,377 +1375,7 @@ p{color:var(--muted);line-height:1.72}
 }
 
 
-/* === V28: desktop sections fit one viewport === */
-
-main > section {
-  scroll-margin-top: 80px;
-}
-
-.location-v28 {
-  position: relative;
-  background: var(--paper-2);
-}
-
-@media (min-width: 1101px) and (min-height: 720px) {
-  :root {
-    --header-height-v28: 80px;
-    --section-height-v28: calc(100svh - var(--header-height-v28));
-  }
-
-  .section-space {
-    padding: 0;
-  }
-
-  /* About */
-  .about {
-    width: min(1500px, calc(100vw - 40px));
-    height: calc(var(--section-height-v28) - 28px);
-    min-height: 0;
-    margin: 14px auto;
-    grid-template-columns: 52% 48%;
-  }
-  .about-image {
-    min-height: 0;
-    height: 100%;
-  }
-  .about-copy {
-    padding: clamp(34px, 4vw, 68px);
-  }
-  .about-copy h2 {
-    font-size: clamp(48px, 4.6vw, 74px);
-  }
-  .about-copy .lead {
-    margin-bottom: 16px;
-    font-size: clamp(21px, 1.8vw, 28px);
-  }
-  .about-copy > p:not(.eyebrow):not(.lead) {
-    font-size: 13px;
-    line-height: 1.65;
-  }
-  .about-copy .line-link {
-    margin-top: 22px;
-  }
-
-  /* Philosophy */
-  .philosophy-v27 {
-    height: var(--section-height-v28);
-    min-height: var(--section-height-v28);
-    padding: 24px 0;
-    display: flex;
-    align-items: center;
-  }
-  .philosophy-v27__grid {
-    width: min(1500px, calc(100vw - 40px));
-    height: 100%;
-    max-height: 840px;
-    grid-template-columns: minmax(0, 1.02fr) minmax(430px, .98fr);
-    gap: clamp(42px, 5vw, 78px);
-    align-items: center;
-  }
-  .philosophy-v27__visual {
-    height: 100%;
-    min-height: 0;
-    max-height: 790px;
-    border-radius: 28px;
-  }
-  .philosophy-v27__copy {
-    padding: 0;
-  }
-  .philosophy-v27__copy h2 {
-    max-width: 9ch;
-    margin: 8px 0 16px;
-    font-size: clamp(48px, 4.7vw, 78px);
-    line-height: .91;
-  }
-  .philosophy-v27__lead {
-    max-width: 560px;
-    margin-bottom: 22px;
-    font-size: clamp(20px, 1.7vw, 29px);
-    line-height: 1.22;
-  }
-  .philosophy-v27__steps article {
-    grid-template-columns: 48px 1fr;
-    gap: 14px;
-    padding: 13px 0;
-  }
-  .philosophy-v27__steps span {
-    font-size: 22px;
-  }
-  .philosophy-v27__steps h3 {
-    margin-bottom: 3px;
-    font-size: clamp(24px, 1.7vw, 32px);
-  }
-  .philosophy-v27__steps p {
-    font-size: 12px;
-    line-height: 1.55;
-  }
-
-  /* Projects */
-  .projects {
-    height: var(--section-height-v28);
-    min-height: var(--section-height-v28);
-    padding: 30px 0 24px;
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
-    align-content: center;
-    overflow: hidden;
-  }
-  .project-heading {
-    margin-bottom: 18px;
-  }
-  .project-heading h2 {
-    font-size: clamp(50px, 5vw, 78px);
-  }
-  .project-heading-side {
-    max-width: 430px;
-  }
-  .project-heading-side p {
-    font-size: 12px;
-    line-height: 1.55;
-  }
-  .project-viewport {
-    min-height: 0;
-    overflow: hidden;
-  }
-  .project-track {
-    height: 100%;
-    align-items: stretch;
-  }
-  .project-card {
-    height: 100%;
-    max-height: 610px;
-  }
-  .project-card > button {
-    height: calc(100% - 62px);
-    min-height: 0;
-  }
-  .project-card h3 {
-    font-size: clamp(24px, 2vw, 34px);
-  }
-
-  /* Packages */
-  .packages {
-    height: var(--section-height-v28);
-    min-height: var(--section-height-v28);
-    padding: 26px 0;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-  }
-  .packages-v26 {
-    width: min(1280px, calc(100vw - 52px));
-    height: 100%;
-    max-height: 840px;
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
-    align-content: center;
-  }
-  .packages-v26__header {
-    grid-template-columns: .8fr 1.2fr;
-    gap: 36px;
-    margin-bottom: 24px;
-    align-items: end;
-  }
-  .packages-v26__header h2 {
-    margin: 6px 0 0;
-    font-size: clamp(48px, 4.8vw, 76px);
-    line-height: .91;
-  }
-  .packages-v26__header > p:last-child {
-    max-width: 500px;
-    font-size: 12px;
-    line-height: 1.6;
-  }
-  .packages-v26__grid {
-    min-height: 0;
-    height: 100%;
-  }
-  .package-v26 {
-    min-height: 0;
-    height: 100%;
-    padding: 24px 20px 26px;
-  }
-  .package-v26__roman {
-    top: 6px;
-    font-size: clamp(92px, 8vw, 142px);
-  }
-  .package-v26__content {
-    padding-top: 88px;
-  }
-  .package-v26__content h3 {
-    font-size: clamp(20px, 1.55vw, 27px);
-  }
-  .package-v26__content strong {
-    margin-bottom: 14px;
-  }
-  .package-v26__content > p {
-    min-height: 70px;
-    font-size: 11.5px;
-    line-height: 1.6;
-  }
-  .package-v26__content ul {
-    margin-top: 16px;
-    padding-top: 14px;
-    font-size: 11px;
-    line-height: 1.65;
-  }
-
-  /* Process */
-  .process {
-    height: var(--section-height-v28);
-    min-height: var(--section-height-v28);
-    padding: 28px 0;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-  }
-  .process-grid {
-    width: min(1280px, calc(100vw - 52px));
-    height: 100%;
-    max-height: 820px;
-    grid-template-columns: .76fr 1.24fr;
-    gap: clamp(50px, 6vw, 90px);
-    align-items: center;
-  }
-  .process-intro {
-    position: relative;
-    top: auto;
-  }
-  .process-intro h2 {
-    font-size: clamp(48px, 4.8vw, 76px);
-  }
-  .process-intro > p:last-of-type {
-    margin-top: 14px;
-    font-size: 12px;
-    line-height: 1.6;
-  }
-  .process-index {
-    margin-top: 28px;
-  }
-  .process-item > button {
-    grid-template-columns: 36px .88fr 1.12fr;
-    gap: 14px;
-    padding: 13px 0;
-  }
-  .process-item > button span {
-    width: 30px;
-    height: 30px;
-  }
-  .process-item > button strong {
-    font-size: 25px;
-  }
-  .process-item > button small {
-    font-size: 10px;
-  }
-  .process-answer > div {
-    padding-left: 50px;
-  }
-  .process-answer p {
-    padding-bottom: 4px;
-    font-size: 11px;
-  }
-  .process-answer b {
-    padding-bottom: 10px;
-    font-size: 10px;
-  }
-
-  /* FAQ */
-  .faq {
-    height: var(--section-height-v28);
-    min-height: var(--section-height-v28);
-    padding: 32px 0;
-    display: flex;
-    align-items: center;
-  }
-  .faq-grid {
-    width: min(1280px, calc(100vw - 52px));
-    grid-template-columns: .72fr 1.28fr;
-    align-items: center;
-  }
-  .faq-title {
-    position: relative;
-    top: auto;
-  }
-  .faq-title h2 {
-    font-size: clamp(48px, 4.8vw, 76px);
-  }
-  .faq-list summary {
-    padding: 20px 0;
-    font-size: 27px;
-  }
-  .faq-list details p {
-    padding-bottom: 18px;
-  }
-
-  /* Contact */
-  .contact {
-    height: var(--section-height-v28);
-    min-height: var(--section-height-v28);
-    padding: 24px 0;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-  }
-  .contact-grid {
-    width: min(1280px, calc(100vw - 52px));
-    grid-template-columns: .82fr 1.18fr;
-    gap: clamp(46px, 6vw, 86px);
-    align-items: center;
-  }
-  .contact-copy h2 {
-    margin-bottom: 14px;
-    font-size: clamp(48px, 4.7vw, 76px);
-  }
-  .contact-copy .lead {
-    font-size: clamp(20px, 1.7vw, 27px);
-  }
-  .contact-data {
-    margin-top: 20px;
-  }
-  .contact-data > a,
-  .contact-data > div {
-    padding: 10px 0;
-  }
-  .contact-form-head {
-    padding: 14px 20px;
-  }
-  .contact-form-head strong {
-    font-size: 22px;
-  }
-  .contact-form {
-    padding: 18px 20px;
-  }
-  .contact-form label {
-    gap: 5px;
-    margin-bottom: 10px;
-  }
-  .contact-form input,
-  .contact-form textarea {
-    padding: 9px 11px;
-  }
-  .contact-form textarea {
-    min-height: 84px;
-    max-height: 110px;
-  }
-  .contact-form .button {
-    min-height: 42px;
-  }
-
-  /* Location */
-  .location-v28 {
-    height: var(--section-height-v28);
-    min-height: var(--section-height-v28);
-    padding: 30px 0;
-    display: flex;
-    align-items: center;
-  }
-  .location-v28 .map {
-    width: min(1280px, calc(100vw - 52px));
-    height: min(72svh, 680px);
-    margin-top: 0;
-    border-radius: 28px;
-  }
-}
+/* === V28 viewport-height experiment removed in V39: natural document flow === */
 
 /* More breathing room on mobile/tablet remains natural */
 @media (max-width: 1100px), (max-height: 719px) {
@@ -1795,31 +1425,8 @@ summary:focus-visible {
 }
 
 /* Visual breathing room between sections */
-@media (min-width: 1101px) and (min-height: 720px) {
-  :root {
-    --section-height-v29: calc(100svh - 80px - var(--section-gap-v29));
-  }
+/* V39: fixed viewport heights removed; sections grow with content. */
 
-  main > section:not(.hero) {
-    margin-top: var(--section-gap-v29);
-  }
-
-  .about,
-  .philosophy-v29,
-  .projects,
-  .packages,
-  .process,
-  .faq,
-  .contact,
-  .location-v28 {
-    height: var(--section-height-v29);
-    min-height: var(--section-height-v29);
-  }
-
-  .about {
-    margin-bottom: 0;
-  }
-}
 
 /* Philosophy: horizontal editorial composition, unlike About */
 .philosophy-v29 {
@@ -2010,67 +1617,8 @@ summary:focus-visible {
 }
 
 /* Desktop: keep each section readable within one screen, now with a gap */
-@media (min-width: 1101px) and (min-height: 720px) {
-  .philosophy-v29 {
-    padding: 24px 0;
-    display: flex;
-    align-items: center;
-  }
+/* V39: one-screen desktop sizing removed. */
 
-  .philosophy-v29__inner {
-    width: min(1280px, calc(100vw - 52px));
-    max-height: 100%;
-  }
-
-  .philosophy-v29__head {
-    margin-bottom: 22px;
-  }
-
-  .philosophy-v29__headline h2 {
-    font-size: clamp(48px, 4.9vw, 78px);
-  }
-
-  .philosophy-v29__headline > p {
-    font-size: clamp(17px, 1.4vw, 23px);
-  }
-
-  .philosophy-v29__sequence article {
-    min-height: 130px;
-    padding: 16px 20px 18px;
-  }
-
-  .philosophy-v29__sequence span {
-    margin-bottom: 8px;
-    font-size: 18px;
-  }
-
-  .philosophy-v29__sequence h3 {
-    margin-bottom: 5px;
-    font-size: clamp(25px, 1.8vw, 32px);
-  }
-
-  .philosophy-v29__sequence p {
-    font-size: 10.5px;
-    line-height: 1.5;
-  }
-
-  .philosophy-v29__panorama {
-    height: clamp(170px, 21vh, 230px);
-    margin-top: 20px;
-  }
-
-  /* Override V28 heights so section + breathing gap still fit the viewport */
-  .about,
-  .projects,
-  .packages,
-  .process,
-  .faq,
-  .contact,
-  .location-v28 {
-    height: var(--section-height-v29);
-    min-height: var(--section-height-v29);
-  }
-}
 
 /* More polished transitions between backgrounds */
 .about,
@@ -2504,23 +2052,8 @@ main > section:not(.hero) {
 }
 
 /* Keep section viewport calculations aligned with the exact same gap */
-@media (min-width: 1101px) and (min-height: 720px) {
-  :root {
-    --section-height-v29: calc(100svh - 80px - var(--uniform-section-gap-v31));
-  }
+/* V39: fixed section-height calculation removed. */
 
-  .about,
-  .philosophy-v29,
-  .projects,
-  .packages,
-  .process,
-  .faq,
-  .contact,
-  .location-v28 {
-    height: var(--section-height-v29) !important;
-    min-height: var(--section-height-v29) !important;
-  }
-}
 
 @media (max-width: 1100px) {
   :root {
@@ -4091,174 +3624,173 @@ main > section:not(.hero) {
 .process-item:hover>button>span,.process-item.is-open>button>span{transform:translate(2px,-2px) rotate(7deg)!important}
 .faq-list details[open] summary>span{transform:rotate(45deg)!important}
 
+
+
 /* =========================================================
-   V38 SAFE — poprawki na stabilnej bazie V36
-   Bez naruszania wysokości sekcji V28 i bez absolutnych mockupów.
+   V39 — CLEAN NATURAL FLOW
+   Jedna warstwa końcowa: brak fixed-height sekcji, brak clippingu.
    ========================================================= */
 
-/* 1. Jedna orientacja łezki — zgodna z sygnetem TOP: ostrze w prawym dolnym rogu. */
-.social,
-.project-arrows-overlay button,
-.project-card>button>span,
-.process-item>button>span,
-.faq-list summary>span,
-.hero-action>span,
-.contact-form .button>span,
-.faq-contact-button>span,
-.footer-top-link>span,
-.social-draft-label i{
+:root{
+  --top-blue:#345798;
+  --top-gold:#c38b09;
+  --section-space-v39:clamp(104px,9vw,154px);
+  --section-gap-v39:clamp(54px,5vw,84px);
+}
+
+/* Każda sekcja rośnie do własnej treści. To usuwa przycinanie. */
+main>section:not(.hero){
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  margin-top:0!important;
+}
+.projects,.packages,.process,.faq,.location-v28,.social-draft{
+  overflow:visible!important;
+}
+.section-space{
+  padding-top:var(--section-space-v39)!important;
+  padding-bottom:var(--section-space-v39)!important;
+}
+
+/* O nas — naturalna wysokość i wyraźny oddech od hero / projektów. */
+.about{
+  height:auto!important;
+  min-height:760px!important;
+  margin-top:clamp(42px,4vw,64px)!important;
+  margin-bottom:var(--section-gap-v39)!important;
+  overflow:visible!important;
+}
+.about-image{min-height:760px!important;height:auto!important}
+.about-copy{padding-block:clamp(58px,5vw,84px)!important}
+.about-copy .about-brand-title{font-size:clamp(54px,5.8vw,94px)}
+.about-copy>p:not(.eyebrow):not(.lead)+p{margin-top:15px}
+.about-copy .lead{margin-top:10px!important;margin-bottom:26px!important}
+
+/* Projekty — 3 duże kadry, ale sekcja ma pełną wysokość kart + podpisów. */
+.projects{position:relative;padding-top:var(--section-space-v39)!important;padding-bottom:clamp(118px,10vw,170px)!important}
+.project-heading{margin-bottom:clamp(58px,5vw,82px)!important}
+.project-viewport{position:relative;overflow:hidden!important;padding:0 34px 34px!important}
+.project-track{height:auto!important;align-items:flex-start!important}
+.project-card{height:auto!important;max-height:none!important;width:min(31.2vw,560px)!important;flex:0 0 min(31.2vw,560px)!important}
+.project-card>button{height:clamp(560px,38vw,690px)!important;min-height:0!important}
+.project-card>small{margin-top:20px}
+.project-card h3{margin-bottom:8px}
+
+/* Pakiety — żadnego uciskania treści w wysokość ekranu. */
+.packages{padding-top:var(--section-space-v39)!important;padding-bottom:var(--section-space-v39)!important;overflow:visible!important}
+.packages-v26{height:auto!important;min-height:0!important;max-height:none!important}
+.packages-v26__header{margin-bottom:clamp(54px,5vw,80px)!important}
+.packages-v26__grid{height:auto!important;min-height:0!important;align-items:stretch}
+.package-v26{height:auto!important;min-height:720px!important;padding-bottom:48px!important}
+.package-v26__content>p{min-height:0!important}
+
+/* Proces — pełna treść może się rozwijać bez ucinania. */
+.process{height:auto!important;min-height:0!important;padding:var(--section-space-v39) 0!important;overflow:visible!important}
+.process .process-grid{height:auto!important;max-height:none!important;align-items:start!important}
+.process-intro{position:sticky!important;top:118px!important}
+.process-item{overflow:visible!important}
+.process-answer>div{overflow:hidden}
+
+/* FAQ — lewa karta rozciąga się do całej listy. */
+.faq{height:auto!important;min-height:0!important;padding:var(--section-space-v39) 0!important;overflow:visible!important}
+.faq-grid--contact{grid-template-columns:minmax(320px,.72fr) minmax(0,1.28fr)!important;gap:clamp(64px,7vw,116px)!important;align-items:stretch!important}
+.faq-contact-card{position:relative!important;top:auto!important;align-self:stretch!important;min-height:100%!important;display:flex!important;flex-direction:column;padding:clamp(38px,3.4vw,56px)!important;border-radius:28px!important}
+.faq-contact-card h2{font-size:clamp(58px,5.1vw,82px)!important;line-height:.92!important}
+.faq-contact-card>p:not(.eyebrow){max-width:390px}
+.faq-contact-links{margin-top:clamp(34px,3vw,52px)!important}
+.faq-socials{margin-top:auto!important;padding-top:38px}
+.faq-list summary{padding-block:clamp(28px,2.2vw,36px)!important}
+.faq-list details p{padding-bottom:32px!important}
+
+/* Kontakt i mapa — pozwalamy sekcji rosnąć naturalnie. */
+.contact{height:auto!important;min-height:0!important;max-height:none!important;padding:var(--section-space-v39) 0 0!important;overflow:visible!important}
+.contact-grid{gap:clamp(64px,7.5vw,112px)!important}
+.location-v28{position:relative;height:auto!important;min-height:0!important;padding:clamp(76px,7vw,112px) 0!important;overflow:visible!important;background:var(--paper-2)}
+.location-v28 .map{height:clamp(480px,42vw,690px)!important;margin-top:0!important}
+
+/* Jedna orientacja „łezki” — zgodna z prawym-dolnym ostrzem sygnetu. */
+.social,.project-arrows-overlay button,.project-card>button>span,.process-item>button>span,.faq-list summary>span,.hero-action>span,.contact-form .button>span,.faq-contact-button>span,.footer-top-link>span,.social-draft-label i{
   border-radius:50% 50% 0 50%!important;
   transform:none!important;
 }
-.social{width:43px;height:43px}
 .social svg{transform:none!important;transition:transform .28s ease}
 .social:hover{transform:translateY(-2px) scale(1.04)!important}
 .social:hover svg{transform:scale(1.08)!important}
 .project-arrows-overlay button:hover{transform:translateY(-2px) scale(1.06)!important}
-.project-card>button:hover>span,
-.process-item:hover>button>span,
-.process-item.is-open>button>span,
-.hero-action:hover>span,
-.contact-form .button:hover>span,
-.faq-contact-button:hover>span,
-.footer-top-link:hover>span{transform:translate(2px,-2px) scale(1.04)!important}
+.project-card>button:hover>span,.process-item:hover>button>span,.process-item.is-open>button>span,.hero-action:hover>span,.contact-form .button:hover>span,.faq-contact-button:hover>span,.footer-top-link:hover>span{transform:translate(2px,-2px) scale(1.04)!important}
 .faq-list summary>span{font-size:0!important}
 .faq-list summary>span::before{content:"+";font:500 20px/1 var(--sans)}
 .faq-list details[open] summary>span{transform:none!important;background:var(--blue);color:#fff;border-color:var(--blue)}
 .faq-list details[open] summary>span::before{content:"×"}
 
-/* 2. Glow lokalny — tylko elementy informacyjne, nigdy realizacje. */
-.info-glow-card:not(.package-v26){
-  --hover-x:50%;
-  --hover-y:50%;
-  position:relative;
-  isolation:isolate;
-}
-.info-glow-card:not(.package-v26)::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  border-radius:inherit;
-  background:radial-gradient(circle 235px at var(--hover-x) var(--hover-y),rgba(195,139,9,.17),rgba(52,87,152,.055) 40%,transparent 72%);
-  opacity:0;
-  transition:opacity .25s ease;
-}
-.info-glow-card:not(.package-v26):hover::after,
-.info-glow-card:not(.package-v26):focus-within::after{opacity:1}
+/* Glow lokalny — informacyjne karty, nie realizacje. */
+.info-glow-card:not(.package-v26){--hover-x:50%;--hover-y:50%;position:relative;isolation:isolate}
+.info-glow-card:not(.package-v26)::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;border-radius:inherit;background:radial-gradient(circle 245px at var(--hover-x) var(--hover-y),rgba(195,139,9,.18),rgba(52,87,152,.055) 42%,transparent 74%);opacity:0;transition:opacity .25s ease}
+.info-glow-card:not(.package-v26):hover::after,.info-glow-card:not(.package-v26):focus-within::after{opacity:1}
 .info-glow-card:not(.package-v26)>*{position:relative;z-index:1}
-.about-copy.info-glow-card{border-radius:26px}
-.contact-copy.info-glow-card{border-radius:26px}
-.contact-form-wrap.info-glow-card{border-radius:26px}
+.about-copy.info-glow-card,.contact-copy.info-glow-card,.contact-form-wrap.info-glow-card{border-radius:28px}
 .map-info-card.info-glow-card{border-radius:18px}
 
-/* 3. Więcej oddechu wewnątrz sekcji — bez dokładania paddingu do fixed-height V28. */
-.about-copy>p:not(.eyebrow):not(.lead)+p{margin-top:13px}
-.about-copy .lead{margin-top:8px!important;margin-bottom:23px!important}
-.project-heading{margin-bottom:clamp(48px,4.5vw,72px)!important}
-.packages-v26__header{margin-bottom:clamp(46px,4.5vw,70px)!important}
-.process-intro>p:last-of-type{margin-top:24px}
-.contact-grid{gap:clamp(64px,7.5vw,112px)}
-
-/* 4. FAQ — karta „Zanim zaczniemy” ma wysokość całego zestawu pytań. */
-.faq-grid--contact{align-items:stretch!important;gap:clamp(56px,7vw,110px)!important}
-.faq-contact-card{
-  position:relative!important;
-  top:auto!important;
-  align-self:stretch;
-  min-height:100%;
-  display:flex;
-  flex-direction:column;
-  padding:clamp(34px,3.2vw,52px)!important;
-  border-radius:28px!important;
-}
-.faq-contact-card h2{font-size:clamp(58px,5.1vw,82px)!important;line-height:.92}
-.faq-contact-card>p:not(.eyebrow){max-width:390px}
-.faq-contact-links{margin-top:clamp(34px,3vw,52px)!important}
-.faq-socials{margin-top:auto!important;padding-top:36px}
-.faq-contact-button{margin-top:0}
-.faq-list summary{padding-block:clamp(27px,2.1vw,34px)!important}
-.faq-list details p{padding-bottom:30px!important}
-
-/* 5. Social media — bezpieczny zarys inspirowany układem z Moniki, pod mapą. */
-.social-draft{
-  position:relative;
-  padding:clamp(100px,9vw,150px) 0 clamp(110px,9vw,155px);
-  overflow:hidden;
-  background:#f5f2ec;
-  border-top:1px solid var(--line);
-}
-.social-draft::before{
-  content:"TO ONI";
-  position:absolute;
-  right:-.03em;
-  top:.1em;
-  color:rgba(52,87,152,.035);
-  font-family:var(--serif);
-  font-size:clamp(150px,22vw,350px);
-  line-height:.72;
-  letter-spacing:-.08em;
-  pointer-events:none;
-}
-.social-draft-head{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(40px,6vw,90px);align-items:end;margin-bottom:clamp(54px,6vw,88px)}
+/* Social media — stabilny grid bez absolutnego nachodzenia i bez ucinania. */
+.social-draft{position:relative;height:auto!important;min-height:0!important;padding:var(--section-space-v39) 0 clamp(120px,10vw,170px)!important;overflow:hidden!important;background:#f5f2ec;border-top:1px solid var(--line)}
+.social-draft::before{content:"TO ONI";position:absolute;right:-.03em;top:.08em;color:rgba(52,87,152,.035);font-family:var(--serif);font-size:clamp(150px,22vw,350px);line-height:.72;letter-spacing:-.08em;pointer-events:none}
+.social-draft-head{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(42px,6vw,90px);align-items:end;margin-bottom:clamp(58px,6vw,92px)}
 .social-draft-head h2{font-size:clamp(68px,7vw,108px)}
 .social-draft-head>p{max-width:520px;font-size:14px}
-.social-draft-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(290px,.62fr);gap:clamp(28px,3vw,48px);align-items:stretch}
-.social-draft-card{position:relative;display:flex;flex-direction:column;min-width:0;border:1px solid var(--line);background:#fff;box-shadow:0 24px 60px rgba(23,28,36,.09);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.social-draft-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(320px,.62fr);gap:clamp(30px,3vw,50px);align-items:stretch}
+.social-draft-card{position:relative;display:flex;flex-direction:column;min-width:0;height:auto!important;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:0 24px 60px rgba(23,28,36,.09);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
 .social-draft-card:hover{transform:translateY(-5px);box-shadow:0 34px 78px rgba(23,28,36,.14)}
-.social-draft-card--instagram{padding:16px 16px 88px;border:9px solid #171c24;border-bottom-width:16px;border-radius:24px 24px 14px 14px}
-.social-draft-browser{height:30px;display:flex;align-items:center;gap:7px;padding:0 8px;border-bottom:1px solid #ece8e1;color:#8b8f95;font-size:9px}
+.social-draft-card--instagram{min-height:610px;padding:16px 16px 92px;border:9px solid #171c24;border-bottom-width:16px;border-radius:24px 24px 14px 14px}
+.social-draft-browser{height:30px;flex:0 0 30px;display:flex;align-items:center;gap:7px;padding:0 8px;border-bottom:1px solid #ece8e1;color:#8b8f95;font-size:9px}
 .social-draft-browser>span{width:7px;height:7px;border-radius:50%;background:#d7d3cd}
 .social-draft-browser b{margin-left:8px;font-weight:500}
 .social-draft-profile{display:grid;grid-template-columns:58px 1fr auto;gap:15px;align-items:center;padding:19px 18px}
 .social-draft-profile>img{width:58px;height:58px;object-fit:contain;padding:6px;border:1px solid #e1ddd6;border-radius:50%;background:#f7f4ee}
-.social-draft-profile div{display:grid;gap:3px}
-.social-draft-profile strong{font-size:14px}
-.social-draft-profile small{color:var(--muted);font-size:10px}
+.social-draft-profile div{display:grid;gap:3px}.social-draft-profile strong{font-size:14px}.social-draft-profile small{color:var(--muted);font-size:10px}
 .social-draft-follow{padding:9px 16px;border-radius:9px;color:#fff;background:var(--blue);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.social-draft-images{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;min-height:310px;overflow:hidden;background:#eee}
-.social-draft-images img{min-width:0;min-height:0;object-fit:cover}
-.social-draft-card--facebook{padding:14px 14px 88px;border:8px solid #171c24;border-radius:38px;align-self:center;min-height:520px}
-.social-draft-facebook-cover{height:180px;overflow:hidden;border-radius:24px 24px 8px 8px}
-.social-draft-facebook-profile{display:grid;grid-template-columns:62px 1fr;gap:13px;align-items:center;padding:18px 10px 14px}
+.social-draft-images{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;min-height:330px;flex:1;overflow:hidden;background:#eee}
+.social-draft-images img{width:100%;height:100%;min-width:0;min-height:0;object-fit:cover}
+.social-draft-card--facebook{min-height:610px;padding:14px 14px 92px;border:8px solid #171c24;border-radius:38px;align-self:stretch}
+.social-draft-facebook-cover{height:220px;flex:0 0 220px;overflow:hidden;border-radius:24px 24px 8px 8px}
+.social-draft-facebook-profile{display:grid;grid-template-columns:62px 1fr;gap:13px;align-items:center;padding:20px 10px 16px}
 .social-draft-facebook-profile>img{width:62px;height:62px;object-fit:contain;padding:6px;border-radius:50%;background:#f2eee7}
-.social-draft-facebook-profile div{display:grid;gap:4px}
-.social-draft-facebook-profile strong{font-family:var(--serif);font-size:24px;line-height:1}
-.social-draft-facebook-profile small{color:var(--muted);font-size:9px}
-.social-draft-card--facebook>p{margin:10px 10px 0;padding-top:18px;border-top:1px solid var(--line);font-size:12px}
+.social-draft-facebook-profile div{display:grid;gap:4px}.social-draft-facebook-profile strong{font-family:var(--serif);font-size:24px;line-height:1}.social-draft-facebook-profile small{color:var(--muted);font-size:9px}
+.social-draft-card--facebook>p{margin:12px 10px 0;padding-top:18px;border-top:1px solid var(--line);font-size:12px}
 .social-draft-label{position:absolute;left:14px;right:14px;bottom:14px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;padding:12px 14px;border-radius:12px;color:#fff;background:#171c24}
-.social-draft-label>div{display:grid;gap:2px}
-.social-draft-label strong{font-size:10px;text-transform:uppercase;letter-spacing:.12em}
-.social-draft-label small{color:rgba(255,255,255,.62);font-size:9px}
-.social-draft-label i{width:32px;height:32px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.45);font-style:normal}
+.social-draft-label>div{display:grid;gap:2px}.social-draft-label strong{font-size:10px;text-transform:uppercase;letter-spacing:.12em}.social-draft-label small{color:rgba(255,255,255,.62);font-size:9px}.social-draft-label i{width:32px;height:32px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.45);font-style:normal}
 
-/* 6. Ruchomy pasek usunięty. Stopka dokładnie w firmowym niebieskim TOP. */
+/* Dolny ticker wyłączony, stopka w firmowym niebieskim. */
 .interlude-v30--bottom{display:none!important}
-.footer{background:#345798!important}
-.footer-main span{color:#ecd080!important}
-.footer nav a:hover,.footer-main>div a:not(.social):hover{color:#ecd080!important}
+.footer{background:var(--top-blue)!important;color:#fff!important;border-top:0!important}
+.footer-main span{color:#ecd080!important}.footer-main a,.footer-main p,.footer-bottom{color:rgba(255,255,255,.78)!important}.footer-main>div:first-child img{filter:brightness(0) invert(1)}.footer .social{color:#fff!important;border-color:rgba(255,255,255,.45)!important}.footer-bottom{border-top-color:rgba(255,255,255,.2)!important}.footer nav a:hover,.footer-main>div a:not(.social):hover{color:#ecd080!important}
 
 @media(max-width:1100px){
-  .faq-contact-card{min-height:0}
+  .section-space{padding-top:92px!important;padding-bottom:92px!important}
+  .about,.about-image{min-height:auto!important}
+  .project-card{width:44vw!important;flex-basis:44vw!important}
+  .project-card>button{height:590px!important}
+  .process-intro{position:relative!important;top:auto!important}
+  .faq-grid--contact{grid-template-columns:1fr!important}
+  .faq-contact-card{min-height:0!important}
   .faq-socials{margin-top:34px!important;padding-top:0}
   .social-draft-head{grid-template-columns:1fr;gap:24px}
-  .social-draft-grid{grid-template-columns:1fr .55fr}
-  .social-draft-images{min-height:270px}
+  .social-draft-grid{grid-template-columns:1fr .58fr}
+  .social-draft-card--instagram,.social-draft-card--facebook{min-height:560px}
 }
 
 @media(max-width:780px){
-  .about-copy>p:not(.eyebrow):not(.lead)+p{margin-top:10px}
-  .faq-contact-card{padding:28px!important}
-  .faq-contact-card h2{font-size:clamp(54px,16vw,74px)!important}
-  .faq-list summary{padding-block:25px!important}
-  .social-draft{padding:82px 0 92px}
-  .social-draft-head h2{font-size:clamp(56px,17vw,82px)}
-  .social-draft-grid{grid-template-columns:1fr;gap:34px}
-  .social-draft-card--instagram{padding-bottom:82px;border-width:7px;border-bottom-width:13px;border-radius:18px}
-  .social-draft-profile{grid-template-columns:50px 1fr;padding:15px 10px}
-  .social-draft-profile>img{width:50px;height:50px}
-  .social-draft-follow{display:none}
-  .social-draft-images{min-height:0;aspect-ratio:1.35/1}
-  .social-draft-card--facebook{width:min(100%,420px);justify-self:center;min-height:485px;border-width:7px}
+  .section-space{padding-top:76px!important;padding-bottom:76px!important}
+  .about{margin-top:20px!important;margin-bottom:30px!important}
+  .about-copy{padding-block:46px!important}
+  .project-viewport{padding:0 18px 26px!important;overflow-x:auto!important;overflow-y:hidden!important}
+  .project-card{width:82vw!important;flex-basis:82vw!important}
+  .project-card>button{height:520px!important}
+  .project-arrows-overlay{display:none!important}
+  .packages-v26__grid{grid-template-columns:1fr!important}
+  .package-v26{min-height:0!important;border-right:0;border-bottom:1px solid var(--line)}
+  .faq-contact-card{padding:28px!important}.faq-contact-card h2{font-size:clamp(54px,16vw,74px)!important}.faq-list summary{padding-block:25px!important}
+  .location-v28{padding:70px 0!important}.location-v28 .map{height:520px!important}
+  .social-draft{padding:82px 0 92px!important}.social-draft-head h2{font-size:clamp(56px,17vw,82px)}.social-draft-grid{grid-template-columns:1fr;gap:34px}
+  .social-draft-card--instagram{min-height:0;padding-bottom:82px;border-width:7px;border-bottom-width:13px;border-radius:18px}.social-draft-profile{grid-template-columns:50px 1fr;padding:15px 10px}.social-draft-profile>img{width:50px;height:50px}.social-draft-follow{display:none}.social-draft-images{min-height:0;aspect-ratio:1.35/1}.social-draft-card--facebook{width:min(100%,420px);justify-self:center;min-height:500px;border-width:7px}
 }
