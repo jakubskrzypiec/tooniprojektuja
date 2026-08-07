@@ -3277,1415 +3277,218 @@ main > section:not(.hero) {
   }
 }
 
-/* =========================================================
-   V36 — klient: tylko uzgodnione zmiany strony START
-   ========================================================= */
+/* ================================================================
+   CURRENT UI — one authoritative layer
+   Replaces legacy V36–V43 patch stacks.
+   ================================================================ */
+:root{
+  --section-rhythm:clamp(92px,8vw,132px);
+  --tear-size:42px;
+  --tear-radius:50% 50% 50% 0;
+}
 
-/* O nas — nowa hierarchia tekstu + jawny placeholder zdjęcia AI */
-.about{min-height:760px}
+/* ---------- document rhythm ---------- */
+main>section:not(.hero){height:auto;min-height:0;max-height:none;overflow:visible}
+.section-space,.projects,.packages,.process,.faq,.location-v28,.social-draft{
+  padding-top:var(--section-rhythm)!important;
+  padding-bottom:var(--section-rhythm)!important;
+}
+.contact{padding:var(--section-rhythm) 0 0!important}
+.hero{margin-bottom:clamp(58px,5vw,84px)!important}
+.about{
+  min-height:760px;
+  margin-top:0!important;
+  margin-bottom:0!important;
+  overflow:hidden!important;
+  border-radius:30px!important;
+}
 .about-image{min-height:760px}
-.about-copy{padding-block:56px}
+.about-copy{padding-block:clamp(58px,5vw,82px)}
 .about-copy .about-brand-title{
-  max-width:680px;
-  margin:0 0 18px;
-  color:var(--ink);
-  font-size:clamp(54px,5.8vw,94px);
-  line-height:.84;
-  letter-spacing:-.055em;
+  max-width:680px;margin:0 0 18px;color:var(--ink);
+  font-size:clamp(54px,5.8vw,94px);line-height:.84;letter-spacing:-.055em;
 }
-.about-copy .about-lead{
-  max-width:660px;
-  margin-bottom:24px;
-  font-size:clamp(22px,2vw,30px);
-}
-.about-copy>p:not(.eyebrow):not(.lead){
-  max-width:690px;
-  margin-top:12px;
-  font-size:12.5px;
-  line-height:1.67;
-}
+.about-copy .about-lead{max-width:660px;margin:10px 0 26px;font-size:clamp(22px,2vw,30px)}
+.about-copy>p:not(.eyebrow):not(.lead){max-width:690px;margin-top:14px;font-size:12.5px;line-height:1.67}
 .about-ai-note{
-  position:absolute;
-  left:24px;
-  top:24px;
-  z-index:3;
-  padding:9px 12px;
-  border:1px solid rgba(255,255,255,.45);
-  border-radius:999px;
-  color:#fff;
-  background:rgba(23,28,36,.62);
-  backdrop-filter:blur(10px);
-  font-size:8px;
-  font-weight:700;
-  letter-spacing:.16em;
-  text-transform:uppercase;
+  position:absolute;left:24px;top:24px;z-index:3;padding:9px 12px;
+  border:1px solid rgba(255,255,255,.45);border-radius:999px;color:#fff;
+  background:rgba(23,28,36,.62);backdrop-filter:blur(10px);
+  font-size:8px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
 }
 
-/* Projekty — 3 duże realizacje, sterowanie po bokach i bez starej ramki/brandingu */
-.projects{position:relative;overflow:hidden}
+/* ---------- one TOP tear control everywhere ---------- */
+.social,
+.project-arrows-overlay button,
+.project-card>button>span,
+.process-item>button>span,
+.faq-list summary>span,
+.hero-action>span,
+.contact-form .button>span,
+.faq-contact-button>span,
+.footer-top-link>span,
+.social-device-caption i{
+  width:var(--tear-size)!important;height:var(--tear-size)!important;
+  min-width:var(--tear-size)!important;min-height:var(--tear-size)!important;
+  display:grid!important;place-items:center!important;
+  padding:0!important;border:1px solid currentColor!important;
+  border-radius:var(--tear-radius)!important;background:transparent!important;
+  box-shadow:none!important;transform:none!important;rotate:none!important;translate:none!important;
+  overflow:hidden!important;
+  transition:background-color .22s ease,color .22s ease,border-color .22s ease,box-shadow .22s ease!important;
+}
+.social::before,.social::after,
+.project-arrows-overlay button::before,.project-arrows-overlay button::after,
+.project-card>button>span::before,.project-card>button>span::after,
+.process-item>button>span::before,.process-item>button>span::after,
+.faq-list summary>span::before,.faq-list summary>span::after,
+.hero-action>span::before,.hero-action>span::after,
+.contact-form .button>span::before,.contact-form .button>span::after,
+.faq-contact-button>span::before,.faq-contact-button>span::after,
+.footer-top-link>span::before,.footer-top-link>span::after,
+.social-device-caption i::before,.social-device-caption i::after{content:none!important;display:none!important}
+.social svg,.project-arrows-overlay button span,.project-card>button>span,.process-item>button>span,
+.faq-list summary>span,.hero-action>span,.contact-form .button>span,.faq-contact-button>span,
+.footer-top-link>span,.social-device-caption i{transform:none!important;rotate:none!important;translate:none!important}
+.social:hover,.social:focus-visible,
+.project-arrows-overlay button:hover,.project-arrows-overlay button:focus-visible,
+.project-card>button:hover>span,.project-card>button:focus-visible>span,
+.process-item:hover>button>span,.process-item:focus-within>button>span,.process-item.is-open>button>span,
+.faq-list summary:hover>span,.faq-list summary:focus-visible>span,.faq-list details[open] summary>span,
+.hero-action:hover>span,.hero-action:focus-visible>span,
+.contact-form .button:hover>span,.contact-form .button:focus-visible>span,
+.faq-contact-button:hover>span,.faq-contact-button:focus-visible>span,
+.footer-top-link:hover>span,.footer-top-link:focus-visible>span,
+.social-device:hover .social-device-caption i,.social-device:focus-visible .social-device-caption i{
+  color:#fff!important;background:var(--blue)!important;border-color:var(--blue)!important;
+  box-shadow:0 8px 20px rgba(52,87,152,.17)!important;transform:none!important;
+}
+.footer .social:hover,.footer .social:focus-visible,
+.footer .footer-top-link:hover>span,.footer .footer-top-link:focus-visible>span{
+  color:var(--blue)!important;background:#fff!important;border-color:#fff!important;
+}
+.hero-action,.hero-action:hover,.hero-action:focus-visible{transform:none!important;translate:none!important}
+
+/* ---------- glow on information cards ---------- */
+.info-glow-card:not(.package-v26){--hover-x:50%;--hover-y:50%;position:relative;isolation:isolate;overflow:hidden}
+.info-glow-card:not(.package-v26)::after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle 210px at var(--hover-x) var(--hover-y),rgba(195,139,9,.13),rgba(52,87,152,.045) 38%,transparent 72%);
+  opacity:0;transition:opacity .26s ease;
+}
+.info-glow-card:not(.package-v26):hover::after,.info-glow-card:not(.package-v26):focus-within::after{opacity:1}
+
+/* ---------- projects ---------- */
+.projects{position:relative;overflow:hidden!important}
 .project-heading-side{max-width:420px}
-.project-viewport{
-  position:relative;
-  overflow:hidden;
-  padding:0 34px;
-}
+.project-viewport{position:relative;overflow:hidden;padding:0 34px}
 .project-track{gap:24px}
-.project-card{
-  width:min(31.2vw,560px)!important;
-  flex:0 0 min(31.2vw,560px)!important;
-}
-.project-card>button{
-  height:clamp(560px,38vw,690px)!important;
-  border-radius:18px!important;
-}
+.project-card{width:min(31.2vw,560px)!important;flex:0 0 min(31.2vw,560px)!important}
+.project-card>button{height:clamp(560px,38vw,690px)!important;border-radius:18px!important;overflow:hidden!important}
 .project-card>button::after{display:none!important}
-.project-card img,
-.project-card button:hover img{
-  transform:scale(1.105)!important;
-  transition:transform .8s cubic-bezier(.2,.8,.2,1),filter .45s ease!important;
-}
+.project-card img{transform:scale(1.105)!important;transition:transform .8s cubic-bezier(.2,.8,.2,1),filter .45s ease!important}
 .project-card button:hover img{transform:scale(1.145)!important;filter:brightness(.78)}
 .project-hover-brand{
-  position:absolute;
-  left:50%;
-  top:50%;
-  z-index:4;
-  width:max-content;
-  color:#fff;
-  font-style:normal;
-  font-size:clamp(13px,1vw,18px);
-  font-weight:700;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  opacity:0;
-  transform:translate(-50%,-42%);
-  transition:opacity .3s ease,transform .45s cubic-bezier(.2,.8,.2,1);
-  text-shadow:0 6px 28px rgba(0,0,0,.4);
-  pointer-events:none;
+  position:absolute;left:50%;top:50%;z-index:4;width:max-content;color:#fff;
+  font-style:normal;font-size:clamp(13px,1vw,18px);font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  opacity:0;transform:translate(-50%,-42%);transition:opacity .3s ease,transform .45s cubic-bezier(.2,.8,.2,1);
+  text-shadow:0 6px 28px rgba(0,0,0,.4);pointer-events:none;
 }
 .project-card button:hover .project-hover-brand{opacity:1;transform:translate(-50%,-50%)}
-.project-ghost-left,.project-ghost-right,.project-floating-meta{display:none!important}
-.project-card>small{margin-top:18px}
-.project-card h3{font-size:clamp(28px,2.15vw,38px)}
-
+.project-card>small{margin-top:18px}.project-card h3{font-size:clamp(28px,2.15vw,38px)}
 .project-arrows-overlay{
-  position:absolute!important;
-  inset:50% 14px auto!important;
-  z-index:20;
-  display:flex!important;
-  justify-content:space-between;
-  width:auto!important;
-  transform:translateY(-50%);
-  pointer-events:none;
+  position:absolute!important;inset:50% 14px auto!important;z-index:20;display:flex!important;
+  justify-content:space-between;width:auto!important;transform:translateY(-50%);pointer-events:none;
 }
 .project-arrows-overlay button{
-  pointer-events:auto;
-  width:58px!important;
-  height:58px!important;
-  border:0!important;
-  color:#fff!important;
-  background:rgba(23,28,36,.78)!important;
-  box-shadow:0 14px 34px rgba(0,0,0,.18)!important;
-  backdrop-filter:blur(10px);
+  pointer-events:auto!important;width:58px!important;height:58px!important;min-width:58px!important;min-height:58px!important;
+  color:#fff!important;border-color:rgba(255,255,255,.5)!important;background:rgba(23,28,36,.78)!important;
+  backdrop-filter:blur(10px);box-shadow:0 14px 34px rgba(0,0,0,.18)!important;
 }
-.project-arrows-overlay button:hover{background:var(--blue)!important;transform:scale(1.06)!important}
-.project-arrows-overlay button::before{display:none!important}
-.project-arrows-overlay button span{display:grid;place-items:center;width:100%;height:100%}
+.project-arrows-overlay button:hover{background:var(--blue)!important;border-color:var(--blue)!important}
+.project-card>button>span{position:absolute!important;right:16px!important;top:16px!important;color:#fff!important;background:rgba(23,28,36,.72)!important;border-color:rgba(255,255,255,.4)!important}
+.project-card>button:hover>span{background:var(--blue)!important}
 
-/* Pakiety: treść klienta, bez sztucznych cen */
-.package-v26__content>strong{display:none!important}
-.package-v26__content>p{font-size:12px;line-height:1.64}
-.package-v26__content ul{margin-top:22px}
-.package-v26__content li{line-height:1.42}
+/* ---------- packages ---------- */
+.package-v26__content>strong{display:none!important}.package-v26__content>p{font-size:12px;line-height:1.64}.package-v26__content ul{margin-top:22px}.package-v26__content li{line-height:1.42}
 
-/* Glow kursora tylko na kaflach / elementach informacyjnych — nie na realizacjach */
-.info-glow-card:not(.package-v26){
-  --hover-x:50%;
-  --hover-y:50%;
-  position:relative;
-  isolation:isolate;
-  overflow:hidden;
-}
-.info-glow-card:not(.package-v26)::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:-1;
-  pointer-events:none;
-  background:radial-gradient(circle 210px at var(--hover-x) var(--hover-y),rgba(195,139,9,.13),rgba(52,87,152,.045) 38%,transparent 72%);
-  opacity:0;
-  transition:opacity .26s ease;
-}
-.info-glow-card:not(.package-v26):hover::after,
-.info-glow-card:not(.package-v26):focus-within::after{opacity:1}
-.process-item.info-glow-card{padding-inline:0;transition:background .3s ease,padding .35s cubic-bezier(.2,.8,.2,1)}
+/* ---------- process ---------- */
+.process{overflow:visible!important}
+.process-item.info-glow-card{padding-inline:0;transition:background .3s ease,padding .3s ease}
 .process-item.info-glow-card:hover,.process-item.info-glow-card.is-open{padding-inline:14px;background:rgba(255,255,255,.34)}
+.process-item>button>span{width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important}
+.process-item:hover>button>span,.process-item.is-open>button>span{transform:none!important}
 
-/* Motyw "łezki" z sygnetu TOP — kontrolki, strzałki i sociale */
-.social,
-.project-arrows-overlay button,
-.project-card>button>span,
-.process-item>button>span,
-.faq-list summary>span,
-.hero-action>span,
-.contact-form .button>span,
-.faq-contact-button>span,
-.footer-top-link>span{
-  border-radius:50% 50% 50% 0!important;
-}
-.social{
-  width:43px;
-  height:43px;
-  transform:rotate(-45deg);
-  border-color:currentColor;
-}
-.social svg{transform:rotate(45deg);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-.social:hover{transform:rotate(-45deg) translateY(-2px) scale(1.04)!important}
-.social:hover svg{transform:rotate(40deg) scale(1.08)!important}
-.hero-action>span,
-.contact-form .button>span,
-.faq-contact-button>span,
-.footer-top-link>span{
-  width:28px;
-  height:28px;
-  display:inline-grid;
-  place-items:center;
-  border:1px solid currentColor;
-  transition:transform .35s cubic-bezier(.2,.8,.2,1),background .25s,color .25s;
-}
-.hero-action:hover>span,
-.contact-form .button:hover>span,
-.faq-contact-button:hover>span,
-.footer-top-link:hover>span{transform:translate(2px,-2px) rotate(8deg)}
-.process-item>button>span,
-.faq-list summary>span{
-  border-radius:50% 50% 50% 0!important;
-  transform:rotate(-45deg);
-}
-.process-item>button>span{width:38px;height:38px}
-.process-item>button>span::first-letter,.faq-list summary>span::first-letter{transform:rotate(45deg)}
-.process-item:hover>button>span,.process-item.is-open>button>span{transform:rotate(-37deg) translate(2px,-2px)!important}
-.faq-list summary>span{
-  width:34px;
-  height:34px;
-  display:grid;
-  place-items:center;
-  border:1px solid var(--line);
-  font-family:var(--sans);
-}
-.faq-list details[open] summary>span{transform:rotate(0deg)!important;background:var(--blue);color:#fff;border-color:var(--blue)}
-.project-card>button>span{
-  width:48px!important;
-  height:48px!important;
-  background:rgba(23,28,36,.74)!important;
-  border:1px solid rgba(255,255,255,.38);
-  transition:transform .35s cubic-bezier(.2,.8,.2,1),background .25s!important;
-}
-.project-card>button:hover>span{transform:translate(2px,-2px) rotate(10deg)!important;background:var(--blue)!important}
+/* ---------- FAQ ---------- */
+.faq{overflow:visible!important}
+.faq-grid--contact{width:min(1500px,calc(100vw - 44px))!important;grid-template-columns:minmax(290px,.68fr) minmax(0,1.32fr)!important;gap:clamp(44px,4.5vw,72px)!important;align-items:stretch!important}
+.faq-contact-card{position:relative!important;top:auto!important;display:flex;flex-direction:column;min-height:0;padding:clamp(28px,2.7vw,40px);border:1px solid var(--line);border-radius:26px;background:rgba(255,255,255,.35)}
+.faq-contact-card h2{font-size:clamp(52px,4.4vw,70px);line-height:.92}.faq-contact-card>p:not(.eyebrow){margin-top:14px;font-size:12px}
+.faq-contact-links{margin-top:22px;border-top:1px solid var(--line)}.faq-contact-links a{display:grid;gap:4px;padding:11px 0;border-bottom:1px solid var(--line)}
+.faq-contact-links span{color:var(--blue);font-size:8px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}.faq-contact-links strong{font-size:13px;font-weight:600;word-break:break-word}
+.faq-socials{display:flex;gap:12px;margin:18px 0}.faq-socials .social{color:var(--blue);border-color:rgba(52,87,152,.36)}.faq-contact-button{width:100%;margin-top:auto;min-height:44px}
+.faq-list details{padding-inline:0;transition:padding .3s ease,background .3s}.faq-list details:hover,.faq-list details[open]{padding-inline:12px;background:rgba(255,255,255,.34)}
+.faq-list summary{padding-block:clamp(12px,1.45vh,16px)!important;font-size:clamp(21px,1.65vw,25px)!important;line-height:1.08!important;gap:18px!important}
+.faq-list summary>span{width:34px!important;height:34px!important;min-width:34px!important;min-height:34px!important;flex:0 0 34px!important}
+.faq-list details p{padding:0 46px 16px 0!important;font-size:11.5px!important;line-height:1.55!important}
 
-/* FAQ + dane kontaktowe obok */
-.faq-grid--contact{grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr);gap:clamp(50px,7vw,110px)}
-.faq-contact-card{
-  top:110px;
-  padding:30px;
-  border:1px solid var(--line);
-  border-radius:24px;
-  background:rgba(255,255,255,.35);
-}
-.faq-contact-card h2{font-size:clamp(48px,4.8vw,72px)}
-.faq-contact-card>p:not(.eyebrow){margin-top:20px;font-size:13px}
-.faq-contact-links{margin-top:30px;border-top:1px solid var(--line)}
-.faq-contact-links a{display:grid;gap:4px;padding:15px 0;border-bottom:1px solid var(--line)}
-.faq-contact-links span{color:var(--blue);font-size:8px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
-.faq-contact-links strong{font-size:13px;font-weight:600;word-break:break-word}
-.faq-socials{display:flex;gap:12px;margin:24px 0}
-.faq-socials .social{color:var(--blue);border-color:rgba(52,87,152,.36)}
-.faq-contact-button{width:100%}
-.faq-list details{padding-inline:0;transition:padding .35s cubic-bezier(.2,.8,.2,1),background .3s}
-.faq-list details:hover,.faq-list details[open]{padding-inline:14px;background:rgba(255,255,255,.34)}
-.faq-list details p{font-size:12.5px;line-height:1.7}
+/* ---------- contact ---------- */
+.contact{height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important}
+.contact-grid{align-items:stretch!important;gap:clamp(58px,6vw,90px)!important}
+.contact-copy,.contact-form-wrap{min-height:clamp(580px,66vh,630px)!important;height:auto!important}
+.contact-copy{display:flex!important;flex-direction:column!important;justify-content:center!important;padding-block:12px!important}
+.contact-copy h2{font-size:clamp(62px,5.7vw,82px)!important;line-height:.9!important}.contact-copy .lead{font-size:clamp(20px,1.75vw,27px)!important}.contact-data{margin-top:28px!important}.contact-data>a,.contact-data>div{padding:12px 0!important}
+.contact-form-wrap{display:flex!important;flex-direction:column!important}.contact-form-head{padding:20px 26px!important}.contact-form{padding:22px 26px!important;flex:1!important}.contact-form label{margin-bottom:12px!important;gap:6px!important}.contact-form input,.contact-form textarea{padding:10px 12px!important}.contact-form textarea{min-height:96px!important;max-height:120px!important}
 
-/* Modal realizacji: duży kadr + miniatury po lewej, opis po prawej */
-.project-modal-v36 .modal-inner{
-  width:min(1420px,calc(100vw - 60px));
-  max-height:calc(100svh - 54px);
-  grid-template-columns:minmax(0,1.35fr) minmax(360px,.65fr);
-  align-items:stretch;
-  border-radius:26px;
-  background:#f7f4ee;
-}
-.project-modal-v36 .modal-gallery{
-  min-width:0;
-  padding:18px;
-  display:grid;
-  grid-template-rows:minmax(0,1fr) 112px;
-  gap:14px;
-  background:#171c24;
-}
-.project-modal-v36 .modal-main-image{
-  width:100%;
-  height:min(68svh,760px);
-  min-height:430px;
-  object-fit:cover;
-  object-position:center;
-  border-radius:16px;
-  transform:scale(1.025);
-}
-.modal-thumbnails{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:0}
-.modal-thumb{
-  position:relative;
-  overflow:hidden;
-  min-width:0;
-  border:1px solid rgba(255,255,255,.18);
-  border-radius:12px;
-  background:#222a35;
-  cursor:pointer;
-  opacity:.7;
-  transition:opacity .25s,transform .25s,border-color .25s;
-}
-.modal-thumb:hover,.modal-thumb.is-active{opacity:1;transform:translateY(-2px);border-color:#e5ba53}
-.modal-thumb img{width:100%;height:100%;object-fit:cover;transform:scale(1.08)}
-.modal-thumb:nth-child(1) img{object-position:center 22%}
-.modal-thumb:nth-child(2) img{object-position:center 50%}
-.modal-thumb:nth-child(3) img{object-position:center 78%}
-.project-modal-v36 .modal-story{
-  align-self:stretch;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:clamp(34px,4vw,66px);
-  overflow:auto;
-}
-.project-modal-v36 .modal-story>span{color:var(--blue);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
-.project-modal-v36 .modal-story h2{margin:14px 0 26px;font-size:clamp(42px,4vw,68px);line-height:.92}
-.modal-story-copy{display:grid;gap:18px;color:var(--muted);font-size:13px;line-height:1.78}
-.project-modal-v36 .modal-story .line-link{margin-top:34px;align-self:flex-start}
-
-/* Przesuwany branding na samym dole + wolniejsze tempo */
-.interlude-v30--bottom{margin-top:0}
-.interlude-v30--bottom .interlude-v30__marquee>div{animation-duration:42s!important}
-.interlude-v30--bottom .interlude-v30__marquee span{white-space:nowrap}
-
-/* Niebieska stopka podsumowująca stronę */
-.footer{
-  color:#fff!important;
-  background:var(--blue)!important;
-  border-top:0!important;
-}
-.footer-main span{color:#ecd080!important}
-.footer-main a,.footer-main p,.footer-bottom{color:rgba(255,255,255,.76)!important}
-.footer-main>div:first-child img{filter:brightness(0) invert(1)}
-.footer .social{color:#fff!important;border-color:rgba(255,255,255,.45)!important}
-.footer-bottom{border-top-color:rgba(255,255,255,.2)!important}
-.footer nav a:hover,.footer-main>div a:not(.social):hover{color:#ecd080!important}
-.footer-top-link{display:flex;justify-content:flex-end;align-items:center;gap:10px}
-.footer-top-link>span{width:25px;height:25px}
-
-@media(max-width:1100px){
-  .about,.about-image{min-height:auto}
-  .about-copy{padding-block:54px}
-  .project-card{width:44vw!important;flex-basis:44vw!important}
-  .project-card>button{height:590px!important}
-  .faq-grid--contact{grid-template-columns:1fr}
-  .faq-contact-card{position:relative;top:auto}
-  .project-modal-v36 .modal-inner{grid-template-columns:1fr;overflow:auto}
-  .project-modal-v36 .modal-gallery{grid-template-rows:55svh 96px}
-  .project-modal-v36 .modal-main-image{height:55svh;min-height:360px}
-}
-
-@media(max-width:780px){
-  .about-copy .about-brand-title{font-size:clamp(48px,15vw,68px)}
-  .about-copy>p:not(.eyebrow):not(.lead){font-size:12px}
-  .project-viewport{padding:0 18px;overflow-x:auto}
-  .project-card{width:82vw!important;flex-basis:82vw!important}
-  .project-card>button{height:520px!important}
-  .project-arrows-overlay{display:none!important}
-  .project-card img,.project-card button:hover img{transform:scale(1.095)!important}
-  .faq-contact-card{padding:24px}
-  .faq-list summary{font-size:22px!important}
-  .project-modal-v36{padding:12px}
-  .project-modal-v36 .modal-inner{width:100%;max-height:calc(100svh - 24px);border-radius:18px}
-  .project-modal-v36 .modal-gallery{padding:10px;grid-template-rows:46svh 78px}
-  .project-modal-v36 .modal-main-image{height:46svh;min-height:300px}
-  .project-modal-v36 .modal-story{padding:26px}
-  .project-modal-v36 .modal-story h2{font-size:40px}
-  .footer-bottom{grid-template-columns:1fr;gap:10px}
-  .footer-bottom span:nth-child(2),.footer-bottom a{text-align:left}
-  .footer-top-link{justify-content:flex-start}
-}
-
-@media(prefers-reduced-motion:reduce){
-  .interlude-v30--bottom .interlude-v30__marquee>div{animation:none!important}
-}
-
-/* V36 detail: zachowujemy prostą orientację ikon wewnątrz łezki. */
-.process-item>button>span,
-.faq-list summary>span{transform:none!important}
-.process-item:hover>button>span,.process-item.is-open>button>span{transform:translate(2px,-2px) rotate(7deg)!important}
-.faq-list details[open] summary>span{transform:rotate(45deg)!important}
-
-
-
-/* =========================================================
-   V39 — CLEAN NATURAL FLOW
-   Jedna warstwa końcowa: brak fixed-height sekcji, brak clippingu.
-   ========================================================= */
-
-:root{
-  --top-blue:#345798;
-  --top-gold:#c38b09;
-  --section-space-v39:clamp(104px,9vw,154px);
-  --section-gap-v39:clamp(54px,5vw,84px);
-}
-
-/* Każda sekcja rośnie do własnej treści. To usuwa przycinanie. */
-main>section:not(.hero){
-  height:auto!important;
-  min-height:0!important;
-  max-height:none!important;
-  margin-top:0!important;
-}
-.projects,.packages,.process,.faq,.location-v28,.social-draft{
-  overflow:visible!important;
-}
-.section-space{
-  padding-top:var(--section-space-v39)!important;
-  padding-bottom:var(--section-space-v39)!important;
-}
-
-/* O nas — naturalna wysokość i wyraźny oddech od hero / projektów. */
-.about{
-  height:auto!important;
-  min-height:760px!important;
-  margin-top:clamp(42px,4vw,64px)!important;
-  margin-bottom:var(--section-gap-v39)!important;
-  overflow:visible!important;
-}
-.about-image{min-height:760px!important;height:auto!important}
-.about-copy{padding-block:clamp(58px,5vw,84px)!important}
-.about-copy .about-brand-title{font-size:clamp(54px,5.8vw,94px)}
-.about-copy>p:not(.eyebrow):not(.lead)+p{margin-top:15px}
-.about-copy .lead{margin-top:10px!important;margin-bottom:26px!important}
-
-/* Projekty — 3 duże kadry, ale sekcja ma pełną wysokość kart + podpisów. */
-.projects{position:relative;padding-top:var(--section-space-v39)!important;padding-bottom:clamp(118px,10vw,170px)!important}
-.project-heading{margin-bottom:clamp(58px,5vw,82px)!important}
-.project-viewport{position:relative;overflow:hidden!important;padding:0 34px 34px!important}
-.project-track{height:auto!important;align-items:flex-start!important}
-.project-card{height:auto!important;max-height:none!important;width:min(31.2vw,560px)!important;flex:0 0 min(31.2vw,560px)!important}
-.project-card>button{height:clamp(560px,38vw,690px)!important;min-height:0!important}
-.project-card>small{margin-top:20px}
-.project-card h3{margin-bottom:8px}
-
-/* Pakiety — żadnego uciskania treści w wysokość ekranu. */
-.packages{padding-top:var(--section-space-v39)!important;padding-bottom:var(--section-space-v39)!important;overflow:visible!important}
-.packages-v26{height:auto!important;min-height:0!important;max-height:none!important}
-.packages-v26__header{margin-bottom:clamp(54px,5vw,80px)!important}
-.packages-v26__grid{height:auto!important;min-height:0!important;align-items:stretch}
-.package-v26{height:auto!important;min-height:720px!important;padding-bottom:48px!important}
-.package-v26__content>p{min-height:0!important}
-
-/* Proces — pełna treść może się rozwijać bez ucinania. */
-.process{height:auto!important;min-height:0!important;padding:var(--section-space-v39) 0!important;overflow:visible!important}
-.process .process-grid{height:auto!important;max-height:none!important;align-items:start!important}
-.process-intro{position:sticky!important;top:118px!important}
-.process-item{overflow:visible!important}
-.process-answer>div{overflow:hidden}
-
-/* FAQ — lewa karta rozciąga się do całej listy. */
-.faq{height:auto!important;min-height:0!important;padding:var(--section-space-v39) 0!important;overflow:visible!important}
-.faq-grid--contact{grid-template-columns:minmax(320px,.72fr) minmax(0,1.28fr)!important;gap:clamp(64px,7vw,116px)!important;align-items:stretch!important}
-.faq-contact-card{position:relative!important;top:auto!important;align-self:stretch!important;min-height:100%!important;display:flex!important;flex-direction:column;padding:clamp(38px,3.4vw,56px)!important;border-radius:28px!important}
-.faq-contact-card h2{font-size:clamp(58px,5.1vw,82px)!important;line-height:.92!important}
-.faq-contact-card>p:not(.eyebrow){max-width:390px}
-.faq-contact-links{margin-top:clamp(34px,3vw,52px)!important}
-.faq-socials{margin-top:auto!important;padding-top:38px}
-.faq-list summary{padding-block:clamp(28px,2.2vw,36px)!important}
-.faq-list details p{padding-bottom:32px!important}
-
-/* Kontakt i mapa — pozwalamy sekcji rosnąć naturalnie. */
-.contact{height:auto!important;min-height:0!important;max-height:none!important;padding:var(--section-space-v39) 0 0!important;overflow:visible!important}
-.contact-grid{gap:clamp(64px,7.5vw,112px)!important}
-.location-v28{position:relative;height:auto!important;min-height:0!important;padding:clamp(76px,7vw,112px) 0!important;overflow:visible!important;background:var(--paper-2)}
-.location-v28 .map{height:clamp(480px,42vw,690px)!important;margin-top:0!important}
-
-/* Jedna orientacja „łezki” — zgodna z prawym-dolnym ostrzem sygnetu. */
-.social,.project-arrows-overlay button,.project-card>button>span,.process-item>button>span,.faq-list summary>span,.hero-action>span,.contact-form .button>span,.faq-contact-button>span,.footer-top-link>span,.social-draft-label i{
-  border-radius:50% 50% 0 50%!important;
-  transform:none!important;
-}
-.social svg{transform:none!important;transition:transform .28s ease}
-.social:hover{transform:translateY(-2px) scale(1.04)!important}
-.social:hover svg{transform:scale(1.08)!important}
-.project-arrows-overlay button:hover{transform:translateY(-2px) scale(1.06)!important}
-.project-card>button:hover>span,.process-item:hover>button>span,.process-item.is-open>button>span,.hero-action:hover>span,.contact-form .button:hover>span,.faq-contact-button:hover>span,.footer-top-link:hover>span{transform:translate(2px,-2px) scale(1.04)!important}
-.faq-list summary>span{font-size:0!important}
-.faq-list summary>span::before{content:"+";font:500 20px/1 var(--sans)}
-.faq-list details[open] summary>span{transform:none!important;background:var(--blue);color:#fff;border-color:var(--blue)}
-.faq-list details[open] summary>span::before{content:"×"}
-
-/* Glow lokalny — informacyjne karty, nie realizacje. */
-.info-glow-card:not(.package-v26){--hover-x:50%;--hover-y:50%;position:relative;isolation:isolate}
-.info-glow-card:not(.package-v26)::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;border-radius:inherit;background:radial-gradient(circle 245px at var(--hover-x) var(--hover-y),rgba(195,139,9,.18),rgba(52,87,152,.055) 42%,transparent 74%);opacity:0;transition:opacity .25s ease}
-.info-glow-card:not(.package-v26):hover::after,.info-glow-card:not(.package-v26):focus-within::after{opacity:1}
-.info-glow-card:not(.package-v26)>*{position:relative;z-index:1}
-.about-copy.info-glow-card,.contact-copy.info-glow-card,.contact-form-wrap.info-glow-card{border-radius:28px}
+/* ---------- map ---------- */
+.location-v28{position:relative;background:var(--paper-2)!important;overflow:hidden!important}
+.location-v28::before{content:"TO ONI";position:absolute;right:-.02em;top:.03em;color:rgba(52,87,152,.035);font-family:var(--serif);font-size:clamp(160px,23vw,380px);line-height:.75;letter-spacing:-.08em;pointer-events:none}
+.location-v28 .map{height:clamp(480px,42vw,680px)!important;margin-top:0!important;overflow:hidden!important;border-radius:32px!important;box-shadow:0 26px 70px rgba(23,28,36,.08)}
+.location-v28 .map iframe{width:100%;height:100%;border:0;border-radius:inherit!important}
 .map-info-card.info-glow-card{border-radius:18px}
 
-/* Social media — stabilny grid bez absolutnego nachodzenia i bez ucinania. */
-.social-draft{position:relative;height:auto!important;min-height:0!important;padding:var(--section-space-v39) 0 clamp(120px,10vw,170px)!important;overflow:hidden!important;background:#f5f2ec;border-top:1px solid var(--line)}
+/* ---------- socials: lossless screenshots, laptop + phone ---------- */
+.social-draft{position:relative;overflow:hidden!important;background:#f5f2ec!important;border-top:1px solid var(--line)}
 .social-draft::before{content:"TO ONI";position:absolute;right:-.03em;top:.08em;color:rgba(52,87,152,.035);font-family:var(--serif);font-size:clamp(150px,22vw,350px);line-height:.72;letter-spacing:-.08em;pointer-events:none}
-.social-draft-head{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(42px,6vw,90px);align-items:end;margin-bottom:clamp(58px,6vw,92px)}
-.social-draft-head h2{font-size:clamp(68px,7vw,108px)}
-.social-draft-head>p{max-width:520px;font-size:14px}
-.social-draft-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(320px,.62fr);gap:clamp(30px,3vw,50px);align-items:stretch}
-.social-draft-card{position:relative;display:flex;flex-direction:column;min-width:0;height:auto!important;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:0 24px 60px rgba(23,28,36,.09);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
-.social-draft-card:hover{transform:translateY(-5px);box-shadow:0 34px 78px rgba(23,28,36,.14)}
-.social-draft-card--instagram{min-height:610px;padding:16px 16px 92px;border:9px solid #171c24;border-bottom-width:16px;border-radius:24px 24px 14px 14px}
-.social-draft-browser{height:30px;flex:0 0 30px;display:flex;align-items:center;gap:7px;padding:0 8px;border-bottom:1px solid #ece8e1;color:#8b8f95;font-size:9px}
-.social-draft-browser>span{width:7px;height:7px;border-radius:50%;background:#d7d3cd}
-.social-draft-browser b{margin-left:8px;font-weight:500}
-.social-draft-profile{display:grid;grid-template-columns:58px 1fr auto;gap:15px;align-items:center;padding:19px 18px}
-.social-draft-profile>img{width:58px;height:58px;object-fit:contain;padding:6px;border:1px solid #e1ddd6;border-radius:50%;background:#f7f4ee}
-.social-draft-profile div{display:grid;gap:3px}.social-draft-profile strong{font-size:14px}.social-draft-profile small{color:var(--muted);font-size:10px}
-.social-draft-follow{padding:9px 16px;border-radius:9px;color:#fff;background:var(--blue);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.social-draft-images{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;min-height:330px;flex:1;overflow:hidden;background:#eee}
-.social-draft-images img{width:100%;height:100%;min-width:0;min-height:0;object-fit:cover}
-.social-draft-card--facebook{min-height:610px;padding:14px 14px 92px;border:8px solid #171c24;border-radius:38px;align-self:stretch}
-.social-draft-facebook-cover{height:220px;flex:0 0 220px;overflow:hidden;border-radius:24px 24px 8px 8px}
-.social-draft-facebook-profile{display:grid;grid-template-columns:62px 1fr;gap:13px;align-items:center;padding:20px 10px 16px}
-.social-draft-facebook-profile>img{width:62px;height:62px;object-fit:contain;padding:6px;border-radius:50%;background:#f2eee7}
-.social-draft-facebook-profile div{display:grid;gap:4px}.social-draft-facebook-profile strong{font-family:var(--serif);font-size:24px;line-height:1}.social-draft-facebook-profile small{color:var(--muted);font-size:9px}
-.social-draft-card--facebook>p{margin:12px 10px 0;padding-top:18px;border-top:1px solid var(--line);font-size:12px}
-.social-draft-label{position:absolute;left:14px;right:14px;bottom:14px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;padding:12px 14px;border-radius:12px;color:#fff;background:#171c24}
-.social-draft-label>div{display:grid;gap:2px}.social-draft-label strong{font-size:10px;text-transform:uppercase;letter-spacing:.12em}.social-draft-label small{color:rgba(255,255,255,.62);font-size:9px}.social-draft-label i{width:32px;height:32px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.45);font-style:normal}
+.social-draft-head{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(42px,6vw,90px);align-items:end;margin-bottom:clamp(34px,4vw,56px)}
+.social-draft-head h2{font-size:clamp(62px,6.5vw,96px)}.social-draft-head>p{max-width:520px;font-size:13px}
+.social-draft-grid--devices{position:relative!important;z-index:1;display:grid!important;grid-template-columns:1fr!important;grid-template-rows:1fr!important;place-items:center!important;width:min(1020px,calc(100vw - 64px))!important;min-height:500px!important;margin-inline:auto!important;overflow:visible!important}
+.social-device{position:relative;color:var(--ink);text-decoration:none;transition:filter .22s ease!important}.social-device:hover{filter:brightness(.995)}
+.social-device--laptop{grid-area:1/1;z-index:1;width:min(790px,72vw)!important;justify-self:center;align-self:center}
+.social-device-laptop-screen{position:relative;overflow:hidden;aspect-ratio:16/9!important;padding:8px!important;border:8px solid #171c24!important;border-bottom-width:14px!important;border-radius:21px 21px 10px 10px!important;background:#fff;box-shadow:0 28px 65px rgba(23,28,36,.12)}
+.social-device-laptop-screen img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center top!important;transform:none!important;filter:none!important;image-rendering:auto!important;border-radius:7px}
+.social-device-laptop-base{width:108%;height:17px;margin:-4px -4% 0;border-radius:0 0 55% 55% / 0 0 100% 100%;background:#171c24;box-shadow:0 14px 26px rgba(23,28,36,.16)}
+.social-device--phone{grid-area:1/1;z-index:2;width:216px!important;height:468px!important;justify-self:end;align-self:center;margin-right:18px!important;padding:8px 8px 56px!important;overflow:hidden;border:6px solid #171c24!important;border-radius:33px!important;background:#fff;box-shadow:0 32px 72px rgba(23,28,36,.18)}
+.social-device-phone-notch{position:absolute;top:4px;left:50%;z-index:3;width:64px;height:14px;transform:translateX(-50%);border-radius:0 0 11px 11px;background:#171c24}
+.social-device-phone-screen{height:100%;overflow:hidden;border-radius:24px;background:#fff}.social-device-phone-screen img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center top!important;transform:none!important;filter:none!important;image-rendering:auto!important}
+.social-device-caption{position:absolute;left:12px;right:12px;bottom:12px;z-index:5;display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;padding:10px 12px;border-radius:14px;color:#fff;background:#171c24}
+.social-device--laptop .social-device-caption{left:18px;right:18px;bottom:20px}.social-device-caption>div{display:grid;gap:2px}.social-device-caption strong{font-size:10px;letter-spacing:.11em;text-transform:uppercase}.social-device-caption small{color:rgba(255,255,255,.66);font-size:9px}.social-device-caption i{color:#fff!important;font-style:normal}
 
-/* Dolny ticker wyłączony, stopka w firmowym niebieskim. */
-.interlude-v30--bottom{display:none!important}
-.footer{background:var(--top-blue)!important;color:#fff!important;border-top:0!important}
-.footer-main span{color:#ecd080!important}.footer-main a,.footer-main p,.footer-bottom{color:rgba(255,255,255,.78)!important}.footer-main>div:first-child img{filter:brightness(0) invert(1)}.footer .social{color:#fff!important;border-color:rgba(255,255,255,.45)!important}.footer-bottom{border-top-color:rgba(255,255,255,.2)!important}.footer nav a:hover,.footer-main>div a:not(.social):hover{color:#ecd080!important}
+/* ---------- project modal ---------- */
+.project-modal-v36 .modal-inner{width:min(1420px,calc(100vw - 60px));max-height:calc(100svh - 54px);grid-template-columns:minmax(0,1.35fr) minmax(360px,.65fr);align-items:stretch;border-radius:26px;background:#f7f4ee}
+.project-modal-v36 .modal-gallery{min-width:0;padding:18px;display:grid;grid-template-rows:minmax(0,1fr) 112px;gap:14px;background:#171c24}.project-modal-v36 .modal-main-image{width:100%;height:min(68svh,760px);min-height:430px;object-fit:cover;object-position:center;border-radius:16px;transform:scale(1.025)}
+.modal-thumbnails{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:0}.modal-thumb{position:relative;overflow:hidden;min-width:0;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:#222a35;cursor:pointer;opacity:.7;transition:opacity .25s,transform .25s,border-color .25s}.modal-thumb:hover,.modal-thumb.is-active{opacity:1;transform:translateY(-2px);border-color:#e5ba53}.modal-thumb img{width:100%;height:100%;object-fit:cover;transform:scale(1.08)}.modal-thumb:nth-child(1) img{object-position:center 22%}.modal-thumb:nth-child(2) img{object-position:center 50%}.modal-thumb:nth-child(3) img{object-position:center 78%}
+.project-modal-v36 .modal-story{align-self:stretch;display:flex;flex-direction:column;justify-content:center;padding:clamp(34px,4vw,66px);overflow:auto}.project-modal-v36 .modal-story>span{color:var(--blue);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}.project-modal-v36 .modal-story h2{margin:14px 0 26px;font-size:clamp(42px,4vw,68px);line-height:.92}.modal-story-copy{display:grid;gap:18px;color:var(--muted);font-size:13px;line-height:1.78}.project-modal-v36 .modal-story .line-link{margin-top:34px;align-self:flex-start}
+
+/* ---------- footer ---------- */
+.footer{color:#fff!important;background:var(--blue)!important;border-top:0!important}.footer-main span{color:#ecd080!important}.footer-main a,.footer-main p,.footer-bottom{color:rgba(255,255,255,.76)!important}.footer-main>div:first-child img{filter:brightness(0) invert(1)}.footer .social{color:#fff!important;border-color:rgba(255,255,255,.45)!important}.footer-bottom{border-top-color:rgba(255,255,255,.2)!important}.footer nav a:hover,.footer-main>div a:not(.social):hover{color:#ecd080!important}.footer-top-link{display:flex;justify-content:flex-end;align-items:center;gap:10px}
 
 @media(max-width:1100px){
-  .section-space{padding-top:92px!important;padding-bottom:92px!important}
-  .about,.about-image{min-height:auto!important}
-  .project-card{width:44vw!important;flex-basis:44vw!important}
-  .project-card>button{height:590px!important}
-  .process-intro{position:relative!important;top:auto!important}
-  .faq-grid--contact{grid-template-columns:1fr!important}
-  .faq-contact-card{min-height:0!important}
-  .faq-socials{margin-top:34px!important;padding-top:0}
-  .social-draft-head{grid-template-columns:1fr;gap:24px}
-  .social-draft-grid{grid-template-columns:1fr .58fr}
-  .social-draft-card--instagram,.social-draft-card--facebook{min-height:560px}
-}
-
-@media(max-width:780px){
-  .section-space{padding-top:76px!important;padding-bottom:76px!important}
-  .about{margin-top:20px!important;margin-bottom:30px!important}
-  .about-copy{padding-block:46px!important}
-  .project-viewport{padding:0 18px 26px!important;overflow-x:auto!important;overflow-y:hidden!important}
-  .project-card{width:82vw!important;flex-basis:82vw!important}
-  .project-card>button{height:520px!important}
-  .project-arrows-overlay{display:none!important}
-  .packages-v26__grid{grid-template-columns:1fr!important}
-  .package-v26{min-height:0!important;border-right:0;border-bottom:1px solid var(--line)}
-  .faq-contact-card{padding:28px!important}.faq-contact-card h2{font-size:clamp(54px,16vw,74px)!important}.faq-list summary{padding-block:25px!important}
-  .location-v28{padding:70px 0!important}.location-v28 .map{height:520px!important}
-  .social-draft{padding:82px 0 92px!important}.social-draft-head h2{font-size:clamp(56px,17vw,82px)}.social-draft-grid{grid-template-columns:1fr;gap:34px}
-  .social-draft-card--instagram{min-height:0;padding-bottom:82px;border-width:7px;border-bottom-width:13px;border-radius:18px}.social-draft-profile{grid-template-columns:50px 1fr;padding:15px 10px}.social-draft-profile>img{width:50px;height:50px}.social-draft-follow{display:none}.social-draft-images{min-height:0;aspect-ratio:1.35/1}.social-draft-card--facebook{width:min(100%,420px);justify-self:center;min-height:500px;border-width:7px}
-}
-
-/* ================================================================
-   V40 — FINAL DETAIL POLISH
-   Jedna łezka / O nas / FAQ / social overlap
-   ================================================================ */
-
-/* O nas — więcej oddechu od hero i faktycznie zaokrąglone narożniki. */
-.about{
-  margin-top:clamp(72px,6vw,102px)!important;
-  margin-bottom:clamp(68px,5vw,92px)!important;
-  border-radius:32px!important;
-  overflow:hidden!important;
-}
-.about-image,
-.about-copy{min-width:0}
-
-/* FAQ — szerzej, prawie od krawędzi viewportu, ale z lekką przerwą. */
-.faq-grid--contact{
-  width:min(1700px,calc(100vw - 28px))!important;
-  max-width:none!important;
-  margin-inline:auto!important;
-  grid-template-columns:minmax(340px,.66fr) minmax(0,1.34fr)!important;
-  gap:clamp(46px,5vw,82px)!important;
-}
-.faq-grid--contact>*{min-width:0}
-.faq-contact-card{
-  border-radius:30px!important;
-  overflow:hidden!important;
-}
-.faq-contact-card h2{
-  font-size:clamp(54px,4.6vw,78px)!important;
-  overflow-wrap:normal;
-}
-.faq-list{min-width:0}
-.faq-list summary{
-  grid-template-columns:minmax(0,1fr) auto!important;
-  gap:24px!important;
-}
-.faq-list summary:first-child{min-width:0}
-
-/* Jedna, identyczna łezka na całej stronie.
-   Spoczynek: transparentna. Hover/focus: tylko wypełnienie — bez obrotu,
-   zmiany kierunku dziubka ani przesuwania kształtu. */
-.social,
-.project-arrows-overlay button,
-.project-card>button>span,
-.process-item>button>span,
-.faq-list summary>span,
-.hero-action>span,
-.contact-form .button>span,
-.faq-contact-button>span,
-.footer-top-link>span,
-.social-draft-label i{
-  border-radius:50% 50% 0 50%!important;
-  background:transparent!important;
-  border:1px solid currentColor!important;
-  color:inherit;
-  transform:none!important;
-  rotate:none!important;
-  scale:1!important;
-  transition:background-color .22s ease,color .22s ease,border-color .22s ease,box-shadow .22s ease!important;
-}
-.social svg,
-.project-arrows-overlay button span,
-.project-card>button>span,
-.process-item>button>span,
-.hero-action>span,
-.contact-form .button>span,
-.faq-contact-button>span,
-.footer-top-link>span,
-.social-draft-label i{
-  transform:none!important;
-  rotate:none!important;
-  transition:none!important;
-}
-.social:hover,
-.social:focus-visible,
-.project-arrows-overlay button:hover,
-.project-arrows-overlay button:focus-visible,
-.project-card>button:hover>span,
-.project-card>button:focus-visible>span,
-.process-item>button:hover>span,
-.process-item>button:focus-visible>span,
-.faq-list summary:hover>span,
-.faq-list summary:focus-visible>span,
-.hero-action:hover>span,
-.hero-action:focus-visible>span,
-.contact-form .button:hover>span,
-.contact-form .button:focus-visible>span,
-.faq-contact-button:hover>span,
-.faq-contact-button:focus-visible>span,
-.footer-top-link:hover>span,
-.footer-top-link:focus-visible>span,
-.social-draft-card:hover .social-draft-label i,
-.social-draft-card:focus-visible .social-draft-label i{
-  background:var(--blue)!important;
-  border-color:var(--blue)!important;
-  color:#fff!important;
-  transform:none!important;
-  rotate:none!important;
-  scale:1!important;
-  box-shadow:0 8px 22px rgba(52,87,152,.18)!important;
-}
-/* Stan otwartego FAQ nadal zachowuje transparentną łezkę; zmienia się tylko znak. */
-.faq-list details[open] summary>span{
-  background:transparent!important;
-  border-color:currentColor!important;
-  color:inherit!important;
-  transform:none!important;
-}
-.faq-list details[open] summary:hover>span,
-.faq-list details[open] summary:focus-visible>span{
-  background:var(--blue)!important;
-  border-color:var(--blue)!important;
-  color:#fff!important;
-}
-/* Na niebieskiej stopce hover wypełnia łezkę bielą, zachowując ten sam ruch. */
-.footer .social:hover,
-.footer .social:focus-visible,
-.footer .footer-top-link:hover>span,
-.footer .footer-top-link:focus-visible>span{
-  background:#fff!important;
-  border-color:#fff!important;
-  color:var(--blue)!important;
-}
-
-/* Social media — mniejsza, wycentrowana kompozycja z telefonem nałożonym na laptop. */
-.social-draft{
-  padding-top:clamp(96px,8vw,132px)!important;
-  padding-bottom:clamp(118px,10vw,166px)!important;
-}
-.social-draft-head{
-  margin-bottom:clamp(48px,4.5vw,70px)!important;
-}
-.social-draft-grid{
-  display:grid!important;
-  grid-template-columns:1fr!important;
-  grid-template-rows:1fr!important;
-  place-items:center!important;
-  width:min(960px,calc(100vw - 80px))!important;
-  min-height:540px!important;
-  margin-inline:auto!important;
-  gap:0!important;
-  overflow:visible!important;
-}
-.social-draft-card--instagram{
-  grid-area:1/1!important;
-  z-index:1;
-  width:min(760px,78vw)!important;
-  min-height:490px!important;
-  max-height:560px;
-  padding:12px 12px 78px!important;
-  border-width:7px!important;
-  border-bottom-width:12px!important;
-  border-radius:22px 22px 14px 14px!important;
-  justify-self:center!important;
-  align-self:center!important;
-}
-.social-draft-card--instagram .social-draft-images{min-height:270px!important}
-.social-draft-card--facebook{
-  grid-area:1/1!important;
-  z-index:2;
-  width:300px!important;
-  min-height:430px!important;
-  max-height:470px;
-  padding:11px 11px 72px!important;
-  border-width:7px!important;
-  border-radius:34px!important;
-  justify-self:end!important;
-  align-self:center!important;
-  translate:clamp(16px,4vw,58px) 30px;
-}
-.social-draft-facebook-cover{height:160px!important;flex-basis:160px!important}
-.social-draft-facebook-profile{grid-template-columns:50px 1fr!important;padding:15px 8px 12px!important}
-.social-draft-facebook-profile>img{width:50px!important;height:50px!important}
-.social-draft-facebook-profile strong{font-size:20px!important}
-.social-draft-card--facebook>p{font-size:10.5px!important;margin-top:6px!important;padding-top:12px!important}
-.social-draft-label{left:11px!important;right:11px!important;bottom:11px!important;padding:10px 12px!important}
-.social-draft-card:hover{box-shadow:0 30px 70px rgba(23,28,36,.13)}
-.social-draft-card--instagram:hover{transform:translateY(-4px)!important}
-.social-draft-card--facebook:hover{transform:translateY(-4px)!important}
-
-@media(max-width:1100px){
-  .about{margin-top:64px!important;border-radius:28px!important}
-  .faq-grid--contact{
-    width:calc(100vw - 28px)!important;
-    grid-template-columns:1fr!important;
-    gap:42px!important;
-  }
-  .faq-contact-card{min-height:0!important}
-  .social-draft-grid{width:min(860px,calc(100vw - 54px))!important;min-height:500px!important}
-  .social-draft-card--instagram{width:min(700px,78vw)!important;min-height:455px!important}
-  .social-draft-card--facebook{width:280px!important;min-height:405px!important;translate:26px 24px}
-}
-
-@media(max-width:780px){
-  .about{margin-top:42px!important;margin-bottom:42px!important;border-radius:22px!important}
-  .faq-grid--contact{width:calc(100vw - 20px)!important;gap:30px!important}
-  .faq-contact-card{padding:30px!important;border-radius:24px!important}
-  .faq-contact-card h2{font-size:clamp(52px,15vw,72px)!important}
-  .social-draft-grid{
-    width:calc(100vw - 28px)!important;
-    min-height:440px!important;
-    padding-bottom:30px;
-  }
-  .social-draft-card--instagram{width:100%!important;min-height:380px!important;max-height:none!important}
-  .social-draft-card--instagram .social-draft-images{min-height:220px!important}
-  .social-draft-card--facebook{
-    width:min(56vw,250px)!important;
-    min-height:350px!important;
-    max-height:390px;
-    justify-self:end!important;
-    translate:-8px 34px;
-  }
-  .social-draft-facebook-cover{height:128px!important;flex-basis:128px!important}
-}
-
-
-/* V40.1 — łezka ma wykonywać wyłącznie zmianę wypełnienia. */
-.process-item>button>span::after{display:none!important}
-.social:hover,.social:focus-visible,
-.project-arrows-overlay button:hover,.project-arrows-overlay button:focus-visible,
-.project-card>button:hover>span,.project-card>button:focus-visible>span,
-.process-item>button:hover>span,.process-item>button:focus-visible>span,
-.faq-list summary:hover>span,.faq-list summary:focus-visible>span,
-.hero-action:hover>span,.hero-action:focus-visible>span,
-.contact-form .button:hover>span,.contact-form .button:focus-visible>span,
-.faq-contact-button:hover>span,.faq-contact-button:focus-visible>span,
-.footer-top-link:hover>span,.footer-top-link:focus-visible>span,
-.social-draft-card:hover .social-draft-label i,.social-draft-card:focus-visible .social-draft-label i{
-  box-shadow:none!important;
-}
-
-
-/* V41 — finalne detale: jeden dymek, odstęp po hero, mapa TOP, laptop + telefon */
-:root{--ui-drop-size:30px}
-
-/* Jedna animacja łezki: kształt i kierunek są stałe, zmienia się wyłącznie wypełnienie. */
-.social,
-.project-arrows-overlay button,
-.project-card>button>span,
-.process-item>button>span,
-.faq-list summary>span,
-.hero-action>span,
-.contact-form .button>span,
-.faq-contact-button>span,
-.footer-top-link>span,
-.social-device-caption i{
-  border-radius:50% 50% 0 50%!important;
-  background:transparent!important;
-  border:1px solid currentColor!important;
-  transform:none!important;
-  translate:none!important;
-  rotate:none!important;
-  scale:1!important;
-  box-shadow:none!important;
-  transition:background-color .2s ease,color .2s ease,border-color .2s ease!important;
-}
-.social svg,
-.project-arrows-overlay button span,
-.project-card>button>span,
-.process-item>button>span,
-.hero-action>span,
-.contact-form .button>span,
-.faq-contact-button>span,
-.footer-top-link>span,
-.social-device-caption i{
-  transform:none!important;
-  translate:none!important;
-  rotate:none!important;
-  transition:none!important;
-}
-.social:hover,.social:focus-visible,
-.project-arrows-overlay button:hover,.project-arrows-overlay button:focus-visible,
-.project-card>button:hover>span,.project-card>button:focus-visible>span,
-.process-item>button:hover>span,.process-item>button:focus-visible>span,
-.faq-list summary:hover>span,.faq-list summary:focus-visible>span,
-.hero-action:hover>span,.hero-action:focus-visible>span,
-.contact-form .button:hover>span,.contact-form .button:focus-visible>span,
-.faq-contact-button:hover>span,.faq-contact-button:focus-visible>span,
-.footer-top-link:hover>span,.footer-top-link:focus-visible>span,
-.social-device:hover .social-device-caption i,.social-device:focus-visible .social-device-caption i{
-  background:var(--blue)!important;
-  border-color:var(--blue)!important;
-  color:#fff!important;
-  transform:none!important;
-  translate:none!important;
-  rotate:none!important;
-  scale:1!important;
-  box-shadow:none!important;
-}
-.footer .social:hover,.footer .social:focus-visible,
-.footer .footer-top-link:hover>span,.footer .footer-top-link:focus-visible>span{
-  background:#fff!important;border-color:#fff!important;color:var(--blue)!important;
-}
-
-/* Hero: tekst/przycisk nie skacze. Jedynym ruchem jest wypełnienie łezki. */
-.hero-action,.hero-action:hover,.hero-action:focus-visible{
-  gap:10px!important;
-  opacity:1!important;
-  transform:none!important;
-  translate:none!important;
-}
-.hero-action:hover,.hero-action:focus-visible{border-color:rgba(255,255,255,.72)!important}
-
-/* Wyraźna, ale elegancka przerwa pomiędzy hero i O nas. */
-.about{
-  margin-top:clamp(74px,6vw,112px)!important;
-  border-radius:30px!important;
-  overflow:hidden!important;
-}
-
-/* Sterowanie karuzelą: lewa = -5%, prawa = +5%. Dymki nie skaczą. */
-.project-arrows-overlay button,.project-arrows-overlay button:hover,.project-arrows-overlay button:focus-visible{
-  transform:none!important;
-  translate:none!important;
-}
-
-/* Mapa: pełne zaokrąglenie i subtelny podpis TOP w tle sekcji. */
-.location-v28{
-  isolation:isolate;
-  overflow:hidden!important;
-}
-.location-v28::before{
-  content:"TO ONI";
-  position:absolute;
-  right:-.04em;
-  top:50%;
-  z-index:0;
-  transform:translateY(-50%);
-  color:rgba(52,87,152,.045);
-  font-family:var(--serif);
-  font-size:clamp(160px,24vw,390px);
-  line-height:.72;
-  letter-spacing:-.08em;
-  pointer-events:none;
-  white-space:nowrap;
-}
-.location-v28 .map{
-  position:relative;
-  z-index:1;
-  border-radius:32px!important;
-  overflow:hidden!important;
-  box-shadow:0 26px 70px rgba(23,28,36,.08);
-}
-.location-v28 .map iframe{border-radius:inherit!important}
-
-/* Social media — realistyczny laptop z Instagramem + telefon z Facebookiem. */
-.social-draft{overflow:hidden!important}
-.social-draft-grid--devices{
-  position:relative!important;
-  display:grid!important;
-  grid-template-columns:1fr!important;
-  grid-template-rows:1fr!important;
-  place-items:center!important;
-  width:min(1050px,calc(100vw - 64px))!important;
-  min-height:590px!important;
-  margin-inline:auto!important;
-  overflow:visible!important;
-}
-.social-device{
-  position:relative;
-  color:var(--ink);
-  text-decoration:none;
-  transition:filter .25s ease!important;
-}
-.social-device:hover{filter:brightness(.99)}
-.social-device--laptop{
-  grid-area:1/1;
-  z-index:1;
-  width:min(820px,76vw);
-  justify-self:center;
-  align-self:center;
-}
-.social-device-laptop-screen{
-  position:relative;
-  overflow:hidden;
-  aspect-ratio:16/9;
-  padding:10px;
-  border:9px solid #171c24;
-  border-bottom-width:15px;
-  border-radius:22px 22px 10px 10px;
-  background:#fff;
-  box-shadow:0 28px 65px rgba(23,28,36,.12);
-}
-.social-device-laptop-screen img{width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:7px}
-.social-device-laptop-base{
-  width:108%;
-  height:17px;
-  margin:-4px -4% 0;
-  border-radius:0 0 55% 55% / 0 0 100% 100%;
-  background:#171c24;
-  box-shadow:0 14px 26px rgba(23,28,36,.16);
-}
-.social-device--phone{
-  grid-area:1/1;
-  z-index:2;
-  width:280px;
-  height:535px;
-  justify-self:end;
-  align-self:center;
-  margin-right:4px;
-  padding:11px 11px 68px;
-  overflow:hidden;
-  border:8px solid #171c24;
-  border-radius:38px;
-  background:#fff;
-  box-shadow:0 32px 72px rgba(23,28,36,.18);
-}
-.social-device-phone-notch{
-  position:absolute;
-  top:6px;left:50%;z-index:3;
-  width:78px;height:18px;
-  transform:translateX(-50%);
-  border-radius:0 0 12px 12px;
-  background:#171c24;
-}
-.social-device-phone-screen{height:100%;overflow:hidden;border-radius:24px;background:#fff}
-.social-device-phone-screen img{width:100%;height:100%;object-fit:cover;object-position:center top}
-.social-device-caption{
-  position:absolute;
-  left:14px;right:14px;bottom:14px;
-  z-index:5;
-  display:grid;
-  grid-template-columns:1fr auto;
-  align-items:center;
-  gap:14px;
-  padding:12px 14px;
-  border-radius:13px;
-  color:#fff;
-  background:#171c24;
-}
-.social-device--laptop .social-device-caption{bottom:30px;left:24px;right:24px}
-.social-device-caption>div{display:grid;gap:2px}
-.social-device-caption strong{font-size:10px;letter-spacing:.11em;text-transform:uppercase}
-.social-device-caption small{color:rgba(255,255,255,.66);font-size:9px}
-.social-device-caption i{width:32px;height:32px;display:grid;place-items:center;font-style:normal;color:#fff}
-
-@media(max-width:1050px){
-  .social-draft-grid--devices{width:min(900px,calc(100vw - 42px))!important;min-height:520px!important}
-  .social-device--laptop{width:min(720px,78vw)}
-  .social-device--phone{width:245px;height:470px;margin-right:0}
+  :root{--section-rhythm:92px}
+  .about,.about-image{min-height:auto}.about-copy{padding-block:54px}
+  .project-card{width:44vw!important;flex-basis:44vw!important}.project-card>button{height:590px!important}
+  .faq-grid--contact{grid-template-columns:1fr!important}.faq-contact-card{position:relative;top:auto}
+  .contact-grid{grid-template-columns:1fr!important}.contact-copy,.contact-form-wrap{min-height:0!important}
+  .social-draft-grid--devices{width:min(900px,calc(100vw - 42px))!important;min-height:460px!important}.social-device--laptop{width:min(700px,76vw)!important}.social-device--phone{width:198px!important;height:438px!important;margin-right:8px!important}
+  .project-modal-v36 .modal-inner{grid-template-columns:1fr;overflow:auto}.project-modal-v36 .modal-gallery{grid-template-rows:55svh 96px}.project-modal-v36 .modal-main-image{height:55svh;min-height:360px}
 }
 @media(max-width:780px){
-  .about{margin-top:44px!important;border-radius:22px!important}
-  .location-v28 .map{border-radius:24px!important}
-  .social-draft-grid--devices{width:calc(100vw - 28px)!important;min-height:430px!important}
-  .social-device--laptop{width:100%;align-self:start}
-  .social-device--phone{width:min(48vw,210px);height:390px;align-self:end;justify-self:end;margin-right:8px;padding:8px 8px 58px;border-width:6px;border-radius:30px}
-  .social-device-phone-notch{top:4px;width:60px;height:14px}
-  .social-device-caption{left:9px;right:9px;bottom:9px;padding:9px 10px}
-  .social-device--laptop .social-device-caption{left:16px;right:16px;bottom:24px}
-}
-
-
-/* ================================================================
-   V42 FINAL — layout polish, unified bubbles, viewport-fit sections
-   These rules are intentionally authoritative over legacy revisions.
-   ================================================================ */
-
-/* Real spacing after hero. Use hero margin (not about margin) so the gap
-   cannot collapse or be neutralised by older .about rules. */
-.hero{
-  margin-bottom:clamp(56px,5vw,86px)!important;
-}
-.about{
-  margin-top:0!important;
-  border-radius:30px!important;
-  overflow:hidden!important;
-}
-
-/* One control language everywhere: compact rounded bubble with one soft
-   cut corner. No tails, pseudo-lines, rotation, translation or shape change. */
-.social,
-.project-arrows-overlay button,
-.project-card>button>span,
-.process-item>button>span,
-.faq-list summary>span,
-.hero-action>span,
-.contact-form .button>span,
-.faq-contact-button>span,
-.footer-top-link>span,
-.social-device-caption i{
-  border:1px solid currentColor!important;
-  border-radius:13px 13px 5px 13px!important;
-  background:transparent!important;
-  transform:none!important;
-  translate:none!important;
-  rotate:none!important;
-  scale:1!important;
-  box-shadow:none!important;
-  overflow:hidden!important;
-  transition:background-color .2s ease,color .2s ease,border-color .2s ease,box-shadow .2s ease!important;
-}
-.social::before,.social::after,
-.project-arrows-overlay button::before,.project-arrows-overlay button::after,
-.project-card>button>span::before,.project-card>button>span::after,
-.process-item>button>span::before,.process-item>button>span::after,
-.faq-list summary>span::before,.faq-list summary>span::after,
-.hero-action>span::before,.hero-action>span::after,
-.contact-form .button>span::before,.contact-form .button>span::after,
-.faq-contact-button>span::before,.faq-contact-button>span::after,
-.footer-top-link>span::before,.footer-top-link>span::after,
-.social-device-caption i::before,.social-device-caption i::after{
-  content:none!important;
-  display:none!important;
-}
-.social svg,
-.project-arrows-overlay button span,
-.project-card>button>span,
-.process-item>button>span,
-.faq-list summary>span,
-.hero-action>span,
-.contact-form .button>span,
-.faq-contact-button>span,
-.footer-top-link>span,
-.social-device-caption i{
-  transform:none!important;
-  translate:none!important;
-  rotate:none!important;
-  transition:none!important;
-}
-.social:hover,.social:focus-visible,
-.project-arrows-overlay button:hover,.project-arrows-overlay button:focus-visible,
-.project-card>button:hover>span,.project-card>button:focus-visible>span,
-.process-item>button:hover>span,.process-item>button:focus-visible>span,
-.faq-list summary:hover>span,.faq-list summary:focus-visible>span,
-.hero-action:hover>span,.hero-action:focus-visible>span,
-.contact-form .button:hover>span,.contact-form .button:focus-visible>span,
-.faq-contact-button:hover>span,.faq-contact-button:focus-visible>span,
-.footer-top-link:hover>span,.footer-top-link:focus-visible>span,
-.social-device:hover .social-device-caption i,.social-device:focus-visible .social-device-caption i{
-  background:var(--blue)!important;
-  border-color:var(--blue)!important;
-  color:#fff!important;
-  transform:none!important;
-  translate:none!important;
-  rotate:none!important;
-  scale:1!important;
-  box-shadow:0 7px 20px rgba(52,87,152,.16)!important;
-}
-.footer .social:hover,.footer .social:focus-visible,
-.footer .footer-top-link:hover>span,.footer .footer-top-link:focus-visible>span{
-  background:#fff!important;
-  border-color:#fff!important;
-  color:var(--blue)!important;
-}
-/* Hero controls stay fixed in place — only bubble fill changes. */
-.hero-action,.hero-action:hover,.hero-action:focus-visible{
-  transform:none!important;
-  translate:none!important;
-  opacity:1!important;
-}
-/* FAQ open state does not reshape/rotate the control. */
-.faq-list details[open] summary>span{
-  transform:none!important;
-  rotate:none!important;
-}
-
-/* Desktop: keep FAQ as one coherent viewport-sized composition while closed. */
-@media (min-width:1101px){
-  .faq{
-    padding:clamp(48px,5.2vh,68px) 0 clamp(54px,5.8vh,78px)!important;
-  }
-  .faq-grid--contact{
-    width:min(1500px,calc(100vw - 44px))!important;
-    grid-template-columns:minmax(280px,.68fr) minmax(0,1.32fr)!important;
-    gap:clamp(42px,4vw,70px)!important;
-    align-items:stretch!important;
-  }
-  .faq-contact-card{
-    min-height:0!important;
-    padding:clamp(28px,2.6vw,38px)!important;
-    border-radius:26px!important;
-  }
-  .faq-contact-card h2{
-    font-size:clamp(52px,4.4vw,68px)!important;
-    line-height:.92!important;
-  }
-  .faq-contact-card>p:not(.eyebrow){margin-top:14px!important;font-size:12px!important}
-  .faq-contact-links{margin-top:22px!important}
-  .faq-contact-links a{padding:11px 0!important}
-  .faq-socials{margin:18px 0!important;padding-top:0!important}
-  .faq-contact-button{margin-top:auto!important;min-height:44px!important}
-  .faq-list summary{
-    padding-block:clamp(12px,1.45vh,16px)!important;
-    font-size:clamp(21px,1.65vw,25px)!important;
-    line-height:1.08!important;
-    gap:18px!important;
-  }
-  .faq-list summary>span{width:34px!important;height:34px!important;flex:0 0 34px!important}
-  .faq-list details p{padding:0 46px 16px 0!important;font-size:11.5px!important;line-height:1.55!important}
-
-  /* Contact: text and form finish on the same baseline and fit one screen. */
-  .contact{
-    padding:clamp(62px,6.5vh,82px) 0 clamp(68px,7vh,92px)!important;
-  }
-  .contact-grid{
-    align-items:stretch!important;
-    gap:clamp(58px,6vw,88px)!important;
-  }
-  .contact-copy,.contact-form-wrap{
-    min-height:clamp(570px,66vh,625px)!important;
-    height:clamp(570px,66vh,625px)!important;
-  }
-  .contact-copy{
-    display:flex!important;
-    flex-direction:column!important;
-    justify-content:center!important;
-    padding-block:12px!important;
-  }
-  .contact-copy h2{font-size:clamp(62px,5.7vw,82px)!important;line-height:.9!important}
-  .contact-copy .lead{font-size:clamp(20px,1.75vw,27px)!important}
-  .contact-data{margin-top:28px!important}
-  .contact-data>a,.contact-data>div{padding:12px 0!important}
-  .contact-form-wrap{display:flex!important;flex-direction:column!important}
-  .contact-form-head{padding:20px 26px!important}
-  .contact-form{padding:22px 26px!important;flex:1!important}
-  .contact-form label{margin-bottom:12px!important;gap:6px!important}
-  .contact-form input,.contact-form textarea{padding:10px 12px!important}
-  .contact-form textarea{min-height:96px!important;max-height:120px!important}
-
-  /* Social media: full section comfortably fits into one desktop viewport. */
-  .social-draft{
-    padding:clamp(58px,6vh,74px) 0 clamp(68px,7vh,90px)!important;
-  }
-  .social-draft-head{
-    margin-bottom:clamp(26px,3vh,38px)!important;
-    gap:44px!important;
-  }
-  .social-draft-head h2{font-size:clamp(54px,5vw,76px)!important}
-  .social-draft-head>p{font-size:12.5px!important}
-  .social-draft-grid--devices{
-    width:min(940px,calc(100vw - 70px))!important;
-    min-height:clamp(390px,47vh,445px)!important;
-  }
-  .social-device--laptop{
-    width:min(690px,68vw)!important;
-  }
-  .social-device-laptop-screen{
-    padding:7px!important;
-    border-width:7px!important;
-    border-bottom-width:12px!important;
-    border-radius:18px 18px 9px 9px!important;
-  }
-  .social-device--phone{
-    width:218px!important;
-    height:410px!important;
-    margin-right:28px!important;
-    padding:8px 8px 58px!important;
-    border-width:6px!important;
-    border-radius:31px!important;
-  }
-  .social-device-phone-notch{width:62px!important;height:14px!important;top:4px!important}
-  .social-device-caption{left:10px!important;right:10px!important;bottom:10px!important;padding:9px 11px!important}
-  .social-device--laptop .social-device-caption{left:18px!important;right:18px!important;bottom:22px!important}
-}
-
-/* Keep screenshots crisp: never zoom/crop the profile captures. */
-.social-device-laptop-screen img,
-.social-device-phone-screen img{
-  object-fit:contain!important;
-  object-position:center top!important;
-  transform:none!important;
-  filter:none!important;
-  image-rendering:auto!important;
-  background:#fff!important;
-}
-
-@media(max-width:780px){
-  .hero{margin-bottom:36px!important}
-  .about{margin-top:0!important}
-}
-
-/* ================================================================
-   V43 — social fill, old round icons, equal section rhythm
-   ================================================================ */
-
-:root{
-  --section-gap-v43:clamp(88px,8vw,128px);
-}
-
-/* Równe odstępy między sekcjami */
-.projects,
-.packages,
-.process,
-.faq,
-.location-v28,
-.social-draft,
-.contact{
-  margin-top:0!important;
-}
-.projects.section-space,
-.packages.section-space,
-.process.section-space,
-.faq.section-space{
-  padding-top:var(--section-gap-v43)!important;
-  padding-bottom:var(--section-gap-v43)!important;
-}
-.location-v28{
-  padding:var(--section-gap-v43) 0!important;
-}
-.social-draft{
-  padding:var(--section-gap-v43) 0 var(--section-gap-v43)!important;
-}
-.contact{
-  padding:var(--section-gap-v43) 0 0!important;
-}
-.about{
-  margin-bottom:0!important;
-}
-
-/* Powrót do starych, nie-kwadratowych ikonek — jedna okrągła forma wszędzie */
-.social,
-.project-arrows-overlay button,
-.project-card>button>span,
-.process-item>button>span,
-.faq-list summary>span,
-.hero-action>span,
-.contact-form .button>span,
-.faq-contact-button>span,
-.footer-top-link>span,
-.social-device-caption i{
-  width:42px!important;
-  height:42px!important;
-  min-width:42px!important;
-  min-height:42px!important;
-  border:1px solid currentColor!important;
-  border-radius:999px!important;
-  background:transparent!important;
-  box-shadow:none!important;
-  transform:none!important;
-  transition:background-color .22s ease,color .22s ease,border-color .22s ease,box-shadow .22s ease!important;
-}
-.project-arrows-overlay button span,
-.project-card>button>span,
-.process-item>button>span,
-.faq-list summary>span,
-.hero-action>span,
-.contact-form .button>span,
-.faq-contact-button>span,
-.footer-top-link>span,
-.social-device-caption i{
-  display:grid!important;
-  place-items:center!important;
-}
-.social::before,.social::after,
-.project-arrows-overlay button::before,.project-arrows-overlay button::after,
-.project-card>button>span::before,.project-card>button>span::after,
-.process-item>button>span::before,.process-item>button>span::after,
-.faq-list summary>span::before,.faq-list summary>span::after,
-.hero-action>span::before,.hero-action>span::after,
-.contact-form .button>span::before,.contact-form .button>span::after,
-.faq-contact-button>span::before,.faq-contact-button>span::after,
-.footer-top-link>span::before,.footer-top-link>span::after,
-.social-device-caption i::before,.social-device-caption i::after{
-  content:none!important;
-  display:none!important;
-}
-.social:hover,.social:focus-visible,
-.project-arrows-overlay button:hover,.project-arrows-overlay button:focus-visible,
-.project-card>button:hover>span,.project-card>button:focus-visible>span,
-.process-item:hover>button>span,.process-item:focus-within>button>span,
-.process-item.is-open>button>span,
-.faq-list summary:hover>span,.faq-list summary:focus-visible>span,
-.hero-action:hover>span,.hero-action:focus-visible>span,
-.contact-form .button:hover>span,.contact-form .button:focus-visible>span,
-.faq-contact-button:hover>span,.faq-contact-button:focus-visible>span,
-.footer-top-link:hover>span,.footer-top-link:focus-visible>span,
-.social-device:hover .social-device-caption i,.social-device:focus-visible .social-device-caption i{
-  background:var(--blue)!important;
-  border-color:var(--blue)!important;
-  color:#fff!important;
-  box-shadow:0 8px 18px rgba(52,87,152,.18)!important;
-  transform:none!important;
-}
-.footer .social:hover,.footer .social:focus-visible,
-.footer .footer-top-link:hover>span,.footer .footer-top-link:focus-visible>span{
-  background:#fff!important;
-  border-color:#fff!important;
-  color:var(--blue)!important;
-}
-.faq-list details[open] summary>span{transform:none!important;rotate:none!important}
-
-/* Sociale — wypełnienie kadrów i lepsza ostrość */
-.social-draft-grid--devices{
-  width:min(980px,calc(100vw - 68px))!important;
-  min-height:480px!important;
-}
-.social-device--laptop{
-  width:min(720px,69vw)!important;
-}
-.social-device-laptop-screen{
-  aspect-ratio:1500/895!important;
-  padding:9px!important;
-  border-width:8px!important;
-  border-bottom-width:14px!important;
-  border-radius:20px 20px 10px 10px!important;
-}
-.social-device-laptop-screen img{
-  width:100%!important;
-  height:100%!important;
-  object-fit:cover!important;
-  object-position:center top!important;
-  transform:none!important;
-  filter:contrast(1.02) saturate(1.01) !important;
-  image-rendering:auto!important;
-}
-.social-device--phone{
-  width:205px!important;
-  height:456px!important;
-  margin-right:24px!important;
-  padding:8px 8px 54px!important;
-  border-width:6px!important;
-  border-radius:32px!important;
-}
-.social-device-phone-notch{
-  width:64px!important;
-  height:14px!important;
-  top:4px!important;
-}
-.social-device-phone-screen{
-  border-radius:24px!important;
-}
-.social-device-phone-screen img{
-  width:100%!important;
-  height:100%!important;
-  object-fit:cover!important;
-  object-position:center top!important;
-  transform:none!important;
-  filter:contrast(1.03) saturate(1.01)!important;
-  image-rendering:auto!important;
-}
-.social-device-caption{
-  left:12px!important;
-  right:12px!important;
-  bottom:12px!important;
-  padding:10px 12px!important;
-  border-radius:14px!important;
-}
-.social-device--laptop .social-device-caption{
-  left:18px!important;
-  right:18px!important;
-  bottom:20px!important;
-}
-.social-device-caption strong{font-size:10px!important}
-.social-device-caption small{font-size:9px!important}
-
-/* Kontakt — trochę czytelniejsze, ale z tym samym oddechem sekcji */
-.contact-grid{
-  gap:clamp(56px,6vw,96px)!important;
-}
-.contact-copy,
-.contact-form-wrap{
-  min-height:620px!important;
-}
-.contact-form-head strong{font-size:clamp(28px,2.1vw,36px)!important}
-
-@media (max-width:1100px){
-  .location-v28,.social-draft,.contact{
-    padding-top:92px!important;
-    padding-bottom:92px!important;
-  }
-  .contact{padding-bottom:0!important}
-  .social-draft-grid--devices{
-    width:min(920px,calc(100vw - 40px))!important;
-    min-height:450px!important;
-  }
-  .social-device--laptop{width:min(680px,72vw)!important}
-  .social-device--phone{width:190px!important;height:424px!important;margin-right:12px!important}
-}
-
-@media (max-width:780px){
-  .projects.section-space,
-  .packages.section-space,
-  .process.section-space,
-  .faq.section-space,
-  .location-v28,
-  .social-draft,
-  .contact{
-    padding-top:74px!important;
-    padding-bottom:74px!important;
-  }
-  .contact{padding-bottom:0!important}
-  .social-draft-grid--devices{
-    width:calc(100vw - 24px)!important;
-    min-height:410px!important;
-  }
-  .social-device--laptop{width:100%!important}
-  .social-device--phone{
-    width:min(44vw,180px)!important;
-    height:min(92vw,375px)!important;
-    margin-right:4px!important;
-  }
+  :root{--section-rhythm:74px;--tear-size:38px}
+  .hero{margin-bottom:36px!important}.about{border-radius:22px!important}.about-copy .about-brand-title{font-size:clamp(48px,15vw,68px)}.about-copy>p:not(.eyebrow):not(.lead){font-size:12px}
+  .project-viewport{padding:0 18px;overflow-x:auto}.project-card{width:82vw!important;flex-basis:82vw!important}.project-card>button{height:520px!important}.project-arrows-overlay{display:none!important}.project-card img,.project-card button:hover img{transform:scale(1.095)!important}
+  .faq-contact-card{padding:24px}.faq-list summary{font-size:22px!important}
+  .location-v28 .map{border-radius:24px!important;height:520px!important}
+  .social-draft-head{grid-template-columns:1fr;gap:18px;margin-bottom:30px}.social-draft-grid--devices{width:calc(100vw - 24px)!important;min-height:405px!important}.social-device--laptop{width:100%!important}.social-device--phone{width:min(44vw,180px)!important;height:min(92vw,375px)!important;margin-right:4px!important}
+  .project-modal-v36{padding:12px}.project-modal-v36 .modal-inner{width:100%;max-height:calc(100svh - 24px);border-radius:18px}.project-modal-v36 .modal-gallery{padding:10px;grid-template-rows:46svh 78px}.project-modal-v36 .modal-main-image{height:46svh;min-height:300px}.project-modal-v36 .modal-story{padding:26px}.project-modal-v36 .modal-story h2{font-size:40px}
+  .footer-bottom{grid-template-columns:1fr;gap:10px}.footer-bottom span:nth-child(2),.footer-bottom a{text-align:left}.footer-top-link{justify-content:flex-start}
 }
