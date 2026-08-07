@@ -277,18 +277,6 @@ if (viewport && track) {
   projectsMobile.addEventListener?.('change', syncProjectMode);
 
   const currentCruiseVelocity = () => sliderCruiseSpeed * sliderSpeedFactor;
-  viewport.addEventListener('mouseenter', () => {
-    if (sliderMode === 'desktop') sliderTargetVelocity = currentCruiseVelocity() * sliderHoverFactor;
-  });
-  viewport.addEventListener('mouseleave', () => {
-    if (sliderMode === 'desktop') sliderTargetVelocity = currentCruiseVelocity();
-  });
-  viewport.addEventListener('focusin', () => {
-    if (sliderMode === 'desktop') sliderTargetVelocity = currentCruiseVelocity() * sliderHoverFactor;
-  });
-  viewport.addEventListener('focusout', () => {
-    if (sliderMode === 'desktop') sliderTargetVelocity = currentCruiseVelocity();
-  });
 
   window.addEventListener('resize', () => {
     if (sliderMode === 'desktop') {
@@ -311,7 +299,7 @@ const adjustProjectSpeed = delta => {
 
   sliderSpeedFactor = Math.min(sliderMaxFactor, Math.max(sliderMinFactor, +(sliderSpeedFactor + delta).toFixed(2)));
   sliderPaused = false;
-  sliderTargetVelocity = sliderCruiseSpeed * sliderSpeedFactor;
+  sliderTargetVelocity = currentCruiseVelocity();
   viewport.dataset.speed = `${Math.round(sliderSpeedFactor * 100)}%`;
 };
 prevProject?.addEventListener('click', () => adjustProjectSpeed(-sliderStepFactor));

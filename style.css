@@ -3608,3 +3608,57 @@ main>section:not(.hero){height:auto;min-height:0;max-height:none;overflow:visibl
   .social-simple-icon{width:46px;height:46px}
   .social-simple-copy strong{font-size:24px}
 }
+
+
+/* ================================================================
+   V47 — ONLY three bug fixes: project speed, process hover, consent
+   ================================================================ */
+
+/* 1) Proces: bez przesuwania/obracania kontrolki na hover.
+   Zachowujemy glow i kolor, ale ikona ma stały zapas od linii. */
+.process-item,
+.process-item:hover,
+.process-item:focus-within,
+.process-item.is-open{
+  transform:none!important;
+}
+.process-item.info-glow-card:hover,
+.process-item.info-glow-card.is-open{
+  padding-inline:0!important;
+}
+.process-item>button,
+.process-item:hover>button,
+.process-item:focus-within>button{
+  padding-left:0!important;
+  padding-right:0!important;
+}
+.process-item>button>span,
+.process-item:hover>button>span,
+.process-item:focus-within>button>span,
+.process-item.is-open>button>span{
+  transform:none!important;
+  rotate:none!important;
+  translate:none!important;
+  margin-block:2px!important;
+  box-shadow:none!important;
+}
+
+/* 2) Checkbox kontaktu: zwykły, stabilny checkbox systemowy.
+   Nie korzysta z żadnej grafiki/łezki/gradientowego checka. */
+.contact-form .consent input,
+.contact-form .consent input:checked{
+  appearance:auto!important;
+  -webkit-appearance:auto!important;
+  accent-color:var(--blue)!important;
+  width:18px!important;
+  height:18px!important;
+  min-width:18px!important;
+  min-height:18px!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:2px!important;
+  background:none!important;
+  box-shadow:none!important;
+  transform:none!important;
+  clip-path:none!important;
+}
