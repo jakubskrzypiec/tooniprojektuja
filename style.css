@@ -3788,3 +3788,38 @@ main>section:not(.hero){height:auto;min-height:0;max-height:none;overflow:visibl
   .hero h1{font-size:46px!important}
   .process-item>button strong{font-size:22px!important}
 }
+
+
+/* ================================================================
+   V49 — FAQ motion + manual project navigation only
+   ================================================================ */
+.faq-list details{
+  overflow:visible;
+}
+.faq-list details > p{
+  opacity:0;
+  transform:translateY(-7px);
+  transition:opacity .24s ease,transform .32s cubic-bezier(.22,.8,.2,1);
+}
+.faq-list details[open] > p{
+  opacity:1;
+  transform:translateY(0);
+}
+.faq-list summary>span{
+  transition:background-color .2s ease,color .2s ease,border-color .2s ease!important;
+}
+.project-arrows-overlay button{
+  cursor:pointer!important;
+}
+.project-arrows-overlay button span{
+  font-size:18px!important;
+  line-height:1!important;
+}
+@media(max-width:780px){
+  .project-viewport{
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+  }
+  .project-viewport::-webkit-scrollbar{display:none}
+  .project-card{scroll-snap-align:start}
+}

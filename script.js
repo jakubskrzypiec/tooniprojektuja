@@ -162,26 +162,13 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') closeModal();
 });
 
-/* Project slider — V36: ciągły ruch z przyspieszaniem i wyhamowaniem */
+/* Project gallery — V49: manual left / right navigation only */
 const viewport = document.querySelector('[data-project-viewport]');
 const track = document.querySelector('[data-project-track]');
 const prevProject = document.querySelector('[data-project-prev]');
 const nextProject = document.querySelector('[data-project-next]');
 const projectsMobile = window.matchMedia('(max-width: 780px)');
-let sliderPaused = false;
-let sliderRaf = 0;
-let sliderOffset = 0;
-let sliderLast = 0;
-let setWidth = 0;
-let sliderMode = '';
-let sliderVelocity = 32;
-let sliderTargetVelocity = 32;
-let sliderSpeedFactor = 1;
-const sliderCruiseSpeed = 32;
-const sliderMinFactor = .2;
-const sliderMaxFactor = 2;
-const sliderStepFactor = .05;
-const sliderHoverFactor = .32;
+let projectIndex = 0;
 
 const bindProjectCards = root => {
   if (!root || root.dataset.projectClickBound === '1') return;
@@ -194,116 +181,51 @@ const bindProjectCards = root => {
   });
 };
 
-const stopProjectLoop = () => {
-  if (sliderRaf) cancelAnimationFrame(sliderRaf);
-  sliderRaf = 0;
-  sliderLast = 0;
-};
-
-const removeProjectClones = () => {
-  track?.querySelectorAll('[data-project-clone]').forEach(clone => clone.remove());
-};
-
-const measureSetWidth = originalsLength => {
-  if (!track) return 0;
-  const cards = [...track.children].slice(0, originalsLength);
-  if (!cards.length) return 0;
+const getProjectMetrics = () => {
+  if (!track || !viewport) return { step: 0, maxIndex: 0 };
+  const cards = [...track.querySelectorAll('[data-project-card]')];
+  if (!cards.length) return { step: 0, maxIndex: 0 };
   const gap = parseFloat(getComputedStyle(track).gap || 0);
-  return cards.reduce((sum, card) => sum + card.getBoundingClientRect().width, 0) + gap * cards.length;
+  const cardWidth = cards[0].getBoundingClientRect().width;
+  const step = cardWidth + gap;
+  const visible = Math.max(1, Math.floor((viewport.clientWidth + gap) / step));
+  return { step, maxIndex: Math.max(0, cards.length - visible) };
 };
 
-const normalizeSliderOffset = () => {
-  if (setWidth <= 0) return;
-  while (sliderOffset < 0) sliderOffset += setWidth;
-  while (sliderOffset >= setWidth) sliderOffset -= setWidth;
+const renderProjectIndex = (smooth = true) => {
+  if (!track || !viewport) return;
+  const { step, maxIndex } = getProjectMetrics();
+  projectIndex = Math.min(maxIndex, Math.max(0, projectIndex));
+
+  if (projectsMobile.matches) {
+    viewport.scrollTo({ left: projectIndex * step, behavior: smooth && !reduceMotion ? 'smooth' : 'auto' });
+    track.style.transform = 'none';
+  } else {
+    track.style.transition = smooth && !reduceMotion ? 'transform .62s cubic-bezier(.22,.8,.2,1)' : 'none';
+    track.style.transform = `translate3d(${-projectIndex * step}px,0,0)`;
+  }
 };
 
-const currentCruiseVelocity = () => sliderCruiseSpeed * sliderSpeedFactor;
+const moveProjects = direction => {
+  const { maxIndex } = getProjectMetrics();
+  if (maxIndex <= 0) return;
+  if (direction > 0) projectIndex = projectIndex >= maxIndex ? 0 : projectIndex + 1;
+  else projectIndex = projectIndex <= 0 ? maxIndex : projectIndex - 1;
+  renderProjectIndex(true);
+};
 
 if (viewport && track) {
-  const originals = [...track.children];
   bindProjectCards(track);
-
-  const runDesktopLoop = time => {
-    if (sliderMode !== 'desktop') return;
-    if (!sliderLast) sliderLast = time;
-    const delta = Math.min((time - sliderLast) / 1000, 0.05);
-    sliderLast = time;
-
-    if (!reduceMotion && setWidth > 0) {
-      const easing = 1 - Math.pow(0.002, delta);
-      sliderVelocity += (sliderTargetVelocity - sliderVelocity) * easing;
-      if (!sliderPaused) sliderOffset += sliderVelocity * delta;
-      normalizeSliderOffset();
-      track.style.transform = `translate3d(${-sliderOffset}px,0,0)`;
-    }
-    sliderRaf = requestAnimationFrame(runDesktopLoop);
-  };
-
-  const setupMobileProjects = () => {
-    if (sliderMode === 'mobile') return;
-    sliderMode = 'mobile';
-    stopProjectLoop();
-    removeProjectClones();
-    sliderPaused = true;
-    sliderOffset = 0;
-    setWidth = 0;
-    track.style.transform = 'none';
+  prevProject?.addEventListener('click', () => moveProjects(-1));
+  nextProject?.addEventListener('click', () => moveProjects(1));
+  window.addEventListener('resize', () => renderProjectIndex(false), { passive: true });
+  projectsMobile.addEventListener?.('change', () => {
+    projectIndex = 0;
     viewport.scrollLeft = 0;
-  };
-
-  const setupDesktopProjects = () => {
-    if (sliderMode === 'desktop') return;
-    sliderMode = 'desktop';
-    stopProjectLoop();
-    removeProjectClones();
-    viewport.scrollLeft = 0;
-    originals.forEach(card => {
-      const clone = card.cloneNode(true);
-      clone.dataset.projectClone = '1';
-      clone.setAttribute('aria-hidden', 'true');
-      track.appendChild(clone);
-    });
-    bindProjectCards(track);
-    sliderPaused = false;
-    sliderOffset = 0;
-    sliderVelocity = sliderCruiseSpeed * sliderSpeedFactor;
-    sliderTargetVelocity = sliderCruiseSpeed * sliderSpeedFactor;
-    track.style.transform = 'translate3d(0,0,0)';
-    setWidth = measureSetWidth(originals.length);
-    sliderRaf = requestAnimationFrame(runDesktopLoop);
-  };
-
-  const syncProjectMode = () => projectsMobile.matches ? setupMobileProjects() : setupDesktopProjects();
-  syncProjectMode();
-  projectsMobile.addEventListener?.('change', syncProjectMode);
-
-  window.addEventListener('resize', () => {
-    if (sliderMode === 'desktop') {
-      setWidth = measureSetWidth(originals.length);
-      normalizeSliderOffset();
-    }
-  }, { passive: true });
+    renderProjectIndex(false);
+  });
+  renderProjectIndex(false);
 }
-
-const adjustProjectSpeed = delta => {
-  if (!track || !viewport) return;
-
-  if (sliderMode === 'mobile') {
-    const firstCard = track.querySelector('[data-project-card]');
-    const gap = parseFloat(getComputedStyle(track).gap || 0);
-    const step = firstCard ? firstCard.getBoundingClientRect().width + gap : 412;
-    viewport.scrollBy({ left: delta < 0 ? -step : step, behavior: reduceMotion ? 'auto' : 'smooth' });
-    return;
-  }
-
-  sliderSpeedFactor = Math.min(sliderMaxFactor, Math.max(sliderMinFactor, +(sliderSpeedFactor + delta).toFixed(2)));
-  sliderPaused = false;
-  sliderTargetVelocity = currentCruiseVelocity();
-  viewport.dataset.speed = `${Math.round(sliderSpeedFactor * 100)}%`;
-};
-prevProject?.addEventListener('click', () => adjustProjectSpeed(-sliderStepFactor));
-nextProject?.addEventListener('click', () => adjustProjectSpeed(sliderStepFactor));
 
 
 /* Process accordion — one icon language: + / × */
@@ -335,12 +257,75 @@ document.querySelectorAll('[data-process-toggle]').forEach(button => {
   });
 });
 
-/* FAQ — + changes to ×, no rotation/morphing */
+/* FAQ — V49: smooth open / close + / × */
+const faqDuration = 360;
+
 document.querySelectorAll('.faq-list details').forEach(details => {
-  const icon = details.querySelector('summary > span');
-  const sync = () => { if (icon) icon.textContent = details.open ? '×' : '+'; };
-  details.addEventListener('toggle', sync);
-  sync();
+  const summary = details.querySelector('summary');
+  const icon = summary?.querySelector('span');
+  if (!summary) return;
+
+  let animation = null;
+  let closing = false;
+  let expanding = false;
+
+  const syncIcon = () => {
+    if (icon) icon.textContent = details.open && !closing ? '×' : '+';
+  };
+
+  const finish = open => {
+    details.style.height = '';
+    details.style.overflow = '';
+    details.style.transition = '';
+    details.open = open;
+    closing = false;
+    expanding = false;
+    animation = null;
+    syncIcon();
+  };
+
+  const openFaq = () => {
+    if (details.open && !closing) return;
+    const startHeight = `${summary.getBoundingClientRect().height}px`;
+    details.open = true;
+    expanding = true;
+    closing = false;
+    syncIcon();
+    const endHeight = `${details.scrollHeight}px`;
+    details.style.overflow = 'hidden';
+    animation?.cancel();
+    animation = details.animate(
+      { height: [startHeight, endHeight] },
+      { duration: reduceMotion ? 0 : faqDuration, easing: 'cubic-bezier(.22,.8,.2,1)' }
+    );
+    animation.onfinish = () => finish(true);
+    animation.oncancel = () => { expanding = false; };
+  };
+
+  const closeFaq = () => {
+    if (!details.open || closing) return;
+    closing = true;
+    expanding = false;
+    syncIcon();
+    const startHeight = `${details.getBoundingClientRect().height}px`;
+    const endHeight = `${summary.getBoundingClientRect().height}px`;
+    details.style.overflow = 'hidden';
+    animation?.cancel();
+    animation = details.animate(
+      { height: [startHeight, endHeight] },
+      { duration: reduceMotion ? 0 : faqDuration, easing: 'cubic-bezier(.4,0,.2,1)' }
+    );
+    animation.onfinish = () => finish(false);
+    animation.oncancel = () => { closing = false; };
+  };
+
+  summary.addEventListener('click', event => {
+    event.preventDefault();
+    if (closing || !details.open) openFaq();
+    else if (expanding || details.open) closeFaq();
+  });
+
+  syncIcon();
 });
 
 /* Form success */
@@ -349,9 +334,6 @@ if (params.get('wyslano') === '1') {
   document.querySelector('[data-success]')?.classList.add('is-visible');
 }
 
-window.addEventListener('beforeunload', () => {
-  if (sliderRaf) cancelAnimationFrame(sliderRaf);
-});
 
 
 
