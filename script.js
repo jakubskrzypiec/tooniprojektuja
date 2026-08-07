@@ -176,10 +176,12 @@ let setWidth = 0;
 let sliderMode = '';
 let sliderVelocity = 32;
 let sliderTargetVelocity = 32;
-let sliderReturnTimer = 0;
+let sliderSpeedFactor = 1;
 const sliderCruiseSpeed = 32;
-const sliderHoverSpeed = 9;
-const sliderImpulseSpeed = 280;
+const sliderMinFactor = .2;
+const sliderMaxFactor = 2;
+const sliderStepFactor = .05;
+const sliderHoverFactor = .32;
 
 const bindProjectCards = root => {
   if (!root || root.dataset.projectClickBound === '1') return;
@@ -263,8 +265,8 @@ if (viewport && track) {
     bindProjectCards(track);
     sliderPaused = false;
     sliderOffset = 0;
-    sliderVelocity = sliderCruiseSpeed;
-    sliderTargetVelocity = sliderCruiseSpeed;
+    sliderVelocity = sliderCruiseSpeed * sliderSpeedFactor;
+    sliderTargetVelocity = sliderCruiseSpeed * sliderSpeedFactor;
     track.style.transform = 'translate3d(0,0,0)';
     setWidth = measureSetWidth(originals.length);
     sliderRaf = requestAnimationFrame(runDesktopLoop);
@@ -274,17 +276,18 @@ if (viewport && track) {
   syncProjectMode();
   projectsMobile.addEventListener?.('change', syncProjectMode);
 
+  const currentCruiseVelocity = () => sliderCruiseSpeed * sliderSpeedFactor;
   viewport.addEventListener('mouseenter', () => {
-    if (sliderMode === 'desktop') sliderTargetVelocity = Math.sign(sliderVelocity || 1) * sliderHoverSpeed;
+    if (sliderMode === 'desktop') sliderTargetVelocity = currentCruiseVelocity() * sliderHoverFactor;
   });
   viewport.addEventListener('mouseleave', () => {
-    if (sliderMode === 'desktop') sliderTargetVelocity = sliderCruiseSpeed;
+    if (sliderMode === 'desktop') sliderTargetVelocity = currentCruiseVelocity();
   });
   viewport.addEventListener('focusin', () => {
-    if (sliderMode === 'desktop') sliderTargetVelocity = Math.sign(sliderVelocity || 1) * sliderHoverSpeed;
+    if (sliderMode === 'desktop') sliderTargetVelocity = currentCruiseVelocity() * sliderHoverFactor;
   });
   viewport.addEventListener('focusout', () => {
-    if (sliderMode === 'desktop') sliderTargetVelocity = sliderCruiseSpeed;
+    if (sliderMode === 'desktop') sliderTargetVelocity = currentCruiseVelocity();
   });
 
   window.addEventListener('resize', () => {
@@ -295,26 +298,24 @@ if (viewport && track) {
   }, { passive: true });
 }
 
-const nudgeProjects = direction => {
+const adjustProjectSpeed = delta => {
   if (!track || !viewport) return;
-  const firstCard = track.querySelector('[data-project-card]');
-  const gap = parseFloat(getComputedStyle(track).gap || 0);
-  const step = firstCard ? firstCard.getBoundingClientRect().width + gap : 412;
 
   if (sliderMode === 'mobile') {
-    viewport.scrollBy({ left: direction * step, behavior: reduceMotion ? 'auto' : 'smooth' });
+    const firstCard = track.querySelector('[data-project-card]');
+    const gap = parseFloat(getComputedStyle(track).gap || 0);
+    const step = firstCard ? firstCard.getBoundingClientRect().width + gap : 412;
+    viewport.scrollBy({ left: delta < 0 ? -step : step, behavior: reduceMotion ? 'auto' : 'smooth' });
     return;
   }
 
-  window.clearTimeout(sliderReturnTimer);
+  sliderSpeedFactor = Math.min(sliderMaxFactor, Math.max(sliderMinFactor, +(sliderSpeedFactor + delta).toFixed(2)));
   sliderPaused = false;
-  sliderTargetVelocity = direction * sliderImpulseSpeed;
-  sliderReturnTimer = window.setTimeout(() => {
-    sliderTargetVelocity = sliderCruiseSpeed;
-  }, 820);
+  sliderTargetVelocity = sliderCruiseSpeed * sliderSpeedFactor;
+  viewport.dataset.speed = `${Math.round(sliderSpeedFactor * 100)}%`;
 };
-prevProject?.addEventListener('click', () => nudgeProjects(-1));
-nextProject?.addEventListener('click', () => nudgeProjects(1));
+prevProject?.addEventListener('click', () => adjustProjectSpeed(-sliderStepFactor));
+nextProject?.addEventListener('click', () => adjustProjectSpeed(sliderStepFactor));
 
 
 /* Process accordion */

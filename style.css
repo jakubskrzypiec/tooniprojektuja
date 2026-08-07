@@ -4026,3 +4026,224 @@ main>section:not(.hero){
 .social-draft-card:hover .social-draft-label i,.social-draft-card:focus-visible .social-draft-label i{
   box-shadow:none!important;
 }
+
+
+/* V41 — finalne detale: jeden dymek, odstęp po hero, mapa TOP, laptop + telefon */
+:root{--ui-drop-size:30px}
+
+/* Jedna animacja łezki: kształt i kierunek są stałe, zmienia się wyłącznie wypełnienie. */
+.social,
+.project-arrows-overlay button,
+.project-card>button>span,
+.process-item>button>span,
+.faq-list summary>span,
+.hero-action>span,
+.contact-form .button>span,
+.faq-contact-button>span,
+.footer-top-link>span,
+.social-device-caption i{
+  border-radius:50% 50% 0 50%!important;
+  background:transparent!important;
+  border:1px solid currentColor!important;
+  transform:none!important;
+  translate:none!important;
+  rotate:none!important;
+  scale:1!important;
+  box-shadow:none!important;
+  transition:background-color .2s ease,color .2s ease,border-color .2s ease!important;
+}
+.social svg,
+.project-arrows-overlay button span,
+.project-card>button>span,
+.process-item>button>span,
+.hero-action>span,
+.contact-form .button>span,
+.faq-contact-button>span,
+.footer-top-link>span,
+.social-device-caption i{
+  transform:none!important;
+  translate:none!important;
+  rotate:none!important;
+  transition:none!important;
+}
+.social:hover,.social:focus-visible,
+.project-arrows-overlay button:hover,.project-arrows-overlay button:focus-visible,
+.project-card>button:hover>span,.project-card>button:focus-visible>span,
+.process-item>button:hover>span,.process-item>button:focus-visible>span,
+.faq-list summary:hover>span,.faq-list summary:focus-visible>span,
+.hero-action:hover>span,.hero-action:focus-visible>span,
+.contact-form .button:hover>span,.contact-form .button:focus-visible>span,
+.faq-contact-button:hover>span,.faq-contact-button:focus-visible>span,
+.footer-top-link:hover>span,.footer-top-link:focus-visible>span,
+.social-device:hover .social-device-caption i,.social-device:focus-visible .social-device-caption i{
+  background:var(--blue)!important;
+  border-color:var(--blue)!important;
+  color:#fff!important;
+  transform:none!important;
+  translate:none!important;
+  rotate:none!important;
+  scale:1!important;
+  box-shadow:none!important;
+}
+.footer .social:hover,.footer .social:focus-visible,
+.footer .footer-top-link:hover>span,.footer .footer-top-link:focus-visible>span{
+  background:#fff!important;border-color:#fff!important;color:var(--blue)!important;
+}
+
+/* Hero: tekst/przycisk nie skacze. Jedynym ruchem jest wypełnienie łezki. */
+.hero-action,.hero-action:hover,.hero-action:focus-visible{
+  gap:10px!important;
+  opacity:1!important;
+  transform:none!important;
+  translate:none!important;
+}
+.hero-action:hover,.hero-action:focus-visible{border-color:rgba(255,255,255,.72)!important}
+
+/* Wyraźna, ale elegancka przerwa pomiędzy hero i O nas. */
+.about{
+  margin-top:clamp(74px,6vw,112px)!important;
+  border-radius:30px!important;
+  overflow:hidden!important;
+}
+
+/* Sterowanie karuzelą: lewa = -5%, prawa = +5%. Dymki nie skaczą. */
+.project-arrows-overlay button,.project-arrows-overlay button:hover,.project-arrows-overlay button:focus-visible{
+  transform:none!important;
+  translate:none!important;
+}
+
+/* Mapa: pełne zaokrąglenie i subtelny podpis TOP w tle sekcji. */
+.location-v28{
+  isolation:isolate;
+  overflow:hidden!important;
+}
+.location-v28::before{
+  content:"TO ONI";
+  position:absolute;
+  right:-.04em;
+  top:50%;
+  z-index:0;
+  transform:translateY(-50%);
+  color:rgba(52,87,152,.045);
+  font-family:var(--serif);
+  font-size:clamp(160px,24vw,390px);
+  line-height:.72;
+  letter-spacing:-.08em;
+  pointer-events:none;
+  white-space:nowrap;
+}
+.location-v28 .map{
+  position:relative;
+  z-index:1;
+  border-radius:32px!important;
+  overflow:hidden!important;
+  box-shadow:0 26px 70px rgba(23,28,36,.08);
+}
+.location-v28 .map iframe{border-radius:inherit!important}
+
+/* Social media — realistyczny laptop z Instagramem + telefon z Facebookiem. */
+.social-draft{overflow:hidden!important}
+.social-draft-grid--devices{
+  position:relative!important;
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  grid-template-rows:1fr!important;
+  place-items:center!important;
+  width:min(1050px,calc(100vw - 64px))!important;
+  min-height:590px!important;
+  margin-inline:auto!important;
+  overflow:visible!important;
+}
+.social-device{
+  position:relative;
+  color:var(--ink);
+  text-decoration:none;
+  transition:filter .25s ease!important;
+}
+.social-device:hover{filter:brightness(.99)}
+.social-device--laptop{
+  grid-area:1/1;
+  z-index:1;
+  width:min(820px,76vw);
+  justify-self:center;
+  align-self:center;
+}
+.social-device-laptop-screen{
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:16/9;
+  padding:10px;
+  border:9px solid #171c24;
+  border-bottom-width:15px;
+  border-radius:22px 22px 10px 10px;
+  background:#fff;
+  box-shadow:0 28px 65px rgba(23,28,36,.12);
+}
+.social-device-laptop-screen img{width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:7px}
+.social-device-laptop-base{
+  width:108%;
+  height:17px;
+  margin:-4px -4% 0;
+  border-radius:0 0 55% 55% / 0 0 100% 100%;
+  background:#171c24;
+  box-shadow:0 14px 26px rgba(23,28,36,.16);
+}
+.social-device--phone{
+  grid-area:1/1;
+  z-index:2;
+  width:280px;
+  height:535px;
+  justify-self:end;
+  align-self:center;
+  margin-right:4px;
+  padding:11px 11px 68px;
+  overflow:hidden;
+  border:8px solid #171c24;
+  border-radius:38px;
+  background:#fff;
+  box-shadow:0 32px 72px rgba(23,28,36,.18);
+}
+.social-device-phone-notch{
+  position:absolute;
+  top:6px;left:50%;z-index:3;
+  width:78px;height:18px;
+  transform:translateX(-50%);
+  border-radius:0 0 12px 12px;
+  background:#171c24;
+}
+.social-device-phone-screen{height:100%;overflow:hidden;border-radius:24px;background:#fff}
+.social-device-phone-screen img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.social-device-caption{
+  position:absolute;
+  left:14px;right:14px;bottom:14px;
+  z-index:5;
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  gap:14px;
+  padding:12px 14px;
+  border-radius:13px;
+  color:#fff;
+  background:#171c24;
+}
+.social-device--laptop .social-device-caption{bottom:30px;left:24px;right:24px}
+.social-device-caption>div{display:grid;gap:2px}
+.social-device-caption strong{font-size:10px;letter-spacing:.11em;text-transform:uppercase}
+.social-device-caption small{color:rgba(255,255,255,.66);font-size:9px}
+.social-device-caption i{width:32px;height:32px;display:grid;place-items:center;font-style:normal;color:#fff}
+
+@media(max-width:1050px){
+  .social-draft-grid--devices{width:min(900px,calc(100vw - 42px))!important;min-height:520px!important}
+  .social-device--laptop{width:min(720px,78vw)}
+  .social-device--phone{width:245px;height:470px;margin-right:0}
+}
+@media(max-width:780px){
+  .about{margin-top:44px!important;border-radius:22px!important}
+  .location-v28 .map{border-radius:24px!important}
+  .social-draft-grid--devices{width:calc(100vw - 28px)!important;min-height:430px!important}
+  .social-device--laptop{width:100%;align-self:start}
+  .social-device--phone{width:min(48vw,210px);height:390px;align-self:end;justify-self:end;margin-right:8px;padding:8px 8px 58px;border-width:6px;border-radius:30px}
+  .social-device-phone-notch{top:4px;width:60px;height:14px}
+  .social-device-caption{left:9px;right:9px;bottom:9px;padding:9px 10px}
+  .social-device--laptop .social-device-caption{left:16px;right:16px;bottom:24px}
+}
