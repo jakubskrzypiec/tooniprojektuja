@@ -78,23 +78,69 @@ if ('IntersectionObserver' in window && !reduceMotion) {
   revealItems.forEach(item => item.classList.add('visible'));
 }
 
-/* Modal */
+/* Modal realizacji — V36: duży kadr, miniatury i opis */
 const modal = document.querySelector('[data-modal]');
 const modalImage = modal?.querySelector('[data-modal-image]');
 const modalTitle = modal?.querySelector('[data-modal-title]');
 const modalCategory = modal?.querySelector('[data-modal-category]');
+const modalDescription = modal?.querySelector('[data-modal-description]');
+const modalThumbnails = modal?.querySelector('[data-modal-thumbnails]');
 const modalClose = modal?.querySelector('.modal-close');
+const modalContact = modal?.querySelector('[data-modal-contact]');
 let lastFocus = null;
+
+const renderModalThumbnails = card => {
+  if (!modalThumbnails || !modalImage) return;
+  modalThumbnails.innerHTML = '';
+
+  const fallback = card.dataset.image || '';
+  const gallery = (card.dataset.gallery || '')
+    .split('|')
+    .map(item => item.trim())
+    .filter(Boolean);
+  const images = gallery.length ? gallery : [fallback, fallback, fallback];
+  const positions = ['center 22%', 'center 50%', 'center 78%'];
+
+  images.slice(0, 4).forEach((src, index) => {
+    const thumb = document.createElement('button');
+    thumb.type = 'button';
+    thumb.className = `modal-thumb${index === 0 ? ' is-active' : ''}`;
+    thumb.setAttribute('aria-label', `Ujęcie ${index + 1}`);
+    thumb.innerHTML = `<img src="${src}" alt="" loading="lazy">`;
+    thumb.addEventListener('click', () => {
+      modalImage.src = src;
+      modalImage.style.objectPosition = positions[index] || 'center';
+      modalThumbnails.querySelectorAll('.modal-thumb').forEach(item => item.classList.remove('is-active'));
+      thumb.classList.add('is-active');
+    });
+    modalThumbnails.appendChild(thumb);
+  });
+};
 
 const openModal = card => {
   if (!modal || !modalImage || !modalTitle || !modalCategory) return;
   lastFocus = document.activeElement;
   modalImage.src = card.dataset.image;
   modalImage.alt = card.dataset.title || '';
+  modalImage.style.objectPosition = 'center 50%';
   const place = card.dataset.place ? ` / ${card.dataset.place}` : '';
   const area = card.dataset.area ? ` / ${card.dataset.area}` : '';
   modalTitle.textContent = card.dataset.title || '';
   modalCategory.textContent = `${card.dataset.category || ''}${place}${area}`;
+
+  if (modalDescription) {
+    modalDescription.innerHTML = '';
+    const description = card.dataset.description || '';
+    const parts = description.split(/(?<=\.)\s+(?=[A-ZĄĆĘŁŃÓŚŹŻ])/).filter(Boolean);
+    const chunks = parts.length > 1 ? parts : [description];
+    chunks.slice(0, 3).forEach(text => {
+      const paragraph = document.createElement('p');
+      paragraph.textContent = text.trim();
+      modalDescription.appendChild(paragraph);
+    });
+  }
+
+  renderModalThumbnails(card);
   modal.classList.add('is-open');
   modal.setAttribute('aria-hidden', 'false');
   body.classList.add('modal-open');
@@ -108,6 +154,7 @@ const closeModal = () => {
   lastFocus?.focus();
 };
 modalClose?.addEventListener('click', closeModal);
+modalContact?.addEventListener('click', closeModal);
 modal?.addEventListener('click', event => {
   if (event.target === modal) closeModal();
 });
@@ -115,7 +162,7 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') closeModal();
 });
 
-/* Project slider — faster desktop loop / native mobile swipe */
+/* Project slider — V36: ciągły ruch z przyspieszaniem i wyhamowaniem */
 const viewport = document.querySelector('[data-project-viewport]');
 const track = document.querySelector('[data-project-track]');
 const prevProject = document.querySelector('[data-project-prev]');
@@ -127,17 +174,19 @@ let sliderOffset = 0;
 let sliderLast = 0;
 let setWidth = 0;
 let sliderMode = '';
-const sliderSpeed = 56;
+let sliderVelocity = 32;
+let sliderTargetVelocity = 32;
+let sliderReturnTimer = 0;
+const sliderCruiseSpeed = 32;
+const sliderHoverSpeed = 9;
+const sliderImpulseSpeed = 280;
 
 const bindProjectCards = root => {
   if (!root || root.dataset.projectClickBound === '1') return;
   root.dataset.projectClickBound = '1';
-
-  // Delegacja kliknięć działa również dla kart sklonowanych później przez slider.
   root.addEventListener('click', event => {
     const button = event.target.closest('[data-project-card] button');
     if (!button || !root.contains(button)) return;
-
     const card = button.closest('[data-project-card]');
     if (card) openModal(card);
   });
@@ -158,7 +207,13 @@ const measureSetWidth = originalsLength => {
   const cards = [...track.children].slice(0, originalsLength);
   if (!cards.length) return 0;
   const gap = parseFloat(getComputedStyle(track).gap || 0);
-  return cards.reduce((sum, card) => sum + card.getBoundingClientRect().width, 0) + gap * (cards.length - 1);
+  return cards.reduce((sum, card) => sum + card.getBoundingClientRect().width, 0) + gap * cards.length;
+};
+
+const normalizeSliderOffset = () => {
+  if (setWidth <= 0) return;
+  while (sliderOffset < 0) sliderOffset += setWidth;
+  while (sliderOffset >= setWidth) sliderOffset -= setWidth;
 };
 
 if (viewport && track) {
@@ -171,9 +226,11 @@ if (viewport && track) {
     const delta = Math.min((time - sliderLast) / 1000, 0.05);
     sliderLast = time;
 
-    if (!sliderPaused && !reduceMotion && setWidth > 0) {
-      sliderOffset += sliderSpeed * delta;
-      if (sliderOffset >= setWidth) sliderOffset -= setWidth;
+    if (!reduceMotion && setWidth > 0) {
+      const easing = 1 - Math.pow(0.002, delta);
+      sliderVelocity += (sliderTargetVelocity - sliderVelocity) * easing;
+      if (!sliderPaused) sliderOffset += sliderVelocity * delta;
+      normalizeSliderOffset();
       track.style.transform = `translate3d(${-sliderOffset}px,0,0)`;
     }
     sliderRaf = requestAnimationFrame(runDesktopLoop);
@@ -206,6 +263,8 @@ if (viewport && track) {
     bindProjectCards(track);
     sliderPaused = false;
     sliderOffset = 0;
+    sliderVelocity = sliderCruiseSpeed;
+    sliderTargetVelocity = sliderCruiseSpeed;
     track.style.transform = 'translate3d(0,0,0)';
     setWidth = measureSetWidth(originals.length);
     sliderRaf = requestAnimationFrame(runDesktopLoop);
@@ -215,22 +274,23 @@ if (viewport && track) {
   syncProjectMode();
   projectsMobile.addEventListener?.('change', syncProjectMode);
 
-  const pause = () => {
-    if (sliderMode === 'desktop') sliderPaused = true;
-  };
-  const resume = () => {
-    if (sliderMode === 'desktop') sliderPaused = false;
-  };
-
-  viewport.addEventListener('mouseenter', pause);
-  viewport.addEventListener('mouseleave', resume);
-  viewport.addEventListener('focusin', pause);
-  viewport.addEventListener('focusout', resume);
+  viewport.addEventListener('mouseenter', () => {
+    if (sliderMode === 'desktop') sliderTargetVelocity = Math.sign(sliderVelocity || 1) * sliderHoverSpeed;
+  });
+  viewport.addEventListener('mouseleave', () => {
+    if (sliderMode === 'desktop') sliderTargetVelocity = sliderCruiseSpeed;
+  });
+  viewport.addEventListener('focusin', () => {
+    if (sliderMode === 'desktop') sliderTargetVelocity = Math.sign(sliderVelocity || 1) * sliderHoverSpeed;
+  });
+  viewport.addEventListener('focusout', () => {
+    if (sliderMode === 'desktop') sliderTargetVelocity = sliderCruiseSpeed;
+  });
 
   window.addEventListener('resize', () => {
     if (sliderMode === 'desktop') {
       setWidth = measureSetWidth(originals.length);
-      if (setWidth > 0) sliderOffset %= setWidth;
+      normalizeSliderOffset();
     }
   }, { passive: true });
 }
@@ -246,16 +306,12 @@ const nudgeProjects = direction => {
     return;
   }
 
-  sliderPaused = true;
-  sliderOffset += direction * step;
-  if (setWidth > 0) {
-    while (sliderOffset < 0) sliderOffset += setWidth;
-    while (sliderOffset >= setWidth) sliderOffset -= setWidth;
-  }
-  track.style.transform = `translate3d(${-sliderOffset}px,0,0)`;
-  window.setTimeout(() => {
-    if (sliderMode === 'desktop') sliderPaused = false;
-  }, 650);
+  window.clearTimeout(sliderReturnTimer);
+  sliderPaused = false;
+  sliderTargetVelocity = direction * sliderImpulseSpeed;
+  sliderReturnTimer = window.setTimeout(() => {
+    sliderTargetVelocity = sliderCruiseSpeed;
+  }, 820);
 };
 prevProject?.addEventListener('click', () => nudgeProjects(-1));
 nextProject?.addEventListener('click', () => nudgeProjects(1));
@@ -361,7 +417,7 @@ if ('IntersectionObserver' in window && mainNavLinks.length) {
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
   /* Cursor-position light inside package and process rows. */
-  document.querySelectorAll('.package-v26, .process-item').forEach(card => {
+  document.querySelectorAll('.info-glow-card').forEach(card => {
     card.addEventListener('pointermove', event => {
       const rect = card.getBoundingClientRect();
       const x = clamp(event.clientX - rect.left, 0, rect.width);
