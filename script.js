@@ -33,17 +33,24 @@ updateHeader();
 window.addEventListener("scroll", updateHeader, { passive: true });
 
 /* Mobile menu */
+const syncMenuIcon = (open) => {
+  const icon = menuButton?.querySelector('.menu-toggle-icon');
+  if (icon) icon.textContent = open ? '×' : '+';
+};
+
 menuButton?.addEventListener("click", () => {
   const open = mobileMenu.classList.toggle("open");
   menuButton.setAttribute("aria-expanded", String(open));
   mobileMenu.setAttribute("aria-hidden", String(!open));
   body.classList.toggle("menu-open", open);
+  syncMenuIcon(open);
 });
 
 mobileMenu?.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
   mobileMenu.classList.remove("open");
   mobileMenu.setAttribute("aria-hidden", "true");
   menuButton?.setAttribute("aria-expanded", "false");
+  syncMenuIcon(false);
   body.classList.remove("menu-open");
 }));
 
@@ -318,7 +325,16 @@ prevProject?.addEventListener('click', () => adjustProjectSpeed(-sliderStepFacto
 nextProject?.addEventListener('click', () => adjustProjectSpeed(sliderStepFactor));
 
 
-/* Process accordion */
+/* Process accordion — one icon language: + / × */
+const syncProcessIcon = (item) => {
+  const toggle = item?.querySelector('[data-process-toggle]');
+  const icon = toggle?.querySelector('span');
+  const open = !!item?.classList.contains('is-open');
+  if (toggle) toggle.setAttribute('aria-expanded', String(open));
+  if (icon) icon.textContent = open ? '×' : '+';
+};
+
+document.querySelectorAll('.process-item').forEach(syncProcessIcon);
 document.querySelectorAll('[data-process-toggle]').forEach(button => {
   if (button.dataset.processBound === '1') return;
   button.dataset.processBound = '1';
@@ -326,19 +342,24 @@ document.querySelectorAll('[data-process-toggle]').forEach(button => {
   button.addEventListener('click', () => {
     const currentItem = button.closest('.process-item');
     if (!currentItem) return;
-
     const wasOpen = currentItem.classList.contains('is-open');
 
     document.querySelectorAll('.process-item').forEach(item => {
       item.classList.remove('is-open');
-      item.querySelector('[data-process-toggle]')?.setAttribute('aria-expanded', 'false');
+      syncProcessIcon(item);
     });
 
-    if (!wasOpen) {
-      currentItem.classList.add('is-open');
-      button.setAttribute('aria-expanded', 'true');
-    }
+    if (!wasOpen) currentItem.classList.add('is-open');
+    syncProcessIcon(currentItem);
   });
+});
+
+/* FAQ — + changes to ×, no rotation/morphing */
+document.querySelectorAll('.faq-list details').forEach(details => {
+  const icon = details.querySelector('summary > span');
+  const sync = () => { if (icon) icon.textContent = details.open ? '×' : '+'; };
+  details.addEventListener('toggle', sync);
+  sync();
 });
 
 /* Form success */
