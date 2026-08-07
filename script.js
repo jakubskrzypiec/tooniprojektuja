@@ -162,15 +162,19 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') closeModal();
 });
 
-/* Project gallery — V50: autoplay + manual left / right navigation */
+/* Project gallery — V51: true infinite loop + autoplay + endless manual navigation */
 const viewport = document.querySelector('[data-project-viewport]');
 const track = document.querySelector('[data-project-track]');
 const prevProject = document.querySelector('[data-project-prev]');
 const nextProject = document.querySelector('[data-project-next]');
-const projectsMobile = window.matchMedia('(max-width: 780px)');
 let projectIndex = 0;
+let projectOriginalCount = 0;
 let projectAutoplayTimer = null;
-const projectAutoplayDelay = 3800;
+let projectAnimating = false;
+let projectQueue = 0;
+let projectTouchStartX = null;
+const projectAutoplayDelay = 3200;
+const projectTransitionMs = 620;
 
 const bindProjectCards = root => {
   if (!root || root.dataset.projectClickBound === '1') return;
@@ -183,90 +187,171 @@ const bindProjectCards = root => {
   });
 };
 
-const getProjectMetrics = () => {
-  if (!track || !viewport) return { step: 0, maxIndex: 0 };
-  const cards = [...track.querySelectorAll('[data-project-card]')];
-  if (!cards.length) return { step: 0, maxIndex: 0 };
+const prepareInfiniteProjects = () => {
+  if (!track) return;
+
+  track.querySelectorAll('[data-project-clone="1"]').forEach(clone => clone.remove());
+  const originals = [...track.children].filter(item => item.matches?.('[data-project-card]'));
+  projectOriginalCount = originals.length;
+  if (!projectOriginalCount) return;
+
+  const before = document.createDocumentFragment();
+  const after = document.createDocumentFragment();
+
+  originals.forEach(card => {
+    const leftClone = card.cloneNode(true);
+    leftClone.dataset.projectClone = '1';
+    before.appendChild(leftClone);
+
+    const rightClone = card.cloneNode(true);
+    rightClone.dataset.projectClone = '1';
+    after.appendChild(rightClone);
+  });
+
+  track.prepend(before);
+  track.append(after);
+  projectIndex = projectOriginalCount;
+};
+
+const getProjectStep = () => {
+  if (!track) return 0;
+  const card = track.querySelector('[data-project-card]');
+  if (!card) return 0;
   const gap = parseFloat(getComputedStyle(track).gap || 0);
-  const cardWidth = cards[0].getBoundingClientRect().width;
-  const step = cardWidth + gap;
-  const visible = Math.max(1, Math.floor((viewport.clientWidth + gap) / step));
-  return { step, maxIndex: Math.max(0, cards.length - visible) };
+  return card.getBoundingClientRect().width + gap;
 };
 
 const renderProjectIndex = (smooth = true) => {
-  if (!track || !viewport) return;
-  const { step, maxIndex } = getProjectMetrics();
-  projectIndex = Math.min(maxIndex, Math.max(0, projectIndex));
+  if (!track || !viewport || !projectOriginalCount) return;
+  const step = getProjectStep();
+  if (!step) return;
 
-  if (projectsMobile.matches) {
-    viewport.scrollTo({ left: projectIndex * step, behavior: smooth && !reduceMotion ? 'smooth' : 'auto' });
-    track.style.transform = 'none';
-  } else {
-    track.style.transition = smooth && !reduceMotion ? 'transform .62s cubic-bezier(.22,.8,.2,1)' : 'none';
-    track.style.transform = `translate3d(${-projectIndex * step}px,0,0)`;
+  /* Use one transform system on every breakpoint so loop logic is identical
+     on desktop and mobile. Inline !important wins over older mobile CSS. */
+  viewport.style.setProperty('overflow-x', 'hidden', 'important');
+  viewport.style.setProperty('scroll-snap-type', 'none', 'important');
+  viewport.style.setProperty('touch-action', 'pan-y', 'important');
+  track.style.setProperty('will-change', 'transform', 'important');
+  track.style.setProperty(
+    'transition',
+    smooth && !reduceMotion ? `transform ${projectTransitionMs}ms cubic-bezier(.22,.8,.2,1)` : 'none',
+    'important'
+  );
+  track.style.setProperty('transform', `translate3d(${-projectIndex * step}px,0,0)`, 'important');
+};
+
+const normalizeProjectLoop = () => {
+  if (!projectOriginalCount) return false;
+  const previous = projectIndex;
+
+  while (projectIndex >= projectOriginalCount * 2) projectIndex -= projectOriginalCount;
+  while (projectIndex < projectOriginalCount) projectIndex += projectOriginalCount;
+
+  if (projectIndex !== previous) {
+    renderProjectIndex(false);
+    /* Force the snap to commit before a queued animated move. */
+    void track?.offsetWidth;
+    return true;
+  }
+  return false;
+};
+
+const flushProjectQueue = () => {
+  if (projectAnimating || !projectQueue) return;
+  const direction = Math.sign(projectQueue);
+  projectQueue -= direction;
+  requestAnimationFrame(() => moveProjects(direction, true));
+};
+
+const moveProjects = (direction, manual = false) => {
+  if (!track || !viewport || projectOriginalCount <= 1) return;
+
+  if (projectAnimating && !reduceMotion) {
+    if (manual) projectQueue += direction > 0 ? 1 : -1;
+    return;
+  }
+
+  projectIndex += direction > 0 ? 1 : -1;
+  projectAnimating = !reduceMotion;
+  renderProjectIndex(true);
+
+  if (reduceMotion) {
+    normalizeProjectLoop();
+    projectAnimating = false;
+    flushProjectQueue();
   }
 };
 
-const moveProjects = direction => {
-  const { maxIndex } = getProjectMetrics();
-  if (maxIndex <= 0) return;
-  if (direction > 0) projectIndex = projectIndex >= maxIndex ? 0 : projectIndex + 1;
-  else projectIndex = projectIndex <= 0 ? maxIndex : projectIndex - 1;
-  renderProjectIndex(true);
-};
-
 const stopProjectAutoplay = () => {
-  if (!projectAutoplayTimer) return;
-  clearInterval(projectAutoplayTimer);
+  if (projectAutoplayTimer) window.clearTimeout(projectAutoplayTimer);
   projectAutoplayTimer = null;
 };
 
-const startProjectAutoplay = () => {
+const scheduleProjectAutoplay = () => {
   stopProjectAutoplay();
-  if (reduceMotion || document.hidden) return;
-  const { maxIndex } = getProjectMetrics();
-  if (maxIndex <= 0) return;
-  projectAutoplayTimer = window.setInterval(() => moveProjects(1), projectAutoplayDelay);
+  if (reduceMotion || document.hidden || projectOriginalCount <= 1) return;
+  projectAutoplayTimer = window.setTimeout(() => {
+    if (!projectAnimating) moveProjects(1, false);
+    scheduleProjectAutoplay();
+  }, projectAutoplayDelay);
 };
 
 const restartProjectAutoplay = () => {
   stopProjectAutoplay();
-  startProjectAutoplay();
+  scheduleProjectAutoplay();
 };
 
 if (viewport && track) {
   bindProjectCards(track);
+  prepareInfiniteProjects();
+  renderProjectIndex(false);
+
+  track.addEventListener('transitionend', event => {
+    if (event.propertyName !== 'transform') return;
+    projectAnimating = false;
+    normalizeProjectLoop();
+    flushProjectQueue();
+  });
+
   prevProject?.addEventListener('click', () => {
-    moveProjects(-1);
+    moveProjects(-1, true);
     restartProjectAutoplay();
   });
+
   nextProject?.addEventListener('click', () => {
-    moveProjects(1);
+    moveProjects(1, true);
     restartProjectAutoplay();
   });
-  viewport.addEventListener('mouseenter', stopProjectAutoplay);
-  viewport.addEventListener('mouseleave', startProjectAutoplay);
-  viewport.addEventListener('focusin', stopProjectAutoplay);
-  viewport.addEventListener('focusout', event => {
-    if (!viewport.contains(event.relatedTarget)) startProjectAutoplay();
-  });
+
+  /* Simple mobile swipe, while vertical page scrolling stays native. */
+  viewport.addEventListener('touchstart', event => {
+    projectTouchStartX = event.touches[0]?.clientX ?? null;
+  }, { passive: true });
+
+  viewport.addEventListener('touchend', event => {
+    if (projectTouchStartX == null) return;
+    const endX = event.changedTouches[0]?.clientX ?? projectTouchStartX;
+    const delta = endX - projectTouchStartX;
+    projectTouchStartX = null;
+    if (Math.abs(delta) < 42) return;
+    moveProjects(delta < 0 ? 1 : -1, true);
+    restartProjectAutoplay();
+  }, { passive: true });
+
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) stopProjectAutoplay();
-    else startProjectAutoplay();
+    else scheduleProjectAutoplay();
   });
+
   window.addEventListener('resize', () => {
+    projectAnimating = false;
+    projectQueue = 0;
+    normalizeProjectLoop();
     renderProjectIndex(false);
     restartProjectAutoplay();
   }, { passive: true });
-  projectsMobile.addEventListener?.('change', () => {
-    projectIndex = 0;
-    viewport.scrollLeft = 0;
-    renderProjectIndex(false);
-    restartProjectAutoplay();
-  });
-  renderProjectIndex(false);
-  startProjectAutoplay();
+
+  scheduleProjectAutoplay();
 }
 
 
