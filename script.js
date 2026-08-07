@@ -218,6 +218,8 @@ const normalizeSliderOffset = () => {
   while (sliderOffset >= setWidth) sliderOffset -= setWidth;
 };
 
+const currentCruiseVelocity = () => sliderCruiseSpeed * sliderSpeedFactor;
+
 if (viewport && track) {
   const originals = [...track.children];
   bindProjectCards(track);
@@ -275,8 +277,6 @@ if (viewport && track) {
   const syncProjectMode = () => projectsMobile.matches ? setupMobileProjects() : setupDesktopProjects();
   syncProjectMode();
   projectsMobile.addEventListener?.('change', syncProjectMode);
-
-  const currentCruiseVelocity = () => sliderCruiseSpeed * sliderSpeedFactor;
 
   window.addEventListener('resize', () => {
     if (sliderMode === 'desktop') {

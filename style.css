@@ -3194,7 +3194,7 @@ main>section:not(.hero){height:auto;min-height:0;max-height:none;overflow:visibl
 .about-copy{padding-block:clamp(58px,5vw,82px)}
 .about-copy .about-brand-title{
   max-width:680px;margin:0 0 18px;color:var(--ink);
-  font-size:clamp(54px,5.8vw,94px);line-height:.84;letter-spacing:-.055em;
+  font-size:clamp(48px,4.8vw,80px);line-height:.86;letter-spacing:-.045em;
 }
 .about-copy .about-lead{max-width:660px;margin:10px 0 26px;font-size:clamp(22px,2vw,30px)}
 .about-copy>p:not(.eyebrow):not(.lead){max-width:690px;margin-top:14px;font-size:12.5px;line-height:1.67}
@@ -3629,8 +3629,8 @@ main>section:not(.hero){height:auto;min-height:0;max-height:none;overflow:visibl
 .process-item>button,
 .process-item:hover>button,
 .process-item:focus-within>button{
-  padding-left:0!important;
-  padding-right:0!important;
+  padding-left:18px!important;
+  padding-right:18px!important;
 }
 .process-item>button>span,
 .process-item:hover>button>span,
@@ -3661,4 +3661,130 @@ main>section:not(.hero){height:auto;min-height:0;max-height:none;overflow:visibl
   box-shadow:none!important;
   transform:none!important;
   clip-path:none!important;
+}
+
+
+/* ================================================================
+   V48 CLIENT READY — process clearance + about title + mobile safety
+   ================================================================ */
+.about-copy .about-brand-title{
+  width:100%!important;
+  max-width:100%!important;
+  overflow:visible!important;
+  font-size:clamp(48px,4.8vw,80px)!important;
+  line-height:.86!important;
+  letter-spacing:-.045em!important;
+}
+.about-copy .about-brand-title>span{
+  display:block!important;
+  max-width:100%!important;
+  white-space:nowrap!important;
+}
+
+/* Process control keeps a permanent gap from the active vertical line. */
+.process-item>button,
+.process-item:hover>button,
+.process-item:focus-within>button,
+.process-item.is-open>button{
+  padding-left:18px!important;
+  padding-right:18px!important;
+}
+.process-item>button>span{
+  position:relative!important;
+  z-index:2!important;
+  margin:0!important;
+}
+
+/* Client-ready responsive guardrails. */
+@media(max-width:1100px){
+  .about-copy .about-brand-title{
+    font-size:clamp(52px,8vw,76px)!important;
+  }
+  .about-copy .about-brand-title>span{white-space:nowrap!important}
+  .process-item>button{
+    grid-template-columns:42px minmax(0,1fr)!important;
+  }
+  .process-item>button strong,
+  .process-item>button small{min-width:0!important}
+}
+
+@media(max-width:780px){
+  html,body{max-width:100%;overflow-x:hidden!important}
+  .shell,.shell-wide{width:calc(100vw - 32px)!important;max-width:calc(100vw - 32px)!important}
+
+  .hero-copy{width:calc(100vw - 32px)!important;margin-left:16px!important;margin-right:16px!important}
+  .hero h1{font-size:clamp(48px,15vw,70px)!important;line-height:.9!important;overflow-wrap:anywhere}
+
+  .about{width:calc(100vw - 24px)!important;max-width:calc(100vw - 24px)!important}
+  .about-image{min-height:clamp(400px,118vw,520px)!important}
+  .about-copy{padding:46px 18px!important;min-width:0!important}
+  .about-copy .about-brand-title{
+    font-size:clamp(38px,11.5vw,52px)!important;
+    line-height:.88!important;
+    letter-spacing:-.04em!important;
+  }
+  .about-copy .about-brand-title>span{white-space:nowrap!important}
+  .about-copy .about-lead{font-size:clamp(20px,6vw,27px)!important}
+  .about-copy>p:not(.eyebrow):not(.lead){overflow-wrap:anywhere}
+
+  .project-heading,.packages-grid,.process-grid,.faq-grid--contact,.contact-grid{min-width:0!important}
+  .project-heading>* ,.packages-grid>* ,.process-grid>* ,.faq-grid--contact>* ,.contact-grid>*{min-width:0!important}
+
+  .process-grid{gap:34px!important}
+  .process-item>button,
+  .process-item:hover>button,
+  .process-item:focus-within>button,
+  .process-item.is-open>button{
+    grid-template-columns:38px minmax(0,1fr)!important;
+    gap:14px!important;
+    padding:20px 12px!important;
+  }
+  .process-item>button strong{font-size:clamp(23px,7vw,28px)!important;line-height:1.05!important;overflow-wrap:anywhere}
+  .process-item>button small{grid-column:2!important;font-size:10px!important;line-height:1.4!important;overflow-wrap:anywhere}
+  .process-answer>div{padding-left:52px!important;padding-right:12px!important}
+  .process-answer p,.process-answer b{overflow-wrap:anywhere}
+
+  .faq-grid--contact{width:calc(100vw - 24px)!important;gap:34px!important}
+  .faq-contact-card{width:100%!important;min-width:0!important}
+  .faq-list{min-width:0!important}
+  .faq-list summary{font-size:clamp(19px,5.6vw,23px)!important;line-height:1.12!important;align-items:flex-start!important}
+  .faq-list summary>span{flex:0 0 34px!important}
+  .faq-list details p{padding-right:0!important;overflow-wrap:anywhere}
+
+  .contact{overflow:hidden!important}
+  .contact-grid{width:calc(100vw - 32px)!important;max-width:calc(100vw - 32px)!important}
+  .contact-copy h2{font-size:clamp(48px,13vw,68px)!important;line-height:.92!important;overflow-wrap:anywhere}
+  .contact-copy .lead{font-size:clamp(19px,5.4vw,25px)!important}
+  .contact-data>a,.contact-data>div{grid-template-columns:90px minmax(0,1fr)!important}
+  .contact-data strong{overflow-wrap:anywhere}
+  .contact-form-wrap{width:100%!important;min-width:0!important}
+  .contact-form{width:100%!important;min-width:0!important}
+  .contact-form input,.contact-form textarea{min-width:0!important;max-width:100%!important}
+
+  .location-v28 .map{width:100%!important;max-width:100%!important}
+  .social-simple-inner{width:100%!important;min-width:0!important}
+  .social-simple-brand,.social-simple-links,.social-simple-link{min-width:0!important}
+  .social-simple-copy{min-width:0!important}
+  .social-simple-copy strong,.social-simple-copy small{overflow-wrap:anywhere}
+
+  .footer-main,.footer-bottom{min-width:0!important}
+}
+
+@media(max-width:420px){
+  .about-copy .about-brand-title{font-size:clamp(36px,11vw,46px)!important}
+  .about-copy .about-brand-title>span{white-space:nowrap!important}
+  .process-item>button,
+  .process-item:hover>button,
+  .process-item:focus-within>button,
+  .process-item.is-open>button{padding-left:10px!important;padding-right:8px!important;gap:12px!important}
+  .process-answer>div{padding-left:48px!important;padding-right:6px!important}
+  .contact-data>a,.contact-data>div{grid-template-columns:78px minmax(0,1fr)!important;gap:10px!important}
+  .social-simple-inner{padding:30px 18px!important}
+}
+
+@media(max-width:340px){
+  .about-copy .about-brand-title{font-size:34px!important}
+  .about-copy .about-brand-title>span{white-space:nowrap!important}
+  .hero h1{font-size:46px!important}
+  .process-item>button strong{font-size:22px!important}
 }
