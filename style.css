@@ -4467,3 +4467,225 @@ main>section:not(.hero){
   .hero{margin-bottom:36px!important}
   .about{margin-top:0!important}
 }
+
+/* ================================================================
+   V43 — social fill, old round icons, equal section rhythm
+   ================================================================ */
+
+:root{
+  --section-gap-v43:clamp(88px,8vw,128px);
+}
+
+/* Równe odstępy między sekcjami */
+.projects,
+.packages,
+.process,
+.faq,
+.location-v28,
+.social-draft,
+.contact{
+  margin-top:0!important;
+}
+.projects.section-space,
+.packages.section-space,
+.process.section-space,
+.faq.section-space{
+  padding-top:var(--section-gap-v43)!important;
+  padding-bottom:var(--section-gap-v43)!important;
+}
+.location-v28{
+  padding:var(--section-gap-v43) 0!important;
+}
+.social-draft{
+  padding:var(--section-gap-v43) 0 var(--section-gap-v43)!important;
+}
+.contact{
+  padding:var(--section-gap-v43) 0 0!important;
+}
+.about{
+  margin-bottom:0!important;
+}
+
+/* Powrót do starych, nie-kwadratowych ikonek — jedna okrągła forma wszędzie */
+.social,
+.project-arrows-overlay button,
+.project-card>button>span,
+.process-item>button>span,
+.faq-list summary>span,
+.hero-action>span,
+.contact-form .button>span,
+.faq-contact-button>span,
+.footer-top-link>span,
+.social-device-caption i{
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  min-height:42px!important;
+  border:1px solid currentColor!important;
+  border-radius:999px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  transform:none!important;
+  transition:background-color .22s ease,color .22s ease,border-color .22s ease,box-shadow .22s ease!important;
+}
+.project-arrows-overlay button span,
+.project-card>button>span,
+.process-item>button>span,
+.faq-list summary>span,
+.hero-action>span,
+.contact-form .button>span,
+.faq-contact-button>span,
+.footer-top-link>span,
+.social-device-caption i{
+  display:grid!important;
+  place-items:center!important;
+}
+.social::before,.social::after,
+.project-arrows-overlay button::before,.project-arrows-overlay button::after,
+.project-card>button>span::before,.project-card>button>span::after,
+.process-item>button>span::before,.process-item>button>span::after,
+.faq-list summary>span::before,.faq-list summary>span::after,
+.hero-action>span::before,.hero-action>span::after,
+.contact-form .button>span::before,.contact-form .button>span::after,
+.faq-contact-button>span::before,.faq-contact-button>span::after,
+.footer-top-link>span::before,.footer-top-link>span::after,
+.social-device-caption i::before,.social-device-caption i::after{
+  content:none!important;
+  display:none!important;
+}
+.social:hover,.social:focus-visible,
+.project-arrows-overlay button:hover,.project-arrows-overlay button:focus-visible,
+.project-card>button:hover>span,.project-card>button:focus-visible>span,
+.process-item:hover>button>span,.process-item:focus-within>button>span,
+.process-item.is-open>button>span,
+.faq-list summary:hover>span,.faq-list summary:focus-visible>span,
+.hero-action:hover>span,.hero-action:focus-visible>span,
+.contact-form .button:hover>span,.contact-form .button:focus-visible>span,
+.faq-contact-button:hover>span,.faq-contact-button:focus-visible>span,
+.footer-top-link:hover>span,.footer-top-link:focus-visible>span,
+.social-device:hover .social-device-caption i,.social-device:focus-visible .social-device-caption i{
+  background:var(--blue)!important;
+  border-color:var(--blue)!important;
+  color:#fff!important;
+  box-shadow:0 8px 18px rgba(52,87,152,.18)!important;
+  transform:none!important;
+}
+.footer .social:hover,.footer .social:focus-visible,
+.footer .footer-top-link:hover>span,.footer .footer-top-link:focus-visible>span{
+  background:#fff!important;
+  border-color:#fff!important;
+  color:var(--blue)!important;
+}
+.faq-list details[open] summary>span{transform:none!important;rotate:none!important}
+
+/* Sociale — wypełnienie kadrów i lepsza ostrość */
+.social-draft-grid--devices{
+  width:min(980px,calc(100vw - 68px))!important;
+  min-height:480px!important;
+}
+.social-device--laptop{
+  width:min(720px,69vw)!important;
+}
+.social-device-laptop-screen{
+  aspect-ratio:1500/895!important;
+  padding:9px!important;
+  border-width:8px!important;
+  border-bottom-width:14px!important;
+  border-radius:20px 20px 10px 10px!important;
+}
+.social-device-laptop-screen img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center top!important;
+  transform:none!important;
+  filter:contrast(1.02) saturate(1.01) !important;
+  image-rendering:auto!important;
+}
+.social-device--phone{
+  width:205px!important;
+  height:456px!important;
+  margin-right:24px!important;
+  padding:8px 8px 54px!important;
+  border-width:6px!important;
+  border-radius:32px!important;
+}
+.social-device-phone-notch{
+  width:64px!important;
+  height:14px!important;
+  top:4px!important;
+}
+.social-device-phone-screen{
+  border-radius:24px!important;
+}
+.social-device-phone-screen img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center top!important;
+  transform:none!important;
+  filter:contrast(1.03) saturate(1.01)!important;
+  image-rendering:auto!important;
+}
+.social-device-caption{
+  left:12px!important;
+  right:12px!important;
+  bottom:12px!important;
+  padding:10px 12px!important;
+  border-radius:14px!important;
+}
+.social-device--laptop .social-device-caption{
+  left:18px!important;
+  right:18px!important;
+  bottom:20px!important;
+}
+.social-device-caption strong{font-size:10px!important}
+.social-device-caption small{font-size:9px!important}
+
+/* Kontakt — trochę czytelniejsze, ale z tym samym oddechem sekcji */
+.contact-grid{
+  gap:clamp(56px,6vw,96px)!important;
+}
+.contact-copy,
+.contact-form-wrap{
+  min-height:620px!important;
+}
+.contact-form-head strong{font-size:clamp(28px,2.1vw,36px)!important}
+
+@media (max-width:1100px){
+  .location-v28,.social-draft,.contact{
+    padding-top:92px!important;
+    padding-bottom:92px!important;
+  }
+  .contact{padding-bottom:0!important}
+  .social-draft-grid--devices{
+    width:min(920px,calc(100vw - 40px))!important;
+    min-height:450px!important;
+  }
+  .social-device--laptop{width:min(680px,72vw)!important}
+  .social-device--phone{width:190px!important;height:424px!important;margin-right:12px!important}
+}
+
+@media (max-width:780px){
+  .projects.section-space,
+  .packages.section-space,
+  .process.section-space,
+  .faq.section-space,
+  .location-v28,
+  .social-draft,
+  .contact{
+    padding-top:74px!important;
+    padding-bottom:74px!important;
+  }
+  .contact{padding-bottom:0!important}
+  .social-draft-grid--devices{
+    width:calc(100vw - 24px)!important;
+    min-height:410px!important;
+  }
+  .social-device--laptop{width:100%!important}
+  .social-device--phone{
+    width:min(44vw,180px)!important;
+    height:min(92vw,375px)!important;
+    margin-right:4px!important;
+  }
+}
