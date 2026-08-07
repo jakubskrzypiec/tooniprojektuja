@@ -3452,3 +3452,159 @@ main>section:not(.hero){height:auto;min-height:0;max-height:none;overflow:visibl
 @media(max-width:900px){
   .menu-toggle{display:grid!important;place-items:center!important;width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important;padding:0!important}
 }
+
+/* ================================================================
+   V46 FINAL MICRO-FIX — only requested controls + simple social block
+   ================================================================ */
+
+/* Desktop header: no accidental mobile + control. */
+.menu-toggle{display:none!important}
+@media(max-width:780px){
+  .menu-toggle{
+    display:block!important;
+    width:42px!important;height:42px!important;
+    min-width:42px!important;min-height:42px!important;
+    padding:10px!important;
+    border:1px solid currentColor!important;
+    border-radius:50%!important;
+    background:transparent!important;
+  }
+  .menu-toggle>span{
+    display:block!important;
+    width:20px!important;height:1.5px!important;
+    min-width:0!important;min-height:0!important;
+    margin:4px auto!important;
+    border:0!important;border-radius:0!important;
+    background:currentColor!important;
+    transform:none!important;
+    transition:transform .2s ease,opacity .2s ease!important;
+  }
+  .menu-toggle[aria-expanded="true"]>span:nth-child(1){transform:translateY(5.5px) rotate(45deg)!important}
+  .menu-toggle[aria-expanded="true"]>span:nth-child(2){opacity:0!important}
+  .menu-toggle[aria-expanded="true"]>span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)!important}
+}
+
+/* Header CTA: clean button, no tear. */
+.header-button{gap:0!important}
+.header-button>span{display:none!important}
+
+/* Hero: restore the older, calmer underlined CTA. */
+.hero-action{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  padding:0 0 7px!important;
+  border:0!important;
+  border-bottom:1px solid rgba(255,255,255,.72)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#fff!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+  transition:gap .24s ease,border-color .24s ease,opacity .24s ease!important;
+}
+.hero-action .hero-arrow{
+  display:inline!important;
+  width:auto!important;height:auto!important;
+  min-width:0!important;min-height:0!important;
+  padding:0!important;border:0!important;border-radius:0!important;
+  background:none!important;box-shadow:none!important;
+  transform:none!important;
+  color:inherit!important;
+}
+.hero-action:hover,.hero-action:focus-visible{
+  gap:14px!important;
+  border-color:var(--yellow)!important;
+  opacity:.9!important;
+}
+.hero-action:hover .hero-arrow,.hero-action:focus-visible .hero-arrow{background:none!important;color:inherit!important;box-shadow:none!important}
+
+/* Plain text links stay plain — no tear. */
+.line-link>span{display:none!important}
+
+/* Project cards: remove the launch tear completely; hover brand remains. */
+.project-card>button>span{display:none!important}
+
+/* CTA buttons requested without tear. */
+.faq-contact-button>span,
+.contact-form .button>span{display:none!important}
+.faq-contact-button,.contact-form .button{gap:0!important}
+
+/* Keep tear only where it has a functional meaning: project speed + expandable +/×. */
+.project-arrows-overlay button,
+.process-item>button>span,
+.faq-list summary>span{
+  border-radius:50% 50% 0 50%!important;
+  transform:none!important;
+}
+.process-item>button>span,
+.faq-list summary>span{
+  display:grid!important;
+  place-items:center!important;
+}
+
+/* Socials: intentionally simple — brand + two real profile links, no fake devices/screens. */
+.social-draft.social-simple{
+  padding:var(--section-rhythm) 0!important;
+  background:#f5f2ec!important;
+  border-top:1px solid var(--line)!important;
+  overflow:hidden!important;
+}
+.social-simple::before{content:"TO ONI";position:absolute;right:-.04em;top:.05em;color:rgba(52,87,152,.035);font-family:var(--serif);font-size:clamp(150px,22vw,340px);line-height:.75;letter-spacing:-.08em;pointer-events:none}
+.social-simple-inner{
+  position:relative;z-index:1;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(390px,.85fr);
+  gap:clamp(60px,8vw,130px);
+  align-items:center;
+  padding:clamp(46px,5vw,72px)!important;
+  border:1px solid var(--line);
+  border-radius:30px;
+  background:rgba(255,255,255,.55);
+}
+.social-simple-brand{display:grid;grid-template-columns:130px 1fr;gap:34px;align-items:center}
+.social-simple-brand>img{width:130px;height:130px;object-fit:contain}
+.social-simple-brand h2{font-size:clamp(58px,5.6vw,88px);margin-bottom:18px}
+.social-simple-brand p:last-child{max-width:520px;font-size:13px}
+.social-simple-links{display:grid;border-top:1px solid var(--line)}
+.social-simple-link{
+  display:grid;
+  grid-template-columns:58px 1fr auto;
+  gap:20px;
+  align-items:center;
+  padding:24px 0;
+  border-bottom:1px solid var(--line);
+  transition:padding-left .22s ease,color .22s ease;
+}
+.social-simple-link:hover{padding-left:8px;color:var(--blue)}
+.social-simple-icon{
+  width:54px;height:54px;
+  display:grid;place-items:center;
+  border:1px solid rgba(52,87,152,.32);
+  border-radius:50%;
+  color:var(--blue);
+  background:#fff;
+}
+.social-simple-icon svg{width:22px;height:22px}
+.social-simple-link:first-child .social-simple-icon svg{fill:none}
+.social-simple-link:last-child .social-simple-icon path{fill:currentColor;stroke:none}
+.social-simple-copy{display:grid;gap:4px}
+.social-simple-copy strong{font-family:var(--serif);font-size:28px;font-weight:500}
+.social-simple-copy small{color:var(--muted);font-size:11px}
+.social-simple-arrow{font-size:22px;color:var(--blue)}
+
+@media(max-width:900px){
+  .social-simple-inner{grid-template-columns:1fr;gap:42px;padding:42px 28px!important}
+  .social-simple-brand{grid-template-columns:96px 1fr;gap:24px}
+  .social-simple-brand>img{width:96px;height:96px}
+}
+@media(max-width:600px){
+  .social-simple-brand{grid-template-columns:1fr}
+  .social-simple-brand>img{width:88px;height:88px}
+  .social-simple-link{grid-template-columns:48px 1fr auto;gap:14px;padding:20px 0}
+  .social-simple-icon{width:46px;height:46px}
+  .social-simple-copy strong{font-size:24px}
+}

@@ -33,24 +33,17 @@ updateHeader();
 window.addEventListener("scroll", updateHeader, { passive: true });
 
 /* Mobile menu */
-const syncMenuIcon = (open) => {
-  const icon = menuButton?.querySelector('.menu-toggle-icon');
-  if (icon) icon.textContent = open ? '×' : '+';
-};
-
 menuButton?.addEventListener("click", () => {
   const open = mobileMenu.classList.toggle("open");
   menuButton.setAttribute("aria-expanded", String(open));
   mobileMenu.setAttribute("aria-hidden", String(!open));
   body.classList.toggle("menu-open", open);
-  syncMenuIcon(open);
 });
 
 mobileMenu?.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
   mobileMenu.classList.remove("open");
   mobileMenu.setAttribute("aria-hidden", "true");
   menuButton?.setAttribute("aria-expanded", "false");
-  syncMenuIcon(false);
   body.classList.remove("menu-open");
 }));
 
