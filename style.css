@@ -4247,3 +4247,223 @@ main>section:not(.hero){
   .social-device-caption{left:9px;right:9px;bottom:9px;padding:9px 10px}
   .social-device--laptop .social-device-caption{left:16px;right:16px;bottom:24px}
 }
+
+
+/* ================================================================
+   V42 FINAL — layout polish, unified bubbles, viewport-fit sections
+   These rules are intentionally authoritative over legacy revisions.
+   ================================================================ */
+
+/* Real spacing after hero. Use hero margin (not about margin) so the gap
+   cannot collapse or be neutralised by older .about rules. */
+.hero{
+  margin-bottom:clamp(56px,5vw,86px)!important;
+}
+.about{
+  margin-top:0!important;
+  border-radius:30px!important;
+  overflow:hidden!important;
+}
+
+/* One control language everywhere: compact rounded bubble with one soft
+   cut corner. No tails, pseudo-lines, rotation, translation or shape change. */
+.social,
+.project-arrows-overlay button,
+.project-card>button>span,
+.process-item>button>span,
+.faq-list summary>span,
+.hero-action>span,
+.contact-form .button>span,
+.faq-contact-button>span,
+.footer-top-link>span,
+.social-device-caption i{
+  border:1px solid currentColor!important;
+  border-radius:13px 13px 5px 13px!important;
+  background:transparent!important;
+  transform:none!important;
+  translate:none!important;
+  rotate:none!important;
+  scale:1!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+  transition:background-color .2s ease,color .2s ease,border-color .2s ease,box-shadow .2s ease!important;
+}
+.social::before,.social::after,
+.project-arrows-overlay button::before,.project-arrows-overlay button::after,
+.project-card>button>span::before,.project-card>button>span::after,
+.process-item>button>span::before,.process-item>button>span::after,
+.faq-list summary>span::before,.faq-list summary>span::after,
+.hero-action>span::before,.hero-action>span::after,
+.contact-form .button>span::before,.contact-form .button>span::after,
+.faq-contact-button>span::before,.faq-contact-button>span::after,
+.footer-top-link>span::before,.footer-top-link>span::after,
+.social-device-caption i::before,.social-device-caption i::after{
+  content:none!important;
+  display:none!important;
+}
+.social svg,
+.project-arrows-overlay button span,
+.project-card>button>span,
+.process-item>button>span,
+.faq-list summary>span,
+.hero-action>span,
+.contact-form .button>span,
+.faq-contact-button>span,
+.footer-top-link>span,
+.social-device-caption i{
+  transform:none!important;
+  translate:none!important;
+  rotate:none!important;
+  transition:none!important;
+}
+.social:hover,.social:focus-visible,
+.project-arrows-overlay button:hover,.project-arrows-overlay button:focus-visible,
+.project-card>button:hover>span,.project-card>button:focus-visible>span,
+.process-item>button:hover>span,.process-item>button:focus-visible>span,
+.faq-list summary:hover>span,.faq-list summary:focus-visible>span,
+.hero-action:hover>span,.hero-action:focus-visible>span,
+.contact-form .button:hover>span,.contact-form .button:focus-visible>span,
+.faq-contact-button:hover>span,.faq-contact-button:focus-visible>span,
+.footer-top-link:hover>span,.footer-top-link:focus-visible>span,
+.social-device:hover .social-device-caption i,.social-device:focus-visible .social-device-caption i{
+  background:var(--blue)!important;
+  border-color:var(--blue)!important;
+  color:#fff!important;
+  transform:none!important;
+  translate:none!important;
+  rotate:none!important;
+  scale:1!important;
+  box-shadow:0 7px 20px rgba(52,87,152,.16)!important;
+}
+.footer .social:hover,.footer .social:focus-visible,
+.footer .footer-top-link:hover>span,.footer .footer-top-link:focus-visible>span{
+  background:#fff!important;
+  border-color:#fff!important;
+  color:var(--blue)!important;
+}
+/* Hero controls stay fixed in place — only bubble fill changes. */
+.hero-action,.hero-action:hover,.hero-action:focus-visible{
+  transform:none!important;
+  translate:none!important;
+  opacity:1!important;
+}
+/* FAQ open state does not reshape/rotate the control. */
+.faq-list details[open] summary>span{
+  transform:none!important;
+  rotate:none!important;
+}
+
+/* Desktop: keep FAQ as one coherent viewport-sized composition while closed. */
+@media (min-width:1101px){
+  .faq{
+    padding:clamp(48px,5.2vh,68px) 0 clamp(54px,5.8vh,78px)!important;
+  }
+  .faq-grid--contact{
+    width:min(1500px,calc(100vw - 44px))!important;
+    grid-template-columns:minmax(280px,.68fr) minmax(0,1.32fr)!important;
+    gap:clamp(42px,4vw,70px)!important;
+    align-items:stretch!important;
+  }
+  .faq-contact-card{
+    min-height:0!important;
+    padding:clamp(28px,2.6vw,38px)!important;
+    border-radius:26px!important;
+  }
+  .faq-contact-card h2{
+    font-size:clamp(52px,4.4vw,68px)!important;
+    line-height:.92!important;
+  }
+  .faq-contact-card>p:not(.eyebrow){margin-top:14px!important;font-size:12px!important}
+  .faq-contact-links{margin-top:22px!important}
+  .faq-contact-links a{padding:11px 0!important}
+  .faq-socials{margin:18px 0!important;padding-top:0!important}
+  .faq-contact-button{margin-top:auto!important;min-height:44px!important}
+  .faq-list summary{
+    padding-block:clamp(12px,1.45vh,16px)!important;
+    font-size:clamp(21px,1.65vw,25px)!important;
+    line-height:1.08!important;
+    gap:18px!important;
+  }
+  .faq-list summary>span{width:34px!important;height:34px!important;flex:0 0 34px!important}
+  .faq-list details p{padding:0 46px 16px 0!important;font-size:11.5px!important;line-height:1.55!important}
+
+  /* Contact: text and form finish on the same baseline and fit one screen. */
+  .contact{
+    padding:clamp(62px,6.5vh,82px) 0 clamp(68px,7vh,92px)!important;
+  }
+  .contact-grid{
+    align-items:stretch!important;
+    gap:clamp(58px,6vw,88px)!important;
+  }
+  .contact-copy,.contact-form-wrap{
+    min-height:clamp(570px,66vh,625px)!important;
+    height:clamp(570px,66vh,625px)!important;
+  }
+  .contact-copy{
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+    padding-block:12px!important;
+  }
+  .contact-copy h2{font-size:clamp(62px,5.7vw,82px)!important;line-height:.9!important}
+  .contact-copy .lead{font-size:clamp(20px,1.75vw,27px)!important}
+  .contact-data{margin-top:28px!important}
+  .contact-data>a,.contact-data>div{padding:12px 0!important}
+  .contact-form-wrap{display:flex!important;flex-direction:column!important}
+  .contact-form-head{padding:20px 26px!important}
+  .contact-form{padding:22px 26px!important;flex:1!important}
+  .contact-form label{margin-bottom:12px!important;gap:6px!important}
+  .contact-form input,.contact-form textarea{padding:10px 12px!important}
+  .contact-form textarea{min-height:96px!important;max-height:120px!important}
+
+  /* Social media: full section comfortably fits into one desktop viewport. */
+  .social-draft{
+    padding:clamp(58px,6vh,74px) 0 clamp(68px,7vh,90px)!important;
+  }
+  .social-draft-head{
+    margin-bottom:clamp(26px,3vh,38px)!important;
+    gap:44px!important;
+  }
+  .social-draft-head h2{font-size:clamp(54px,5vw,76px)!important}
+  .social-draft-head>p{font-size:12.5px!important}
+  .social-draft-grid--devices{
+    width:min(940px,calc(100vw - 70px))!important;
+    min-height:clamp(390px,47vh,445px)!important;
+  }
+  .social-device--laptop{
+    width:min(690px,68vw)!important;
+  }
+  .social-device-laptop-screen{
+    padding:7px!important;
+    border-width:7px!important;
+    border-bottom-width:12px!important;
+    border-radius:18px 18px 9px 9px!important;
+  }
+  .social-device--phone{
+    width:218px!important;
+    height:410px!important;
+    margin-right:28px!important;
+    padding:8px 8px 58px!important;
+    border-width:6px!important;
+    border-radius:31px!important;
+  }
+  .social-device-phone-notch{width:62px!important;height:14px!important;top:4px!important}
+  .social-device-caption{left:10px!important;right:10px!important;bottom:10px!important;padding:9px 11px!important}
+  .social-device--laptop .social-device-caption{left:18px!important;right:18px!important;bottom:22px!important}
+}
+
+/* Keep screenshots crisp: never zoom/crop the profile captures. */
+.social-device-laptop-screen img,
+.social-device-phone-screen img{
+  object-fit:contain!important;
+  object-position:center top!important;
+  transform:none!important;
+  filter:none!important;
+  image-rendering:auto!important;
+  background:#fff!important;
+}
+
+@media(max-width:780px){
+  .hero{margin-bottom:36px!important}
+  .about{margin-top:0!important}
+}
