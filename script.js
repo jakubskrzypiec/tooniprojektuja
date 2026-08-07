@@ -162,13 +162,15 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') closeModal();
 });
 
-/* Project gallery — V49: manual left / right navigation only */
+/* Project gallery — V50: autoplay + manual left / right navigation */
 const viewport = document.querySelector('[data-project-viewport]');
 const track = document.querySelector('[data-project-track]');
 const prevProject = document.querySelector('[data-project-prev]');
 const nextProject = document.querySelector('[data-project-next]');
 const projectsMobile = window.matchMedia('(max-width: 780px)');
 let projectIndex = 0;
+let projectAutoplayTimer = null;
+const projectAutoplayDelay = 3800;
 
 const bindProjectCards = root => {
   if (!root || root.dataset.projectClickBound === '1') return;
@@ -214,17 +216,57 @@ const moveProjects = direction => {
   renderProjectIndex(true);
 };
 
+const stopProjectAutoplay = () => {
+  if (!projectAutoplayTimer) return;
+  clearInterval(projectAutoplayTimer);
+  projectAutoplayTimer = null;
+};
+
+const startProjectAutoplay = () => {
+  stopProjectAutoplay();
+  if (reduceMotion || document.hidden) return;
+  const { maxIndex } = getProjectMetrics();
+  if (maxIndex <= 0) return;
+  projectAutoplayTimer = window.setInterval(() => moveProjects(1), projectAutoplayDelay);
+};
+
+const restartProjectAutoplay = () => {
+  stopProjectAutoplay();
+  startProjectAutoplay();
+};
+
 if (viewport && track) {
   bindProjectCards(track);
-  prevProject?.addEventListener('click', () => moveProjects(-1));
-  nextProject?.addEventListener('click', () => moveProjects(1));
-  window.addEventListener('resize', () => renderProjectIndex(false), { passive: true });
+  prevProject?.addEventListener('click', () => {
+    moveProjects(-1);
+    restartProjectAutoplay();
+  });
+  nextProject?.addEventListener('click', () => {
+    moveProjects(1);
+    restartProjectAutoplay();
+  });
+  viewport.addEventListener('mouseenter', stopProjectAutoplay);
+  viewport.addEventListener('mouseleave', startProjectAutoplay);
+  viewport.addEventListener('focusin', stopProjectAutoplay);
+  viewport.addEventListener('focusout', event => {
+    if (!viewport.contains(event.relatedTarget)) startProjectAutoplay();
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopProjectAutoplay();
+    else startProjectAutoplay();
+  });
+  window.addEventListener('resize', () => {
+    renderProjectIndex(false);
+    restartProjectAutoplay();
+  }, { passive: true });
   projectsMobile.addEventListener?.('change', () => {
     projectIndex = 0;
     viewport.scrollLeft = 0;
     renderProjectIndex(false);
+    restartProjectAutoplay();
   });
   renderProjectIndex(false);
+  startProjectAutoplay();
 }
 
 
