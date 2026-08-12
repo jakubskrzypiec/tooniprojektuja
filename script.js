@@ -78,69 +78,23 @@ if ('IntersectionObserver' in window && !reduceMotion) {
   revealItems.forEach(item => item.classList.add('visible'));
 }
 
-/* Modal realizacji — V36: duży kadr, miniatury i opis */
+/* Modal */
 const modal = document.querySelector('[data-modal]');
 const modalImage = modal?.querySelector('[data-modal-image]');
 const modalTitle = modal?.querySelector('[data-modal-title]');
 const modalCategory = modal?.querySelector('[data-modal-category]');
-const modalDescription = modal?.querySelector('[data-modal-description]');
-const modalThumbnails = modal?.querySelector('[data-modal-thumbnails]');
 const modalClose = modal?.querySelector('.modal-close');
-const modalContact = modal?.querySelector('[data-modal-contact]');
 let lastFocus = null;
-
-const renderModalThumbnails = card => {
-  if (!modalThumbnails || !modalImage) return;
-  modalThumbnails.innerHTML = '';
-
-  const fallback = card.dataset.image || '';
-  const gallery = (card.dataset.gallery || '')
-    .split('|')
-    .map(item => item.trim())
-    .filter(Boolean);
-  const images = gallery.length ? gallery : [fallback, fallback, fallback];
-  const positions = ['center 22%', 'center 50%', 'center 78%'];
-
-  images.slice(0, 4).forEach((src, index) => {
-    const thumb = document.createElement('button');
-    thumb.type = 'button';
-    thumb.className = `modal-thumb${index === 0 ? ' is-active' : ''}`;
-    thumb.setAttribute('aria-label', `Ujęcie ${index + 1}`);
-    thumb.innerHTML = `<img src="${src}" alt="" loading="lazy">`;
-    thumb.addEventListener('click', () => {
-      modalImage.src = src;
-      modalImage.style.objectPosition = positions[index] || 'center';
-      modalThumbnails.querySelectorAll('.modal-thumb').forEach(item => item.classList.remove('is-active'));
-      thumb.classList.add('is-active');
-    });
-    modalThumbnails.appendChild(thumb);
-  });
-};
 
 const openModal = card => {
   if (!modal || !modalImage || !modalTitle || !modalCategory) return;
   lastFocus = document.activeElement;
   modalImage.src = card.dataset.image;
   modalImage.alt = card.dataset.title || '';
-  modalImage.style.objectPosition = 'center 50%';
   const place = card.dataset.place ? ` / ${card.dataset.place}` : '';
   const area = card.dataset.area ? ` / ${card.dataset.area}` : '';
   modalTitle.textContent = card.dataset.title || '';
   modalCategory.textContent = `${card.dataset.category || ''}${place}${area}`;
-
-  if (modalDescription) {
-    modalDescription.innerHTML = '';
-    const description = card.dataset.description || '';
-    const parts = description.split(/(?<=\.)\s+(?=[A-ZĄĆĘŁŃÓŚŹŻ])/).filter(Boolean);
-    const chunks = parts.length > 1 ? parts : [description];
-    chunks.slice(0, 3).forEach(text => {
-      const paragraph = document.createElement('p');
-      paragraph.textContent = text.trim();
-      modalDescription.appendChild(paragraph);
-    });
-  }
-
-  renderModalThumbnails(card);
   modal.classList.add('is-open');
   modal.setAttribute('aria-hidden', 'false');
   body.classList.add('modal-open');
@@ -154,7 +108,6 @@ const closeModal = () => {
   lastFocus?.focus();
 };
 modalClose?.addEventListener('click', closeModal);
-modalContact?.addEventListener('click', closeModal);
 modal?.addEventListener('click', event => {
   if (event.target === modal) closeModal();
 });
@@ -162,209 +115,153 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') closeModal();
 });
 
-/* Project gallery — V51: true infinite loop + autoplay + endless manual navigation */
+/* Project slider — faster desktop loop / native mobile swipe */
 const viewport = document.querySelector('[data-project-viewport]');
 const track = document.querySelector('[data-project-track]');
 const prevProject = document.querySelector('[data-project-prev]');
 const nextProject = document.querySelector('[data-project-next]');
-let projectIndex = 0;
-let projectOriginalCount = 0;
-let projectAutoplayTimer = null;
-let projectAnimating = false;
-let projectQueue = 0;
-let projectTouchStartX = null;
-const projectAutoplayDelay = 3200;
-const projectTransitionMs = 620;
+const projectsMobile = window.matchMedia('(max-width: 780px)');
+let sliderPaused = false;
+let sliderRaf = 0;
+let sliderOffset = 0;
+let sliderLast = 0;
+let setWidth = 0;
+let sliderMode = '';
+const sliderSpeed = 56;
 
 const bindProjectCards = root => {
   if (!root || root.dataset.projectClickBound === '1') return;
   root.dataset.projectClickBound = '1';
+
+  // Delegacja kliknięć działa również dla kart sklonowanych później przez slider.
   root.addEventListener('click', event => {
     const button = event.target.closest('[data-project-card] button');
     if (!button || !root.contains(button)) return;
+
     const card = button.closest('[data-project-card]');
     if (card) openModal(card);
   });
 };
 
-const prepareInfiniteProjects = () => {
-  if (!track) return;
-
-  track.querySelectorAll('[data-project-clone="1"]').forEach(clone => clone.remove());
-  const originals = [...track.children].filter(item => item.matches?.('[data-project-card]'));
-  projectOriginalCount = originals.length;
-  if (!projectOriginalCount) return;
-
-  const before = document.createDocumentFragment();
-  const after = document.createDocumentFragment();
-
-  originals.forEach(card => {
-    const leftClone = card.cloneNode(true);
-    leftClone.dataset.projectClone = '1';
-    before.appendChild(leftClone);
-
-    const rightClone = card.cloneNode(true);
-    rightClone.dataset.projectClone = '1';
-    after.appendChild(rightClone);
-  });
-
-  track.prepend(before);
-  track.append(after);
-  projectIndex = projectOriginalCount;
+const stopProjectLoop = () => {
+  if (sliderRaf) cancelAnimationFrame(sliderRaf);
+  sliderRaf = 0;
+  sliderLast = 0;
 };
 
-const getProjectStep = () => {
+const removeProjectClones = () => {
+  track?.querySelectorAll('[data-project-clone]').forEach(clone => clone.remove());
+};
+
+const measureSetWidth = originalsLength => {
   if (!track) return 0;
-  const card = track.querySelector('[data-project-card]');
-  if (!card) return 0;
+  const cards = [...track.children].slice(0, originalsLength);
+  if (!cards.length) return 0;
   const gap = parseFloat(getComputedStyle(track).gap || 0);
-  return card.getBoundingClientRect().width + gap;
-};
-
-const renderProjectIndex = (smooth = true) => {
-  if (!track || !viewport || !projectOriginalCount) return;
-  const step = getProjectStep();
-  if (!step) return;
-
-  /* Use one transform system on every breakpoint so loop logic is identical
-     on desktop and mobile. Inline !important wins over older mobile CSS. */
-  viewport.style.setProperty('overflow-x', 'hidden', 'important');
-  viewport.style.setProperty('scroll-snap-type', 'none', 'important');
-  viewport.style.setProperty('touch-action', 'pan-y', 'important');
-  track.style.setProperty('will-change', 'transform', 'important');
-  track.style.setProperty(
-    'transition',
-    smooth && !reduceMotion ? `transform ${projectTransitionMs}ms cubic-bezier(.22,.8,.2,1)` : 'none',
-    'important'
-  );
-  track.style.setProperty('transform', `translate3d(${-projectIndex * step}px,0,0)`, 'important');
-};
-
-const normalizeProjectLoop = () => {
-  if (!projectOriginalCount) return false;
-  const previous = projectIndex;
-
-  while (projectIndex >= projectOriginalCount * 2) projectIndex -= projectOriginalCount;
-  while (projectIndex < projectOriginalCount) projectIndex += projectOriginalCount;
-
-  if (projectIndex !== previous) {
-    renderProjectIndex(false);
-    /* Force the snap to commit before a queued animated move. */
-    void track?.offsetWidth;
-    return true;
-  }
-  return false;
-};
-
-const flushProjectQueue = () => {
-  if (projectAnimating || !projectQueue) return;
-  const direction = Math.sign(projectQueue);
-  projectQueue -= direction;
-  requestAnimationFrame(() => moveProjects(direction, true));
-};
-
-const moveProjects = (direction, manual = false) => {
-  if (!track || !viewport || projectOriginalCount <= 1) return;
-
-  if (projectAnimating && !reduceMotion) {
-    if (manual) projectQueue += direction > 0 ? 1 : -1;
-    return;
-  }
-
-  projectIndex += direction > 0 ? 1 : -1;
-  projectAnimating = !reduceMotion;
-  renderProjectIndex(true);
-
-  if (reduceMotion) {
-    normalizeProjectLoop();
-    projectAnimating = false;
-    flushProjectQueue();
-  }
-};
-
-const stopProjectAutoplay = () => {
-  if (projectAutoplayTimer) window.clearTimeout(projectAutoplayTimer);
-  projectAutoplayTimer = null;
-};
-
-const scheduleProjectAutoplay = () => {
-  stopProjectAutoplay();
-  if (reduceMotion || document.hidden || projectOriginalCount <= 1) return;
-  projectAutoplayTimer = window.setTimeout(() => {
-    if (!projectAnimating) moveProjects(1, false);
-    scheduleProjectAutoplay();
-  }, projectAutoplayDelay);
-};
-
-const restartProjectAutoplay = () => {
-  stopProjectAutoplay();
-  scheduleProjectAutoplay();
+  return cards.reduce((sum, card) => sum + card.getBoundingClientRect().width, 0) + gap * (cards.length - 1);
 };
 
 if (viewport && track) {
+  const originals = [...track.children];
   bindProjectCards(track);
-  prepareInfiniteProjects();
-  renderProjectIndex(false);
 
-  track.addEventListener('transitionend', event => {
-    if (event.propertyName !== 'transform') return;
-    projectAnimating = false;
-    normalizeProjectLoop();
-    flushProjectQueue();
-  });
+  const runDesktopLoop = time => {
+    if (sliderMode !== 'desktop') return;
+    if (!sliderLast) sliderLast = time;
+    const delta = Math.min((time - sliderLast) / 1000, 0.05);
+    sliderLast = time;
 
-  prevProject?.addEventListener('click', () => {
-    moveProjects(-1, true);
-    restartProjectAutoplay();
-  });
+    if (!sliderPaused && !reduceMotion && setWidth > 0) {
+      sliderOffset += sliderSpeed * delta;
+      if (sliderOffset >= setWidth) sliderOffset -= setWidth;
+      track.style.transform = `translate3d(${-sliderOffset}px,0,0)`;
+    }
+    sliderRaf = requestAnimationFrame(runDesktopLoop);
+  };
 
-  nextProject?.addEventListener('click', () => {
-    moveProjects(1, true);
-    restartProjectAutoplay();
-  });
+  const setupMobileProjects = () => {
+    if (sliderMode === 'mobile') return;
+    sliderMode = 'mobile';
+    stopProjectLoop();
+    removeProjectClones();
+    sliderPaused = true;
+    sliderOffset = 0;
+    setWidth = 0;
+    track.style.transform = 'none';
+    viewport.scrollLeft = 0;
+  };
 
-  /* Simple mobile swipe, while vertical page scrolling stays native. */
-  viewport.addEventListener('touchstart', event => {
-    projectTouchStartX = event.touches[0]?.clientX ?? null;
-  }, { passive: true });
+  const setupDesktopProjects = () => {
+    if (sliderMode === 'desktop') return;
+    sliderMode = 'desktop';
+    stopProjectLoop();
+    removeProjectClones();
+    viewport.scrollLeft = 0;
+    originals.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.dataset.projectClone = '1';
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    });
+    bindProjectCards(track);
+    sliderPaused = false;
+    sliderOffset = 0;
+    track.style.transform = 'translate3d(0,0,0)';
+    setWidth = measureSetWidth(originals.length);
+    sliderRaf = requestAnimationFrame(runDesktopLoop);
+  };
 
-  viewport.addEventListener('touchend', event => {
-    if (projectTouchStartX == null) return;
-    const endX = event.changedTouches[0]?.clientX ?? projectTouchStartX;
-    const delta = endX - projectTouchStartX;
-    projectTouchStartX = null;
-    if (Math.abs(delta) < 42) return;
-    moveProjects(delta < 0 ? 1 : -1, true);
-    restartProjectAutoplay();
-  }, { passive: true });
+  const syncProjectMode = () => projectsMobile.matches ? setupMobileProjects() : setupDesktopProjects();
+  syncProjectMode();
+  projectsMobile.addEventListener?.('change', syncProjectMode);
 
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopProjectAutoplay();
-    else scheduleProjectAutoplay();
-  });
+  const pause = () => {
+    if (sliderMode === 'desktop') sliderPaused = true;
+  };
+  const resume = () => {
+    if (sliderMode === 'desktop') sliderPaused = false;
+  };
+
+  viewport.addEventListener('mouseenter', pause);
+  viewport.addEventListener('mouseleave', resume);
+  viewport.addEventListener('focusin', pause);
+  viewport.addEventListener('focusout', resume);
 
   window.addEventListener('resize', () => {
-    projectAnimating = false;
-    projectQueue = 0;
-    normalizeProjectLoop();
-    renderProjectIndex(false);
-    restartProjectAutoplay();
+    if (sliderMode === 'desktop') {
+      setWidth = measureSetWidth(originals.length);
+      if (setWidth > 0) sliderOffset %= setWidth;
+    }
   }, { passive: true });
-
-  scheduleProjectAutoplay();
 }
 
+const nudgeProjects = direction => {
+  if (!track || !viewport) return;
+  const firstCard = track.querySelector('[data-project-card]');
+  const gap = parseFloat(getComputedStyle(track).gap || 0);
+  const step = firstCard ? firstCard.getBoundingClientRect().width + gap : 412;
 
-/* Process accordion — one icon language: + / × */
-const syncProcessIcon = (item) => {
-  const toggle = item?.querySelector('[data-process-toggle]');
-  const icon = toggle?.querySelector('span');
-  const open = !!item?.classList.contains('is-open');
-  if (toggle) toggle.setAttribute('aria-expanded', String(open));
-  if (icon) icon.textContent = open ? '×' : '+';
+  if (sliderMode === 'mobile') {
+    viewport.scrollBy({ left: direction * step, behavior: reduceMotion ? 'auto' : 'smooth' });
+    return;
+  }
+
+  sliderPaused = true;
+  sliderOffset += direction * step;
+  if (setWidth > 0) {
+    while (sliderOffset < 0) sliderOffset += setWidth;
+    while (sliderOffset >= setWidth) sliderOffset -= setWidth;
+  }
+  track.style.transform = `translate3d(${-sliderOffset}px,0,0)`;
+  window.setTimeout(() => {
+    if (sliderMode === 'desktop') sliderPaused = false;
+  }, 650);
 };
+prevProject?.addEventListener('click', () => nudgeProjects(-1));
+nextProject?.addEventListener('click', () => nudgeProjects(1));
 
-document.querySelectorAll('.process-item').forEach(syncProcessIcon);
+
+/* Process accordion */
 document.querySelectorAll('[data-process-toggle]').forEach(button => {
   if (button.dataset.processBound === '1') return;
   button.dataset.processBound = '1';
@@ -372,87 +269,19 @@ document.querySelectorAll('[data-process-toggle]').forEach(button => {
   button.addEventListener('click', () => {
     const currentItem = button.closest('.process-item');
     if (!currentItem) return;
+
     const wasOpen = currentItem.classList.contains('is-open');
 
     document.querySelectorAll('.process-item').forEach(item => {
       item.classList.remove('is-open');
-      syncProcessIcon(item);
+      item.querySelector('[data-process-toggle]')?.setAttribute('aria-expanded', 'false');
     });
 
-    if (!wasOpen) currentItem.classList.add('is-open');
-    syncProcessIcon(currentItem);
+    if (!wasOpen) {
+      currentItem.classList.add('is-open');
+      button.setAttribute('aria-expanded', 'true');
+    }
   });
-});
-
-/* FAQ — V49: smooth open / close + / × */
-const faqDuration = 360;
-
-document.querySelectorAll('.faq-list details').forEach(details => {
-  const summary = details.querySelector('summary');
-  const icon = summary?.querySelector('span');
-  if (!summary) return;
-
-  let animation = null;
-  let closing = false;
-  let expanding = false;
-
-  const syncIcon = () => {
-    if (icon) icon.textContent = details.open && !closing ? '×' : '+';
-  };
-
-  const finish = open => {
-    details.style.height = '';
-    details.style.overflow = '';
-    details.style.transition = '';
-    details.open = open;
-    closing = false;
-    expanding = false;
-    animation = null;
-    syncIcon();
-  };
-
-  const openFaq = () => {
-    if (details.open && !closing) return;
-    const startHeight = `${summary.getBoundingClientRect().height}px`;
-    details.open = true;
-    expanding = true;
-    closing = false;
-    syncIcon();
-    const endHeight = `${details.scrollHeight}px`;
-    details.style.overflow = 'hidden';
-    animation?.cancel();
-    animation = details.animate(
-      { height: [startHeight, endHeight] },
-      { duration: reduceMotion ? 0 : faqDuration, easing: 'cubic-bezier(.22,.8,.2,1)' }
-    );
-    animation.onfinish = () => finish(true);
-    animation.oncancel = () => { expanding = false; };
-  };
-
-  const closeFaq = () => {
-    if (!details.open || closing) return;
-    closing = true;
-    expanding = false;
-    syncIcon();
-    const startHeight = `${details.getBoundingClientRect().height}px`;
-    const endHeight = `${summary.getBoundingClientRect().height}px`;
-    details.style.overflow = 'hidden';
-    animation?.cancel();
-    animation = details.animate(
-      { height: [startHeight, endHeight] },
-      { duration: reduceMotion ? 0 : faqDuration, easing: 'cubic-bezier(.4,0,.2,1)' }
-    );
-    animation.onfinish = () => finish(false);
-    animation.oncancel = () => { closing = false; };
-  };
-
-  summary.addEventListener('click', event => {
-    event.preventDefault();
-    if (closing || !details.open) openFaq();
-    else if (expanding || details.open) closeFaq();
-  });
-
-  syncIcon();
 });
 
 /* Form success */
@@ -461,6 +290,9 @@ if (params.get('wyslano') === '1') {
   document.querySelector('[data-success]')?.classList.add('is-visible');
 }
 
+window.addEventListener('beforeunload', () => {
+  if (sliderRaf) cancelAnimationFrame(sliderRaf);
+});
 
 
 
@@ -529,7 +361,7 @@ if ('IntersectionObserver' in window && mainNavLinks.length) {
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
   /* Cursor-position light inside package and process rows. */
-  document.querySelectorAll('.info-glow-card').forEach(card => {
+  document.querySelectorAll('.package-v26, .process-item').forEach(card => {
     card.addEventListener('pointermove', event => {
       const rect = card.getBoundingClientRect();
       const x = clamp(event.clientX - rect.left, 0, rect.width);
