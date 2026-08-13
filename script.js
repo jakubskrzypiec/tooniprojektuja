@@ -1,40 +1,13 @@
 const body = document.body;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* Intro */
-const intro = document.querySelector("[data-intro]");
-let introClosed = false;
-const closeIntro = () => {
-  if (!intro || introClosed) return;
-  introClosed = true;
-  intro.classList.add("is-closing");
-  body.classList.remove("intro-active");
-  window.setTimeout(() => intro.classList.add("is-hidden"), reduceMotion ? 20 : 1000);
-};
-if (intro) {
-  if (reduceMotion) closeIntro();
-  else {
-    window.setTimeout(closeIntro, 1450);
-    intro.addEventListener("click", closeIntro, { once: true });
-    window.addEventListener("keydown", event => {
-      if (event.key === "Escape" || event.key === "Enter" || event.key === " ") closeIntro();
-    }, { once: true });
-  }
-}
-
 /* Header and navigation */
 const header = document.querySelector("[data-header]");
 const updateHeader = () => {
   header?.classList.toggle("is-scrolled", window.scrollY > 40);
-  const progress = document.querySelector(".scroll-progress");
-  if (progress) {
-    const max = document.documentElement.scrollHeight - innerHeight;
-    progress.style.width = (max > 0 ? Math.min(100, (scrollY / max) * 100) : 0) + "%";
-  }
 };
 updateHeader();
 window.addEventListener("scroll", updateHeader, { passive: true });
-window.addEventListener("resize", updateHeader);
 
 const menuButton = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector(".mobile-menu");
@@ -264,12 +237,13 @@ const processGhost = document.querySelector("[data-process-ghost]");
 processItems.forEach((item, index) => {
   const button = item.querySelector("[data-process-toggle]");
   button?.addEventListener("click", () => {
+    const willOpen = !item.classList.contains("is-open");
     processItems.forEach(other => {
-      const open = other === item;
+      const open = willOpen && other === item;
       other.classList.toggle("is-open", open);
       other.querySelector("[data-process-toggle]")?.setAttribute("aria-expanded", String(open));
     });
-    if (processGhost) {
+    if (processGhost && willOpen) {
       processGhost.style.opacity = "0";
       processGhost.style.transform = "translateY(14px)";
       window.setTimeout(() => {
