@@ -2116,3 +2116,192 @@ body:not(.home) .logo img {
   .about__visual,
   .about__placeholder { min-height: 380px; height: 380px; }
 }
+
+/* V21 - final targeted corrections */
+
+/* The logo keeps one full-colour treatment in every header state. */
+.logo img,
+.header.is-scrolled .logo img,
+body:not(.home) .logo img,
+.header.menu-open .logo img {
+  filter: drop-shadow(0 5px 12px rgba(40, 61, 104, .2));
+}
+
+/* Project arrows retain their shape animation without a visible outline. */
+.slider-arrow,
+.slider-arrow:hover,
+.slider-arrow:active { border: 0 !important; }
+
+/* Images fill every project tile completely. */
+.project-card > button {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 0;
+  line-height: 0;
+}
+.project-card > button > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Working project detail: deliberate crop, visible description and gallery slots. */
+.modal__inner {
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 370px);
+}
+.modal__gallery {
+  grid-template-rows: minmax(0, 1fr) 126px;
+}
+.modal__inner .modal__image {
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+.modal__thumbs {
+  min-height: 112px;
+  gap: 10px;
+  padding-top: 14px;
+}
+.modal__thumb {
+  position: relative;
+  width: 106px;
+  height: 106px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(246, 241, 234, .1);
+  opacity: 1;
+}
+.modal__thumb:hover,
+.modal__thumb.is-active {
+  border: 0;
+  transform: translateY(-2px);
+}
+.modal__inner .modal__thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  opacity: .45;
+}
+.modal__thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(18, 28, 49, .42);
+}
+.modal__thumb--empty {
+  background:
+    linear-gradient(rgba(255, 255, 255, .055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .055) 1px, transparent 1px),
+    rgba(255, 255, 255, .07);
+  background-size: 18px 18px;
+}
+.modal__thumb span {
+  position: relative;
+  z-index: 2;
+  max-width: 92px;
+  color: #fff;
+  font-family: var(--body);
+  font-size: 10px;
+  line-height: 1.25;
+  letter-spacing: .04em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.modal__copy {
+  position: relative;
+  z-index: 2;
+  justify-content: center;
+  border-left: 1px solid rgba(40, 61, 104, .1);
+  color: var(--text);
+}
+.modal__copy > span {
+  display: block;
+  margin-bottom: 10px;
+}
+.modal__copy h2 {
+  margin: 0 0 28px;
+  color: var(--navy);
+}
+.modal__copy-placeholder {
+  padding: 24px;
+  border: 1px solid rgba(40, 61, 104, .15);
+  border-radius: 24px;
+  background: rgba(235, 228, 218, .62);
+}
+.modal__copy-placeholder strong {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--navy-dark);
+  font-family: var(--body);
+  font-size: 17px;
+  font-weight: 400;
+}
+.modal__copy-placeholder p {
+  margin: 0;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* FAQ title no longer reaches the cards; bubbles are larger and uniform. */
+.faq__grid {
+  grid-template-columns: minmax(440px, .72fr) minmax(0, 1.28fr);
+  gap: clamp(54px, 5vw, 78px);
+}
+.faq__title h2 {
+  max-width: 440px;
+  font-size: clamp(52px, 3.5vw, 62px);
+  line-height: .94;
+}
+.faq__list { gap: 14px; }
+.faq__list details {
+  border-radius: 32px;
+  will-change: height;
+}
+.faq__list summary {
+  min-height: 108px;
+  padding: 24px 28px;
+}
+.faq__list details > div {
+  padding: 0 28px 30px;
+}
+
+/* Contact header and social hover without the extra white halo. */
+.contact__form-head { grid-template-columns: auto 1fr; }
+.contact__socials a:hover .social {
+  box-shadow: 0 11px 24px rgba(40, 61, 104, .2);
+}
+
+@media (max-width: 1180px) {
+  .faq__grid { grid-template-columns: 1fr; gap: 32px; }
+  .faq__title {
+    position: relative;
+    top: auto;
+    margin-bottom: 12px;
+  }
+  .faq__title h2 { max-width: 520px; font-size: 58px; }
+  .faq__title > span { top: 65px; left: auto; right: 0; }
+}
+
+@media (max-width: 820px) {
+  .modal__inner { grid-template-columns: 1fr; }
+  .modal__gallery { grid-template-rows: minmax(0, 1fr) 100px; }
+  .modal__thumbs { min-height: 86px; }
+  .modal__thumb { width: 82px; height: 82px; }
+  .modal__thumb span { max-width: 72px; font-size: 8px; }
+  .modal__copy { border-top: 1px solid rgba(40, 61, 104, .1); border-left: 0; }
+  .faq__title h2 { font-size: 48px; }
+  .faq__title > span { top: 110px; right: -12px; }
+  .faq__list summary { min-height: 102px; padding: 22px 24px; }
+}

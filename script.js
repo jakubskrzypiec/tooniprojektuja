@@ -109,22 +109,34 @@ const openModal = card => {
     .filter(Boolean);
   const firstImage = card.dataset.image || gallery[0] || "";
   modalImage.alt = card.dataset.title || "";
+  modalImage.style.objectPosition = card.dataset.focus || "50% 50%";
   modalTitle.textContent = card.dataset.title || "";
   modalCategory.textContent = card.dataset.category || "";
   modalThumbs.replaceChildren();
-  gallery.forEach((source, index) => {
-    const button = document.createElement("button");
-    const image = document.createElement("img");
-    button.type = "button";
-    button.className = "modal__thumb";
-    button.dataset.source = source;
-    button.setAttribute("aria-label", `Pokaż zdjęcie ${index + 1}`);
-    button.addEventListener("click", () => selectModalImage(source));
-    image.src = source;
-    image.alt = "";
-    button.append(image);
-    modalThumbs.append(button);
-  });
+  const gallerySlots = Math.max(4, gallery.length);
+  for (let index = 0; index < gallerySlots; index += 1) {
+    const source = gallery[index];
+    const tile = document.createElement(source ? "button" : "div");
+    const label = document.createElement("span");
+    tile.className = source ? "modal__thumb" : "modal__thumb modal__thumb--empty";
+    label.textContent = "Czekamy na pełną galerię";
+
+    if (source) {
+      const image = document.createElement("img");
+      tile.type = "button";
+      tile.dataset.source = source;
+      tile.setAttribute("aria-label", `Pokaż zdjęcie ${index + 1}`);
+      tile.addEventListener("click", () => selectModalImage(source));
+      image.src = source;
+      image.alt = "";
+      tile.append(image);
+    } else {
+      tile.setAttribute("aria-hidden", "true");
+    }
+
+    tile.append(label);
+    modalThumbs.append(tile);
+  }
   selectModalImage(firstImage);
   modal.classList.add("is-open");
   modal.setAttribute("aria-hidden", "false");
@@ -262,6 +274,38 @@ let resizeTimer = 0;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = window.setTimeout(setupSlider, 180);
+});
+
+/* FAQ accordion - smooth opening and closing */
+document.querySelectorAll(".faq__list details").forEach(item => {
+  const summary = item.querySelector("summary");
+  if (!summary) return;
+
+  summary.addEventListener("click", event => {
+    if (reduceMotion) return;
+    event.preventDefault();
+    if (item.dataset.animating === "true") return;
+
+    const willOpen = !item.open;
+    const startHeight = item.offsetHeight;
+    if (willOpen) item.open = true;
+    const endHeight = willOpen ? item.offsetHeight : summary.offsetHeight + 2;
+
+    item.dataset.animating = "true";
+    item.style.overflow = "hidden";
+    const animation = item.animate(
+      [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
+      { duration: 430, easing: "cubic-bezier(.2,.75,.25,1)" }
+    );
+
+    animation.onfinish = () => {
+      if (!willOpen) item.open = false;
+      item.style.height = "";
+      item.style.overflow = "";
+      delete item.dataset.animating;
+    };
+    animation.oncancel = animation.onfinish;
+  });
 });
 
 /* Process accordion */
