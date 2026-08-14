@@ -16,6 +16,7 @@ const closeMenu = () => {
   menuButton?.setAttribute("aria-expanded", "false");
   mobileMenu?.classList.remove("is-open");
   mobileMenu?.setAttribute("aria-hidden", "true");
+  header?.classList.remove("menu-open");
 };
 menuButton?.addEventListener("click", () => {
   const isOpen = !menuButton.classList.contains("is-open");
@@ -23,6 +24,7 @@ menuButton?.addEventListener("click", () => {
   menuButton.setAttribute("aria-expanded", String(isOpen));
   mobileMenu?.classList.toggle("is-open", isOpen);
   mobileMenu?.setAttribute("aria-hidden", String(!isOpen));
+  header?.classList.toggle("menu-open", isOpen);
 });
 mobileMenu?.querySelectorAll("a").forEach(link => link.addEventListener("click", closeMenu));
 
@@ -85,15 +87,45 @@ const modal = document.querySelector("[data-modal]");
 const modalImage = modal?.querySelector("[data-modal-image]");
 const modalTitle = modal?.querySelector("[data-modal-title]");
 const modalCategory = modal?.querySelector("[data-modal-category]");
+const modalThumbs = modal?.querySelector("[data-modal-thumbs]");
 let lastFocus = null;
 
+const selectModalImage = source => {
+  if (!modalImage || !modalThumbs) return;
+  modalImage.src = source;
+  modalThumbs.querySelectorAll("button").forEach(button => {
+    const active = button.dataset.source === source;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+};
+
 const openModal = card => {
-  if (!modal || !card || !modalImage || !modalTitle || !modalCategory) return;
+  if (!modal || !card || !modalImage || !modalTitle || !modalCategory || !modalThumbs) return;
   lastFocus = document.activeElement;
-  modalImage.src = card.dataset.image || "";
+  const gallery = (card.dataset.gallery || card.dataset.image || "")
+    .split(",")
+    .map(source => source.trim())
+    .filter(Boolean);
+  const firstImage = card.dataset.image || gallery[0] || "";
   modalImage.alt = card.dataset.title || "";
   modalTitle.textContent = card.dataset.title || "";
   modalCategory.textContent = card.dataset.category || "";
+  modalThumbs.replaceChildren();
+  gallery.forEach((source, index) => {
+    const button = document.createElement("button");
+    const image = document.createElement("img");
+    button.type = "button";
+    button.className = "modal__thumb";
+    button.dataset.source = source;
+    button.setAttribute("aria-label", `Pokaż zdjęcie ${index + 1}`);
+    button.addEventListener("click", () => selectModalImage(source));
+    image.src = source;
+    image.alt = "";
+    button.append(image);
+    modalThumbs.append(button);
+  });
+  selectModalImage(firstImage);
   modal.classList.add("is-open");
   modal.setAttribute("aria-hidden", "false");
   body.style.overflow = "hidden";
@@ -105,6 +137,7 @@ const closeModal = () => {
   modal.setAttribute("aria-hidden", "true");
   body.style.overflow = "";
   if (modalImage) modalImage.src = "";
+  modalThumbs?.replaceChildren();
   lastFocus?.focus?.();
 };
 document.addEventListener("click", event => {

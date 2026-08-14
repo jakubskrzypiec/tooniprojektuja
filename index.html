@@ -15,7 +15,7 @@
   <link rel="icon" href="logo-symbol.png" type="image/png">
   <link rel="preload" href="isocteur.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="gill-sans-mt.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="style.css?v=tooni-polish-1">
+  <link rel="stylesheet" href="style.css?v=tooni-v20">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"InteriorDesigner","name":"To Oni Projektują","url":"https://jakubskrzypiec.github.io/tooniprojektuja/","image":"https://jakubskrzypiec.github.io/tooniprojektuja/hero-generated.jpg","telephone":"+48 794 530 590","email":"tooniprojektuja@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Gliwice","addressCountry":"PL"},"areaServed":"Polska","sameAs":["https://www.instagram.com/to_oni_projektuja/","https://www.facebook.com/61583774015406/"]}</script>
 </head>
 
@@ -28,7 +28,7 @@
 
   <header class="header" data-header>
     <a class="logo" href="#start" aria-label="To Oni Projektują - strona główna">
-      <img src="logo-mark.png" alt="To Oni Projektują">
+      <img src="logo-header-symbol.png" alt="To Oni Projektują">
     </a>
 
     <nav class="nav" aria-label="Menu główne">
@@ -73,8 +73,9 @@
     <section class="about section" id="onas">
       <div class="shell about__grid">
         <figure class="about__visual panel spotlight reveal">
-          <img src="about-interior.webp" alt="Jasne wnętrze zaprojektowane przez To Oni Projektują" loading="lazy" decoding="async">
-          <figcaption><small>Wnętrza dopasowane</small><strong>Do człowieka.</strong></figcaption>
+          <div class="about__placeholder" role="img" aria-label="Miejsce na nowe zdjęcie pracowni">
+            <span>Czekamy na zdjęcie</span>
+          </div>
         </figure>
 
         <div class="about__copy panel spotlight reveal">
@@ -98,35 +99,34 @@
           <p class="section-label">Realizacje</p>
           <h2>Nasze projekty</h2>
         </div>
-        <a class="line-link" href="#kontakt">Zapytaj o projekt <svg><use href="#icon-arrow"/></svg></a>
       </div>
 
       <div class="projects__stage">
         <button class="slider-arrow slider-arrow--prev" type="button" data-project-prev aria-label="Poprzednie projekty"><svg><use href="#icon-arrow"/></svg></button>
         <div class="projects__viewport" data-project-viewport tabindex="0" aria-label="Galeria projektów">
           <div class="projects__track" data-project-track>
-            <article class="project-card" data-project-card data-image="lazienka1.jpg" data-title="Łazienka / detal" data-category="Projekt koncepcyjny">
-              <button type="button" aria-label="Powiększ projekt Łazienka detal"><img src="lazienka1.jpg" alt="Ciemna łazienka z kamiennym detalem" loading="lazy" decoding="async"><span class="project-card__top"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="project-card__meta"><small>Bytom</small><strong>9 m²</strong></span></button>
+            <article class="project-card" data-project-card data-image="lazienka1.jpg" data-gallery="lazienka1.jpg,lazienka2.jpg" data-title="Łazienka / detal" data-category="Projekt koncepcyjny">
+              <button type="button" aria-label="Powiększ projekt Łazienka detal"><img src="lazienka1.jpg" alt="Ciemna łazienka z kamiennym detalem" loading="lazy" decoding="async"><span class="project-card__top">TO ONI</span><span class="project-card__meta"><strong>9 m²</strong></span></button>
               <p>Projekt koncepcyjny</p><h3>Łazienka / detal</h3>
             </article>
-            <article class="project-card" data-project-card data-image="kuchnia2.jpg" data-title="Strefa dzienna" data-category="Projekt kompleksowy">
-              <button type="button" aria-label="Powiększ projekt Strefa dzienna"><img src="kuchnia2.jpg" alt="Jasna kuchnia z różowym światłem" loading="lazy" decoding="async"><span class="project-card__top"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="project-card__meta"><small>Katowice</small><strong>42 m²</strong></span></button>
+            <article class="project-card" data-project-card data-image="kuchnia2.jpg" data-gallery="kuchnia2.jpg,kuchnia1.jpg" data-title="Strefa dzienna" data-category="Projekt kompleksowy">
+              <button type="button" aria-label="Powiększ projekt Strefa dzienna"><img src="kuchnia2.jpg" alt="Jasna kuchnia z różowym światłem" loading="lazy" decoding="async"><span class="project-card__top">TO ONI</span><span class="project-card__meta"><strong>42 m²</strong></span></button>
               <p>Projekt kompleksowy</p><h3>Strefa dzienna</h3>
             </article>
-            <article class="project-card" data-project-card data-image="sypialnia.jpg" data-title="Sypialnia i wyciszenie" data-category="Projekt wnętrza">
-              <button type="button" aria-label="Powiększ projekt Sypialnia i wyciszenie"><img src="sypialnia.jpg" alt="Jasna sypialnia z zabudową" loading="lazy" decoding="async"><span class="project-card__top"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="project-card__meta"><small>Kraków</small><strong>16 m²</strong></span></button>
+            <article class="project-card" data-project-card data-image="sypialnia.jpg" data-gallery="sypialnia.jpg" data-title="Sypialnia i wyciszenie" data-category="Projekt wnętrza">
+              <button type="button" aria-label="Powiększ projekt Sypialnia i wyciszenie"><img src="sypialnia.jpg" alt="Jasna sypialnia z zabudową" loading="lazy" decoding="async"><span class="project-card__top">TO ONI</span><span class="project-card__meta"><strong>16 m²</strong></span></button>
               <p>Projekt wnętrza</p><h3>Sypialnia i wyciszenie</h3>
             </article>
-            <article class="project-card" data-project-card data-image="lazienka2.jpg" data-title="Spokojna łazienka" data-category="Projekt wykonawczy">
-              <button type="button" aria-label="Powiększ projekt Spokojna łazienka"><img src="lazienka2.jpg" alt="Spokojna łazienka z grafitową zabudową" loading="lazy" decoding="async"><span class="project-card__top"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="project-card__meta"><small>Zabrze</small><strong>12 m²</strong></span></button>
+            <article class="project-card" data-project-card data-image="lazienka2.jpg" data-gallery="lazienka2.jpg,lazienka1.jpg" data-title="Spokojna łazienka" data-category="Projekt wykonawczy">
+              <button type="button" aria-label="Powiększ projekt Spokojna łazienka"><img src="lazienka2.jpg" alt="Spokojna łazienka z grafitową zabudową" loading="lazy" decoding="async"><span class="project-card__top">TO ONI</span><span class="project-card__meta"><strong>12 m²</strong></span></button>
               <p>Projekt wykonawczy</p><h3>Spokojna łazienka</h3>
             </article>
-            <article class="project-card" data-project-card data-image="kuchnia1.jpg" data-title="Kuchnia / codzienność" data-category="Projekt wnętrza">
-              <button type="button" aria-label="Powiększ projekt Kuchnia codzienność"><img src="kuchnia1.jpg" alt="Kuchnia otwarta na strefę dzienną" loading="lazy" decoding="async"><span class="project-card__top"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="project-card__meta"><small>Gliwice</small><strong>14 m²</strong></span></button>
+            <article class="project-card" data-project-card data-image="kuchnia1.jpg" data-gallery="kuchnia1.jpg,kuchnia2.jpg" data-title="Kuchnia / codzienność" data-category="Projekt wnętrza">
+              <button type="button" aria-label="Powiększ projekt Kuchnia codzienność"><img src="kuchnia1.jpg" alt="Kuchnia otwarta na strefę dzienną" loading="lazy" decoding="async"><span class="project-card__top">TO ONI</span><span class="project-card__meta"><strong>14 m²</strong></span></button>
               <p>Projekt wnętrza</p><h3>Kuchnia / codzienność</h3>
             </article>
-            <article class="project-card" data-project-card data-image="garderoba.jpg" data-title="Garderoba na wymiar" data-category="Projekt wnętrza">
-              <button type="button" aria-label="Powiększ projekt Garderoba na wymiar"><img src="garderoba.jpg" alt="Garderoba na wymiar z drewnianą zabudową" loading="lazy" decoding="async"><span class="project-card__top"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="project-card__meta"><small>Gliwice</small><strong>18 m²</strong></span></button>
+            <article class="project-card" data-project-card data-image="garderoba.jpg" data-gallery="garderoba.jpg" data-title="Garderoba na wymiar" data-category="Projekt wnętrza">
+              <button type="button" aria-label="Powiększ projekt Garderoba na wymiar"><img src="garderoba.jpg" alt="Garderoba na wymiar z drewnianą zabudową" loading="lazy" decoding="async"><span class="project-card__top">TO ONI</span><span class="project-card__meta"><strong>18 m²</strong></span></button>
               <p>Projekt wnętrza</p><h3>Garderoba na wymiar</h3>
             </article>
           </div>
@@ -281,19 +281,6 @@
       </div>
     </section>
 
-    <section class="brand-band" aria-label="To Oni Projektują">
-      <a class="back-top" href="#start" aria-label="Wróć na górę"><svg><use href="#icon-arrow"/></svg></a>
-      <div class="shell brand-band__inner">
-        <div class="brand-band__meta"><span>Pracownia / Gliwice</span><i></i><span>Projekty w całej Polsce</span></div>
-        <div class="brand-band__composition" aria-hidden="true">
-          <span class="brand-band__solid">TO ONI</span>
-          <img src="logo-symbol.png" alt="">
-          <span class="brand-band__outline">PROJEKTUJĄ</span>
-        </div>
-        <p>funkcja / światło / materiał / detal</p>
-      </div>
-    </section>
-
     <section class="map" id="lokalizacja">
       <iframe title="Mapa - To Oni Projektują, Gliwice" src="https://www.google.com/maps?q=Gliwice,+Poland&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </section>
@@ -310,9 +297,19 @@
 
   <div class="modal" data-modal aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <button class="modal__close" type="button" aria-label="Zamknij">×</button>
-    <div class="modal__inner"><img alt="" data-modal-image><div><span data-modal-category></span><h2 id="modal-title" data-modal-title></h2></div></div>
+    <div class="modal__inner">
+      <div class="modal__gallery">
+        <img class="modal__image" alt="" data-modal-image>
+        <div class="modal__thumbs" data-modal-thumbs aria-label="Pozostałe zdjęcia realizacji"></div>
+      </div>
+      <div class="modal__copy">
+        <span data-modal-category></span>
+        <h2 id="modal-title" data-modal-title></h2>
+        <p>Tutaj pojawi się tekst dotyczący realizacji. Uzupełnimy go po otrzymaniu opisu projektu.</p>
+      </div>
+    </div>
   </div>
 
-  <script src="script.js?v=tooni-polish-1"></script>
+  <script src="script.js?v=tooni-v20"></script>
 </body>
 </html>
