@@ -1776,7 +1776,7 @@ body:not(.home) .logo img,
   .faq__list summary { min-height: 102px; padding: 22px 24px; }
 }
 
-.hero h1 { line-height: 1.04; }
+.hero h1 { line-height: 1.20; }
 
 .project-card > button > img {
   inset: 0 0 auto 0;
@@ -1840,7 +1840,7 @@ body:not(.home) .logo img,
 .modal__close { top: 14px; right: 18px; }
 
 @media (max-width: 820px) {
-  .hero h1 { line-height: 1.04; }
+  .hero h1 { line-height: 1.20; }
   .modal { padding: 8px; }
   .modal__inner {
     width: 100%;
