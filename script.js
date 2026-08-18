@@ -200,7 +200,7 @@ const sliderFrame = time => {
   const delta = Math.min(40, time - sliderLast);
   sliderLast = time;
   if (!sliderPaused && !sliderAnimating && sliderSetWidth) {
-    sliderOffset += delta * .013;
+    sliderOffset += delta * .018;
     if (sliderOffset >= sliderSetWidth) sliderOffset -= sliderSetWidth;
     setTrackPosition(sliderOffset);
   }
@@ -239,7 +239,7 @@ const nudgeSlider = direction => {
   if (!first) return;
 
   if (!sliderDesktop || reduceMotion) {
-    viewport.scrollBy({ left: direction * (first.offsetWidth + 14), behavior: "smooth" });
+    viewport.scrollBy({ left: direction * (first.offsetWidth + 20) * 2, behavior: "smooth" });
     return;
   }
 
@@ -276,45 +276,71 @@ window.addEventListener("resize", () => {
   resizeTimer = window.setTimeout(setupSlider, 180);
 });
 
-/* FAQ accordion - smooth opening and closing */
-document.querySelectorAll(".faq__list details").forEach(item => {
+/* FAQ accordion - smooth opening/closing, one item at a time */
+const faqItems = [...document.querySelectorAll(".faq__list details")];
+
+const animateFaq = (item, willOpen) => {
+  const summary = item.querySelector("summary");
+  if (!summary) return;
+  if (reduceMotion) {
+    item.open = willOpen;
+    return;
+  }
+  if (item.dataset.animating === "true") return;
+
+  const startHeight = item.offsetHeight;
+  if (willOpen) item.open = true;
+  const endHeight = willOpen ? item.offsetHeight : summary.offsetHeight + 2;
+
+  item.dataset.animating = "true";
+  item.style.overflow = "hidden";
+  const animation = item.animate(
+    [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
+    { duration: 430, easing: "cubic-bezier(.2,.75,.25,1)" }
+  );
+
+  animation.onfinish = () => {
+    if (!willOpen) item.open = false;
+    item.style.height = "";
+    item.style.overflow = "";
+    delete item.dataset.animating;
+  };
+  animation.oncancel = animation.onfinish;
+};
+
+faqItems.forEach(item => {
   const summary = item.querySelector("summary");
   if (!summary) return;
 
   summary.addEventListener("click", event => {
-    if (reduceMotion) return;
     event.preventDefault();
-    if (item.dataset.animating === "true") return;
-
     const willOpen = !item.open;
+
     if (willOpen) {
-      document.querySelectorAll(".faq__list details").forEach(other => {
-        if (other !== item && other.open) {
-          other.open = false;
-          other.style.height = "";
-          other.style.overflow = "";
-          delete other.dataset.animating;
-        }
+      faqItems.forEach(other => {
+        if (other !== item && other.open) animateFaq(other, false);
       });
     }
-    const startHeight = item.offsetHeight;
-    if (willOpen) item.open = true;
-    const endHeight = willOpen ? item.offsetHeight : summary.offsetHeight + 2;
+    animateFaq(item, willOpen);
+  });
+});
 
-    item.dataset.animating = "true";
-    item.style.overflow = "hidden";
-    const animation = item.animate(
-      [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
-      { duration: 430, easing: "cubic-bezier(.2,.75,.25,1)" }
-    );
-
-    animation.onfinish = () => {
-      if (!willOpen) item.open = false;
-      item.style.height = "";
-      item.style.overflow = "";
-      delete item.dataset.animating;
-    };
-    animation.oncancel = animation.onfinish;
+/* Polish typography: keep short one-letter words with the next word */
+const typographySelectors = [
+  ".rich-copy p",
+  ".package-card__body p",
+  ".process-answer p",
+  ".process-answer b",
+  ".faq__list details > div p",
+  ".contact__lead",
+  ".footer p"
+];
+document.querySelectorAll(typographySelectors.join(",")).forEach(node => {
+  const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+  textNodes.forEach(textNode => {
+    textNode.nodeValue = textNode.nodeValue.replace(/\b([aiouwz])\s+/gi, "$1\u00A0");
   });
 });
 
