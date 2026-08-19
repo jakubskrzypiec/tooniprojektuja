@@ -3878,3 +3878,245 @@ html { overflow-x: clip; }
   .project-card__top { transform: translateY(-50%) !important; }
   .project-card__meta { transform: none !important; }
 }
+
+/* =========================================================
+   V43 — PROJECT CARDS: closer to the approved bed reference
+   - clean 3:4 tiles
+   - wider spacing
+   - inset white frame + ~35% darkening on hover
+   - Instagram-style dots / TOP at the top
+   - metrage at the bottom
+   - remove the vertical "TO ONI PROJEKTUJĄ" label
+   - smaller carousel controls
+   ========================================================= */
+
+.projects__track {
+  gap: clamp(36px, 3vw, 48px) !important;
+}
+
+.project-card {
+  width: clamp(280px, 20.5vw, 350px) !important;
+}
+
+.project-card > button {
+  position: relative !important;
+  aspect-ratio: 3 / 4 !important;
+  overflow: hidden !important;
+  border-radius: 26px !important;
+  box-shadow: 0 12px 30px rgba(40, 61, 104, .10) !important;
+}
+
+.project-card > button > img {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  border-radius: inherit !important;
+  object-fit: cover !important;
+  transform: scale(1.001) !important;
+  transition: transform .62s cubic-bezier(.2,.75,.25,1), filter .28s ease !important;
+}
+
+.project-card:hover > button > img,
+.project-card:focus-within > button > img {
+  transform: scale(1.025) !important;
+}
+
+/* The requested neutral black darkening: about 35%. */
+.project-card button::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+  background: rgba(0, 0, 0, .35) !important;
+  opacity: 0 !important;
+  transition: opacity .26s ease !important;
+}
+
+/* Frame is closer to the tile edge, like the reference screenshot. */
+.project-card > button::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 18px !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+  border: 1.5px solid rgba(255,255,255,.96) !important;
+  border-radius: 18px !important;
+  opacity: 0 !important;
+  transform: scale(.992) !important;
+  transition: opacity .26s ease, transform .34s cubic-bezier(.2,.75,.25,1) !important;
+}
+
+.project-card:hover button::after,
+.project-card:focus-within button::after,
+.project-card:hover > button::before,
+.project-card:focus-within > button::before {
+  opacity: 1 !important;
+}
+
+.project-card:hover > button::before,
+.project-card:focus-within > button::before {
+  transform: scale(1) !important;
+}
+
+/* Dots — TOP — dots, centred above the inset frame. */
+.project-card__label-top {
+  top: 7px !important;
+  left: 50% !important;
+  z-index: 4 !important;
+  gap: 8px !important;
+  padding: 0 !important;
+  color: rgba(255,255,255,.98) !important;
+  font-family: var(--body) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  letter-spacing: .08em !important;
+  text-shadow: 0 1px 9px rgba(0,0,0,.34) !important;
+  opacity: 0 !important;
+  transform: translate(-50%, -3px) !important;
+}
+
+.project-card__label-top::before,
+.project-card__label-top::after {
+  content: "•  •  •" !important;
+  font-size: 8px !important;
+  font-weight: 400 !important;
+  letter-spacing: .08em !important;
+  opacity: .92 !important;
+}
+
+/* The vertical studio name was making the card busier than the reference. */
+.project-card__top {
+  display: none !important;
+}
+
+.project-card__meta {
+  left: 30px !important;
+  bottom: 30px !important;
+  z-index: 4 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  transform: translateY(4px) !important;
+  transition: opacity .25s ease, transform .32s cubic-bezier(.2,.75,.25,1) !important;
+}
+
+.project-card__meta strong {
+  display: block !important;
+  color: #fff !important;
+  font-family: var(--body) !important;
+  font-size: 25px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  letter-spacing: .045em !important;
+  text-shadow: 0 2px 10px rgba(0,0,0,.44) !important;
+}
+
+.project-card:hover .project-card__label-top,
+.project-card:focus-within .project-card__label-top,
+.project-card:hover .project-card__meta,
+.project-card:focus-within .project-card__meta {
+  opacity: 1 !important;
+}
+
+.project-card:hover .project-card__label-top,
+.project-card:focus-within .project-card__label-top {
+  transform: translate(-50%, 0) !important;
+}
+
+.project-card:hover .project-card__meta,
+.project-card:focus-within .project-card__meta {
+  transform: none !important;
+}
+
+/* Carousel controls: ~30% smaller; no white arrow/icon, just the animated circle/drop. */
+.slider-arrow,
+.slider-arrow:hover,
+.slider-arrow:focus-visible,
+.slider-arrow:active {
+  width: 32px !important;
+  aspect-ratio: 1 !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  transition: transform .34s cubic-bezier(.2,.75,.25,1) !important;
+}
+
+.slider-arrow svg {
+  display: none !important;
+}
+
+.slider-arrow::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  border: 1px solid rgba(40,61,104,.46) !important;
+  border-radius: 50% !important;
+  background: #3d5b91 !important;
+  box-shadow: 0 7px 17px rgba(40,61,104,.18) !important;
+  filter: saturate(1.02) !important;
+  transition: transform .36s cubic-bezier(.2,.75,.25,1), filter .28s ease, background .28s ease, border-radius .28s ease !important;
+}
+
+.slider-arrow:hover,
+.slider-arrow:focus-visible {
+  transform: scale(1.18) !important;
+}
+
+.slider-arrow:hover::before,
+.slider-arrow:focus-visible::before {
+  border-radius: 50% 50% 10% 50% !important;
+  background: #294577 !important;
+  filter: saturate(1.42) !important;
+}
+
+.slider-arrow--next:hover::before,
+.slider-arrow--next:focus-visible::before {
+  transform: rotate(-45deg) !important;
+}
+
+.slider-arrow--prev:hover::before,
+.slider-arrow--prev:focus-visible::before {
+  transform: rotate(135deg) !important;
+}
+
+@media (max-width: 900px) {
+  .projects__track {
+    gap: 20px !important;
+  }
+
+  .project-card {
+    width: min(78vw, 330px) !important;
+  }
+
+  /* Touch screens cannot hover, so keep the editorial treatment visible. */
+  .project-card button::after {
+    opacity: 1 !important;
+    background: rgba(0,0,0,.24) !important;
+  }
+
+  .project-card > button::before,
+  .project-card__label-top,
+  .project-card__meta {
+    opacity: 1 !important;
+  }
+
+  .project-card > button::before {
+    transform: scale(1) !important;
+  }
+
+  .project-card__label-top {
+    transform: translate(-50%,0) !important;
+  }
+
+  .project-card__meta {
+    transform: none !important;
+  }
+}

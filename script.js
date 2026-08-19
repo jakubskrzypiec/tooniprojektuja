@@ -187,7 +187,7 @@ document.addEventListener("keydown", event => {
   if (event.key === "Escape" && modal?.classList.contains("is-open")) closeModal();
 });
 
-/* Infinite, slow project carousel — V25 */
+/* Infinite, slow project carousel — V43 */
 const viewport = document.querySelector("[data-project-viewport]");
 const track = document.querySelector("[data-project-track]");
 const projectPrev = document.querySelector("[data-project-prev]");
