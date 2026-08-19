@@ -9,15 +9,15 @@
 <link href="https://jakubskrzypiec.github.io/tooniprojektuja/" rel="canonical"/>
 <meta content="website" property="og:type"/>
 <meta content="To Oni Projektują | Architektura wnętrz Gliwice" property="og:title"/>
-<meta content="Najpierw poznajemy człowieka, dopiero później projektujemy wnętrze." property="og:description"/>
-<meta content="https://jakubskrzypiec.github.io/tooniprojektuja/hero-client.webp" property="og:image"/>
+<meta content="Najpierw poznajemy człowieka, później projektujemy wnętrze." property="og:description"/>
+<meta content="https://jakubskrzypiec.github.io/tooniprojektuja/hero-generated.jpg" property="og:image"/>
 <meta content="pl_PL" property="og:locale"/>
 <title>To Oni Projektują | Architektura wnętrz Gliwice</title>
 <link href="logo-symbol.png" rel="icon" type="image/png"/>
 <link as="font" crossorigin="" href="isocpeur.ttf" rel="preload" type="font/ttf"/>
 <link as="font" crossorigin="" href="gill-sans-mt.ttf" rel="preload" type="font/ttf"/>
-<link href="style.css?v=tooni-v35-final-pdf" rel="stylesheet"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"InteriorDesigner","name":"To Oni Projektują","url":"https://jakubskrzypiec.github.io/tooniprojektuja/","image":"https://jakubskrzypiec.github.io/tooniprojektuja/hero-client.webp","telephone":"+48 794 530 590","email":"tooniprojektuja@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Gliwice","addressCountry":"PL"},"areaServed":"Polska","sameAs":["https://www.instagram.com/to_oni_projektuja/","https://www.facebook.com/61583774015406/"]}</script>
+<link href="style.css?v=tooni-v34-fontfix" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"InteriorDesigner","name":"To Oni Projektują","url":"https://jakubskrzypiec.github.io/tooniprojektuja/","image":"https://jakubskrzypiec.github.io/tooniprojektuja/hero-generated.jpg","telephone":"+48 794 530 590","email":"tooniprojektuja@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Gliwice","addressCountry":"PL"},"areaServed":"Polska","sameAs":["https://www.instagram.com/to_oni_projektuja/","https://www.facebook.com/61583774015406/"]}</script>
 </head>
 <body class="home">
 <svg aria-hidden="true" class="svg-defs">
@@ -28,9 +28,9 @@
 <header class="header" data-header="">
 <span aria-hidden="true" class="header-logo-spacer"></span>
 <nav aria-label="Menu główne" class="nav">
-<a href="projekty.html">Projekty</a>
-<a href="oferta.html">Oferta</a>
-<a href="kontakt.html">Kontakt</a>
+<a href="#projekty">Projekty</a>
+<a href="#pakiety">Oferta</a>
+<a href="#kontakt">Kontakt</a>
 </nav>
 <div class="header-actions">
 <a aria-label="Facebook To Oni Projektują" class="social social--header" href="https://www.facebook.com/61583774015406/" rel="noopener" target="_blank"><svg><use href="#icon-facebook"></use></svg></a>
@@ -39,9 +39,9 @@
 </div>
 <button aria-expanded="false" aria-label="Otwórz menu" class="menu-toggle" type="button"><span></span><span></span><span></span></button>
 <div aria-hidden="true" class="mobile-menu">
-<a href="projekty.html">Projekty</a>
-<a href="oferta.html">Oferta</a>
-<a href="kontakt.html">Kontakt</a>
+<a href="#projekty">Projekty</a>
+<a href="#pakiety">Oferta</a>
+<a href="#kontakt">Kontakt</a>
 <a class="drop-button" href="#kontakt">Skontaktuj się z nami <svg><use href="#icon-arrow"></use></svg></a>
 <div class="mobile-socials">
 <a aria-label="Facebook" class="social" href="https://www.facebook.com/61583774015406/" rel="noopener" target="_blank"><svg><use href="#icon-facebook"></use></svg></a>
@@ -51,13 +51,13 @@
 </header>
 <main>
 <section class="hero" id="start">
-<img alt="Wizualizacja wnętrza To Oni Projektują" class="hero__image" decoding="async" fetchpriority="high" src="hero-client.webp"/>
+<img alt="Wizualizacja wnętrza To Oni Projektują" class="hero__image" decoding="async" fetchpriority="high" src="hero-generated.jpg"/>
 <div class="hero__shade"></div>
 <div class="hero__copy">
 <p class="hero__brand">To Oni Projektują / Gliwice</p>
-<h1>Projektujemy<br/>wnętrza,<br/>które <span data-rotating-word="">działają.</span></h1>
+<h1>Projektujemy<br/>wnętrza, które<br/><span data-rotating-word="">działają.</span></h1>
 <div class="hero__actions">
-<a class="drop-button drop-button--light" href="projekty.html">Zobacz projekty <svg><use href="#icon-arrow"></use></svg></a>
+<a class="drop-button drop-button--light" href="#projekty">Zobacz projekty <svg><use href="#icon-arrow"></use></svg></a>
 <a class="drop-button" href="#kontakt">Skontaktuj się z nami <svg><use href="#icon-arrow"></use></svg></a>
 </div>
 </div>
@@ -65,19 +65,21 @@
 <section class="about section" id="onas">
 <div class="shell about__grid">
 <figure class="about__visual panel spotlight reveal">
-<img alt="Tymczasowe zdjęcie sekcji O nas" class="about__image" decoding="async" loading="lazy" src="about-cats-temporary.webp"/>
+<div aria-label="Miejsce na nowe zdjęcie pracowni" class="about__placeholder" role="img">
+<span>Czekamy na zdjęcie</span>
+</div>
 </figure>
 <div class="about__copy panel spotlight reveal">
 <p class="section-label">O nas</p>
 <h2>To Oni Projektują</h2>
-<p class="section-quote">Najpierw poznajemy człowieka, dopiero później projektujemy wnętrze.</p>
+<p class="section-quote">Najpierw poznajemy człowieka, później projektujemy wnętrze.</p>
 <div class="rich-copy">
 <p>Jesteśmy To Oni Projektują - pracownią architektury wnętrz z siedzibą w Gliwicach, założoną przez Oliwię Brust i Jakuba Koprianiuka, absolwentów kierunku Architektura Wnętrz na Politechnice Śląskiej.</p>
 <p>Projektujemy wnętrza, które odpowiadają na potrzeby ich użytkowników. Łączą estetykę z funkcjonalnością i ponadczasowymi rozwiązaniami. Wierzymy, że każda realizacja powinna być indywidualną odpowiedzią na styl życia, oczekiwania i charakter osób, dla których powstaje. Nie opieramy się na gotowych schematach. Analizujemy potrzeby i tworzymy przestrzenie dopasowane do konkretnych ludzi.</p>
 <p>Nasze projekty wyróżniają się dbałością o detale, przemyślanymi rozwiązaniami oraz możliwością sprawnej realizacji. Na każdym etapie współpracujemy z wykonawcami oraz specjalistami z poszczególnych dziedzin, dzięki czemu dokumentacja jest praktyczna, a proces realizacji przebiega sprawnie i bez zbędnych komplikacji.</p>
 <p>Realizujemy projekty wnętrz na terenie całej Polski. W zależności od potrzeb i oczekiwań współpracujemy stacjonarnie, zdalnie lub w formule hybrydowej, zapewniając taki sam poziom zaangażowania i indywidualnego podejścia niezależnie od lokalizacji Inwestycji.</p>
 </div>
-<a class="line-link" href="oferta.html">Poznaj ofertę <svg><use href="#icon-arrow"></use></svg></a>
+<a class="line-link" href="#pakiety">Poznaj ofertę <svg><use href="#icon-arrow"></use></svg></a>
 </div>
 </div>
 </section>
@@ -87,7 +89,6 @@
 <p class="section-label">Realizacje</p>
 <h2>Nasze projekty</h2>
 </div>
-<a class="line-link projects__all" href="projekty.html">Zobacz wszystkie projekty <svg><use href="#icon-arrow"></use></svg></a>
 </div>
 <div class="projects__stage">
 <button aria-label="Poprzednie projekty" class="slider-arrow slider-arrow--prev" data-project-prev="" type="button"><svg><use href="#icon-arrow"></use></svg></button>
@@ -134,11 +135,11 @@
 <div class="package-card__body"><h4>Pakiet obejmuje:</h4><ul><li>Analizę lokalu</li><li>Analizę planów Inwestycyjnych</li><li>Zalecenia i wskazówki projektowe</li></ul><p>Usługa konsultacji projektowej pomaga w wyborze lokalu bądź rozwiązań projektowych planowanych na Inwestycji. Są to spotkania, na których analizujemy zalety, wady i możliwości, tak aby przyszła Inwestycja jak najlepiej odzwierciedlała oczekiwania klienta.</p></div>
 </details>
 <details class="package-card panel spotlight reveal">
-<summary><span>II</span><small>Pakiet Basic</small><h3>Basic – Funkcja</h3><p>Początek projektu wnętrz każdej Inwestycji - funkcja, ergonomia i wygoda.</p><b>Rozwiń zakres <i>+</i></b></summary>
+<summary><span>II</span><small>Pakiet II</small><h3>Funkcja</h3><p>Początek projektu wnętrz każdej Inwestycji - funkcja, ergonomia i wygoda.</p><b>Rozwiń zakres <i>+</i></b></summary>
 <div class="package-card__body"><h4>Pakiet obejmuje:</h4><ul><li>Rzut układu funkcjonalnego</li><li>Rzut analizy rozwiązań projektowych</li><li>Konsultacje online</li><li>2 korekty układu według wytycznych</li></ul><p>Podstawowy pakiet, który jest początkiem projektu wnętrz każdej Inwestycji. Są to rzuty lokalu w oparciu o potrzeby i wytyczne Inwestora, przedstawione w formacie schematu mieszkania i poglądowego rozmieszczenia elementów wyposażenia, bazując na standardowych wymiarach obiektów. Etap skupia się bezpośrednio na prawidłowym funkcjonowaniu wnętrza i ergonomii, tak aby wnętrza były maksymalnie wygodne i praktyczne w użytkowaniu.</p></div>
 </details>
 <details class="package-card panel spotlight reveal">
-<summary><span>III</span><small>Pakiet Standard</small><h3>Standard – Forma</h3><p>Najbardziej popularna opcja - funkcja, materiały i część wizualna.</p><b>Rozwiń zakres <i>+</i></b></summary>
+<summary><span>III</span><small>Pakiet III</small><h3>Forma</h3><p>Najbardziej popularna opcja - funkcja, materiały i część wizualna.</p><b>Rozwiń zakres <i>+</i></b></summary>
 <div class="package-card__body"><h4>Pakiet obejmuje:</h4><ul><li>Elementy pakietu Funkcja</li><li>Dobór materiałów wykończeniowych</li><li>Rozwiązania estetyczno-projektowe prezentowane na modelu 3D</li><li>Wizualizacje 3D</li><li>Zestawienie materiałów z linkami do produktów</li><li>Konsultacje online</li><li>Wsparcie Architekta podczas wykonawstwa</li><li>2 korekty według wytycznych</li></ul><p>Najbardziej popularna opcja, która jest poszerzeniem pakietu Funkcja o część wizualną projektu wnętrz. Zakres prac obejmuje przygotowanie spójnej aranżacji wnętrz, w tym dobór konkretnych materiałów dostępnych w lokalnych salonach. Elementy estetyczne oparte są o wytyczne klienta, które omawiane są szczegółowo podczas konsultacji. Wszystkie założenia omawiane są podczas spotkań, na których przedstawiany jest model 3D wraz z konkretnymi produktami. Pozyskiwane są również próbki i wzorniki materiałów, aby nasi Inwestorzy mieli możliwość zapoznania się z materiałami przed podjęciem ostatecznej decyzji.</p></div>
 </details>
 <details class="package-card panel spotlight reveal">
@@ -146,7 +147,10 @@
 <div class="package-card__body"><h4>Pakiet obejmuje:</h4><ul><li>Elementy pakietów Funkcja i Forma</li><li>Dokumentacja wykonawcza 2D</li><li>Schematy instalacji: elektryczna, wod-kan, HVAC</li><li>Weryfikacja wykonalności rozwiązań projektowych</li><li>Kosztorys projektowy</li><li>Gotowe oferty zakupowe na ustalone produkty</li><li>Wsparcie Architekta podczas wykonawstwa</li><li>Święty spokój</li></ul><p>Jest to pełny zakres projektu wnętrz obejmujący pakiety Funkcja i Forma, poszerzony o rysunki wykonawcze dla poszczególnych branż. Cała dokumentacja jest przygotowana z troską o każdy detal i konsultowana na bieżąco z wykonawcami branż, aby była jak najbardziej zoptymalizowana i możliwa do wykonania. Częścią pakietu TOP jest koordynacja między wykonawcami, przedstawicielami salonów a projektantem. Architekt zapewnia również stały kontakt od momentu przekazania pełnej dokumentacji aż do dnia zakończenia finalnych robót. Chcemy być jak największym wsparciem dla naszych Inwestorów, aby remont nie spędzał snu z powiek.</p></div>
 </details>
 </div>
-
+<div class="packages__cta panel spotlight reveal">
+<p><strong>Wszystkie projekty wyceniamy indywidualnie.</strong><br/>Nie wiesz, który pakiet wybrać? Skontaktuj się z nami, a pomożemy Ci dobrać zakres dostosowany do Twoich oczekiwań.</p>
+<a class="drop-button" href="#kontakt">Skontaktuj się z nami <svg><use href="#icon-arrow"></use></svg></a>
+</div>
 </div>
 </section>
 <section class="process section" id="proces">
@@ -251,28 +255,28 @@
 </div>
 </div>
 </section>
-<section class="brand-band brand-band--home"><a class="back-top" href="#start">Wróć na górę <svg><use href="#icon-arrow"></use></svg></a><div class="brand-band__word">TO ONI PROJEKTUJĄ</div></section>
 <section class="map-section" id="lokalizacja">
-<div class="shell map-section__head">
-<div>
-<span class="section-label">Pracownia / Gliwice</span>
-<h2>Znajdziesz nas<br/>na Śląsku.</h2>
-</div>
-</div>
-<div class="shell map-shell">
-<div class="map">
-<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Gliwice,+Poland&amp;output=embed" title="Mapa - To Oni Projektują, Gliwice"></iframe>
-<div class="map__address-card">
-<span class="map__eyebrow">Lokalizacja</span>
-<strong>Gliwice</strong>
-</div>
-</div>
-</div>
+  <div class="shell map-section__head">
+    <div>
+      <span class="section-label">Pracownia / Gliwice</span>
+      <h2>Znajdziesz nas<br/>na Śląsku.</h2>
+    </div>
+  </div>
+  <div class="shell map-shell">
+    <div class="map">
+      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Gliwice,+Poland&amp;output=embed" title="Mapa - To Oni Projektują, Gliwice"></iframe>
+      <div class="map__address-card">
+        <span class="map__eyebrow">Lokalizacja</span>
+        <strong>Gliwice</strong>
+      </div>
+    </div>
+  </div>
 </section>
 </main>
 <footer class="footer">
 <div class="shell footer__grid">
 <div class="footer__brand"><img alt="To Oni Projektują" src="logo-horizontal.png"/><p>Pracownia architektury wnętrz.<br/>Gliwice i cała Polska.</p></div>
+<div class="footer__contact"><span>Kontakt</span><a href="tel:+48794530590">794 530 590</a><a href="mailto:tooniprojektuja@gmail.com">tooniprojektuja@gmail.com</a><p>Gliwice / spotkania po umówieniu</p></div>
 <div class="footer__cta"><p>Prowadzisz firmę, markę lub reprezentujesz wykonawców i chcesz współpracować przy realizacjach?</p><a class="drop-button drop-button--light" href="mailto:tooniprojektuja@gmail.com">Skontaktuj się z nami <svg><use href="#icon-arrow"></use></svg></a><div><a aria-label="Facebook" class="social" href="https://www.facebook.com/61583774015406/" rel="noopener" target="_blank"><svg><use href="#icon-facebook"></use></svg></a><a aria-label="Instagram" class="social" href="https://www.instagram.com/to_oni_projektuja/" rel="noopener" target="_blank"><svg><use href="#icon-instagram"></use></svg></a></div></div>
 </div>
 <div class="shell footer__bottom"><span>© 2026 To Oni Projektują</span><span>Projekt i realizacja strony: 21project</span></div>
@@ -294,6 +298,6 @@
 </div>
 </div>
 </div>
-<script src="script.js?v=tooni-v35-final-pdf"></script>
+<script src="script.js?v=tooni-v26-carousel"></script>
 </body>
 </html>
