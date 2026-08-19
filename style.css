@@ -2716,3 +2716,155 @@ html { overflow-x: clip; }
   .project-card { width: min(80vw, 320px); }
   .project-card__top { top: 43px; min-width: 142px; }
 }
+
+/* ===== v29 fixes: FAQ / contact / map / footer ===== */
+
+/* FAQ: remove symbols inside each question bubble */
+.faq__list summary {
+  padding-right: 24px !important;
+}
+.faq__list summary::after,
+.faq__list details[open] summary::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Contact: smaller and better aligned consent circle */
+.contact-form__bottom {
+  align-items: center !important;
+}
+.consent {
+  align-items: center !important;
+  gap: 10px !important;
+}
+.consent i {
+  width: 30px !important;
+  height: 30px !important;
+  flex: 0 0 30px !important;
+  border-width: 1.5px;
+}
+.consent i::after {
+  width: 6px !important;
+  height: 10px !important;
+  border-right-width: 2px !important;
+  border-bottom-width: 2px !important;
+}
+
+/* Map: stronger presentation with note card and soft top fade */
+.map {
+  position: relative;
+  overflow: hidden;
+  height: 500px;
+  background: #e8e2d8;
+}
+.map::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 110px;
+  background: linear-gradient(to bottom, rgba(235,228,218,.96), rgba(235,228,218,0));
+  z-index: 1;
+  pointer-events: none;
+}
+.map iframe {
+  filter: saturate(.68) contrast(.96) brightness(.98);
+}
+.map__badge {
+  z-index: 3;
+  top: 22px;
+  left: 22px;
+  box-shadow: 0 16px 34px rgba(40, 61, 104, .14);
+}
+.map__card {
+  position: absolute;
+  right: 28px;
+  bottom: 28px;
+  z-index: 3;
+  width: min(360px, calc(100% - 56px));
+  padding: 24px 24px 22px;
+  border-radius: 28px;
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(40,61,104,.08);
+  box-shadow: 0 18px 42px rgba(40,61,104,.16);
+  backdrop-filter: blur(8px);
+}
+.map__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--gold);
+  font-family: var(--display);
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.map__eyebrow::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--navy);
+  box-shadow: 0 0 0 6px rgba(40,61,104,.12);
+}
+.map__card h3 {
+  margin: 0 0 12px;
+  color: var(--navy);
+  font-family: var(--display);
+  font-size: clamp(30px, 3vw, 38px);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.map__card p {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Footer: same motion language as header, no color-swap hover */
+.footer__cta > div {
+  gap: 14px;
+  align-items: center;
+}
+.footer__cta .drop-button {
+  background: rgba(255,255,255,.95) !important;
+  color: var(--navy) !important;
+  border-color: transparent !important;
+}
+.footer__cta .drop-button:hover,
+.footer__cta .drop-button:focus-visible {
+  transform: scale(1.055) !important;
+  background: rgba(255,255,255,.95) !important;
+  color: var(--navy) !important;
+  box-shadow: 0 16px 30px rgba(0,0,0,.16);
+}
+.footer .social {
+  color: #fff !important;
+  border-color: rgba(255,255,255,.72) !important;
+  background: transparent !important;
+}
+.footer .social:hover,
+.footer .social:focus-visible {
+  transform: scale(1.08) !important;
+  color: #fff !important;
+  border-color: #fff !important;
+  background: rgba(255,255,255,.08) !important;
+}
+
+@media (max-width: 900px) {
+  .map {
+    height: 460px;
+  }
+  .map__card {
+    right: 16px;
+    left: 16px;
+    bottom: 16px;
+    width: auto;
+    padding: 18px 18px 17px;
+    border-radius: 22px;
+  }
+  .map__card h3 {
+    font-size: 26px;
+  }
+}
