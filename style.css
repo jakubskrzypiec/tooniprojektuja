@@ -2868,3 +2868,180 @@ html { overflow-x: clip; }
     font-size: 26px;
   }
 }
+
+/* ===== v30 map presentation only ===== */
+.map-section {
+  position: relative;
+  padding: clamp(74px, 7vw, 108px) 0 clamp(86px, 8vw, 124px);
+  background:
+    radial-gradient(circle at 10% 12%, rgba(202,160,48,.08), transparent 24%),
+    var(--paper);
+  overflow: hidden;
+}
+.map-section::after {
+  content: "GLIWICE";
+  position: absolute;
+  right: -2vw;
+  top: 22px;
+  z-index: 0;
+  color: rgba(40,61,104,.035);
+  font-family: var(--display);
+  font-size: clamp(120px, 16vw, 260px);
+  letter-spacing: .08em;
+  pointer-events: none;
+}
+.map-section__head {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 440px);
+  gap: clamp(44px, 7vw, 110px);
+  align-items: end;
+  margin-bottom: 32px;
+}
+.map-section__head h2 {
+  margin: 12px 0 0;
+  max-width: 760px;
+  color: var(--navy);
+  font-size: clamp(56px, 6.2vw, 94px);
+  line-height: .98;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+.map-section__head > p {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.65;
+}
+.map-shell {
+  position: relative;
+  z-index: 1;
+}
+.map {
+  position: relative;
+  height: clamp(430px, 48vw, 620px);
+  overflow: hidden;
+  border: 1px solid rgba(40,61,104,.10);
+  border-radius: 42px 6px 42px 6px;
+  background: #dcded8;
+  box-shadow: 0 28px 68px rgba(40,61,104,.13);
+}
+.map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(235,228,218,.18), rgba(235,228,218,0) 28%),
+    linear-gradient(90deg, rgba(40,61,104,.04), transparent 25%, transparent 75%, rgba(40,61,104,.04));
+}
+.map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: saturate(.58) contrast(.96) brightness(1.02);
+  transform: scale(1.015);
+}
+.map__address-card {
+  position: absolute;
+  left: 26px;
+  bottom: 26px;
+  z-index: 3;
+  width: min(330px, calc(100% - 52px));
+  padding: 22px 24px 23px;
+  display: grid;
+  gap: 7px;
+  border: 1px solid rgba(40,61,104,.10);
+  border-radius: 24px 4px 24px 4px;
+  background: rgba(247,243,237,.94);
+  box-shadow: 0 16px 42px rgba(40,61,104,.16);
+  backdrop-filter: blur(10px);
+}
+.map__address-card .map__eyebrow {
+  margin: 0 0 5px;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.map__address-card strong {
+  color: var(--navy);
+  font-family: var(--display);
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.map__address-placeholder {
+  color: var(--navy-dark);
+  font-size: 14px;
+}
+.map__address-card small {
+  margin-top: 4px;
+  color: rgba(23,40,79,.58);
+  font-size: 12px;
+}
+.map__pin-float {
+  position: absolute;
+  right: clamp(36px, 6vw, 92px);
+  top: clamp(42px, 7vw, 96px);
+  z-index: 3;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 50% 50% 8% 50%;
+  background: var(--navy);
+  box-shadow: 0 18px 36px rgba(40,61,104,.28);
+  transform: rotate(-45deg);
+}
+.map__pin-float span {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 7px rgba(202,160,48,.17);
+}
+
+@media (max-width: 900px) {
+  .map-section__head {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .map-section__head > p {
+    max-width: 620px;
+  }
+  .map {
+    height: 500px;
+    border-radius: 28px 5px 28px 5px;
+  }
+  .map__pin-float {
+    width: 52px;
+    height: 52px;
+    right: 26px;
+    top: 26px;
+  }
+}
+
+@media (max-width: 560px) {
+  .map-section {
+    padding: 64px 0 78px;
+  }
+  .map-section__head h2 {
+    font-size: 52px;
+  }
+  .map {
+    height: 460px;
+  }
+  .map__address-card {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    width: auto;
+  }
+  .map__pin-float {
+    display: none;
+  }
+}

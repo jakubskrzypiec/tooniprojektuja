@@ -255,14 +255,26 @@
 </div>
 </div>
 </section>
-<section class="map" id="lokalizacja">
-<div class="map__badge"><span aria-hidden="true" class="map__pin"></span><strong>Gliwice</strong><small>Śląsk / Polska</small></div>
-<div class="map__card" aria-hidden="true">
-  <span class="map__eyebrow">Lokalizacja</span>
-  <h3>Działamy w Gliwicach<br/>i na całym Śląsku.</h3>
-  <p>Spotkania prowadzimy po wcześniejszym umówieniu. To punkt orientacyjny dla miasta — dokładny adres podajemy bezpośrednio po kontakcie.</p>
-</div>
-<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Gliwice,+Poland&amp;output=embed" title="Mapa - To Oni Projektują, Gliwice"></iframe>
+<section class="map-section" id="lokalizacja">
+  <div class="shell map-section__head">
+    <div>
+      <span class="section-label">Pracownia / Gliwice</span>
+      <h2>Znajdziesz nas<br/>na Śląsku.</h2>
+    </div>
+    <p>Spotkania prowadzimy po wcześniejszym umówieniu. Dokładny adres pracowni uzupełnimy po otrzymaniu lokalizacji.</p>
+  </div>
+  <div class="shell map-shell">
+    <div class="map">
+      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Gliwice,+Poland&amp;output=embed" title="Mapa - To Oni Projektują, Gliwice"></iframe>
+      <div class="map__address-card">
+        <span class="map__eyebrow">Lokalizacja</span>
+        <strong>Gliwice</strong>
+        <span class="map__address-placeholder">dokładny adres — do uzupełnienia</span>
+        <small>spotkania po wcześniejszym umówieniu</small>
+      </div>
+      <div class="map__pin-float" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
 </section>
 </main>
 <footer class="footer">
