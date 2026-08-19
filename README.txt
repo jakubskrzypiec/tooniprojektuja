@@ -1,17 +1,16 @@
-TO ONI PROJEKTUJĄ — V25 CAROUSEL PATCH
+TO ONI PROJEKTUJĄ — V26 (tylko karuzela projektów)
 
-Podmień tylko 3 pliki w obecnym repo:
+Podmień w repo tylko:
 - index.html
 - style.css
 - script.js
 
-Zakres zmian WYŁĄCZNIE:
-1. Usunięte logo z lewego górnego rogu headera (układ menu zostaje w tym samym miejscu).
-2. Projekty: mocniejszy gradient / jasne odcięcie po bokach karuzeli.
-3. Projekty: top na hover ma trzy kropki + TO ONI PROJEKTUJĄ.
-4. Projekty: przywrócony ciągły, spokojny auto-scroll.
-5. Strzałki: mniejsze, circle -> łezka jak w Procesie Inwestycyjnym,
-   hover = powiększenie, większa saturacja i obrót strzałki o 45°.
-6. Kliknięcie strzałki przewija o 2 kafle.
+Zmiany:
+- węższe gradienty/fade po bokach karuzeli,
+- osobny jasny gradient/pas nad galerią, żeby ją optycznie odciąć,
+- na hover: kropki + TOP + kropki nad napisem TO ONI PROJEKTUJĄ,
+- łezki mają więcej koloru już w spoczynku,
+- strzałka wewnątrz łezek usunięta,
+- automatyczne przesuwanie oraz skok o 2 projekty pozostają bez zmian.
 
-Nie zmieniano żadnej innej sekcji strony.
+Nic poza sekcją projektów nie zostało zmienione.
