@@ -3702,3 +3702,179 @@ html { overflow-x: clip; }
     transform: none !important;
   }
 }
+
+
+/* =========================================================
+   V42 — PROJECT SPEC + STABLE DETAILS / GLOW
+   ========================================================= */
+
+/* PROJECTS: return to the annotated idea:
+   3:4 image, darkening ~35%, white inset frame on hover. */
+.project-card {
+  width: clamp(300px, 22.5vw, 382px) !important;
+}
+.project-card > button {
+  aspect-ratio: 3 / 4 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+.project-card button::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+  background: rgba(9, 16, 29, .36) !important;
+  opacity: 0 !important;
+  transition: opacity .28s ease !important;
+}
+
+/* Inner white frame; TOP stays above its upper edge. */
+.project-card > button::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 36px 12px 13px 12px !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+  border: 2px solid rgba(255,255,255,.96) !important;
+  border-radius: 22px 4px 22px 4px !important;
+  opacity: 0 !important;
+  transform: scale(.986) !important;
+  transition:
+    opacity .28s ease,
+    transform .34s cubic-bezier(.2,.75,.25,1) !important;
+}
+
+.project-card__label-top {
+  top: 9px !important;
+  font-size: 17px !important;
+  gap: 10px !important;
+  opacity: 0 !important;
+}
+.project-card__label-top::before,
+.project-card__label-top::after {
+  content: "•••" !important;
+  font-size: 8px !important;
+  letter-spacing: .21em !important;
+}
+
+/* Vertical TO ONI PROJEKTUJĄ — centred on the right side, inside frame. */
+.project-card__top {
+  top: 50% !important;
+  right: 20px !important;
+  left: auto !important;
+  writing-mode: vertical-rl !important;
+  text-orientation: mixed !important;
+  transform: translateY(-50%) !important;
+  font-size: 11px !important;
+  letter-spacing: .16em !important;
+  opacity: 0 !important;
+}
+
+/* Metraż moved clearly away from the bottom border. */
+.project-card__meta {
+  left: 29px !important;
+  bottom: 39px !important;
+  z-index: 4 !important;
+  opacity: 0 !important;
+  transform: translateY(4px) !important;
+}
+.project-card__meta strong {
+  font-size: 28px !important;
+  line-height: 1 !important;
+  text-shadow: 0 2px 12px rgba(9,16,29,.58) !important;
+}
+
+.project-card:hover button::after,
+.project-card:focus-within button::after,
+.project-card:hover > button::before,
+.project-card:focus-within > button::before {
+  opacity: 1 !important;
+}
+.project-card:hover > button::before,
+.project-card:focus-within > button::before {
+  transform: scale(1) !important;
+}
+.project-card:hover .project-card__label-top,
+.project-card:focus-within .project-card__label-top {
+  opacity: 1 !important;
+  transform: translate(-50%, 0) !important;
+}
+.project-card:hover .project-card__top,
+.project-card:focus-within .project-card__top {
+  opacity: 1 !important;
+  transform: translateY(-50%) !important;
+}
+.project-card:hover .project-card__meta,
+.project-card:focus-within .project-card__meta {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Disable older "open/focus = permanent glow" states.
+   Glow is shown ONLY while the mouse pointer is physically on a panel. */
+.spotlight::before,
+.faq__list details.spotlight::after {
+  opacity: 0 !important;
+}
+
+.package-card.spotlight::before,
+.process-item.spotlight::before,
+.about__visual.spotlight::before,
+.about__copy.spotlight::before,
+.packages__cta.spotlight::before {
+  display: block !important;
+  visibility: visible !important;
+}
+
+.spotlight:hover::before,
+.spotlight:focus-within::before,
+.spotlight[open]::before,
+.spotlight.is-open::before,
+.faq__list details.spotlight:hover::after,
+.faq__list details.spotlight:focus-within::after,
+.faq__list details.spotlight[open]::after {
+  opacity: 0 !important;
+}
+
+.spotlight.is-pointer-glow::before {
+  opacity: 1 !important;
+}
+.faq__list details.spotlight.is-pointer-glow::after {
+  opacity: 1 !important;
+}
+
+/* No double animation from legacy CSS when JS is animating DETAILS. */
+.package-card__body,
+.faq__list details > div {
+  animation: none !important;
+}
+
+/* Keep content above glow layer. */
+.spotlight > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Touch devices: show card editorial markings without relying on hover. */
+@media (max-width: 900px) {
+  .project-card {
+    width: min(82vw, 340px) !important;
+  }
+  .project-card button::after {
+    opacity: .72 !important;
+    background: rgba(9,16,29,.24) !important;
+  }
+  .project-card > button::before,
+  .project-card__label-top,
+  .project-card__top,
+  .project-card__meta {
+    opacity: 1 !important;
+  }
+  .project-card > button::before { transform: scale(1) !important; }
+  .project-card__label-top { transform: translate(-50%,0) !important; }
+  .project-card__top { transform: translateY(-50%) !important; }
+  .project-card__meta { transform: none !important; }
+}

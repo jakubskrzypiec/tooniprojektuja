@@ -71,14 +71,37 @@ if (reduceMotion || !("IntersectionObserver" in window)) {
   revealItems.forEach(item => revealObserver.observe(item));
 }
 
-/* Cursor light */
-if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
-  document.querySelectorAll(".spotlight").forEach(panel => {
-    panel.addEventListener("pointermove", event => {
+/* Cursor light — stable, pointer-only, never sticky */
+const finePointerGlow = matchMedia("(hover: hover) and (pointer: fine)").matches;
+const spotlightPanels = [...document.querySelectorAll(".spotlight")];
+
+const clearSpotlight = panel => {
+  panel.classList.remove("is-pointer-glow");
+  panel.style.removeProperty("--mx");
+  panel.style.removeProperty("--my");
+};
+
+const clearAllSpotlights = () => spotlightPanels.forEach(clearSpotlight);
+
+if (finePointerGlow) {
+  spotlightPanels.forEach(panel => {
+    const updateGlow = event => {
       const rect = panel.getBoundingClientRect();
-      panel.style.setProperty("--mx", (event.clientX - rect.left) + "px");
-      panel.style.setProperty("--my", (event.clientY - rect.top) + "px");
-    });
+      panel.style.setProperty("--mx", `${event.clientX - rect.left}px`);
+      panel.style.setProperty("--my", `${event.clientY - rect.top}px`);
+      panel.classList.add("is-pointer-glow");
+    };
+
+    panel.addEventListener("pointerenter", updateGlow, { passive: true });
+    panel.addEventListener("pointermove", updateGlow, { passive: true });
+    panel.addEventListener("pointerleave", () => clearSpotlight(panel), { passive: true });
+    panel.addEventListener("pointercancel", () => clearSpotlight(panel), { passive: true });
+  });
+
+  window.addEventListener("blur", clearAllSpotlights);
+  window.addEventListener("scroll", clearAllSpotlights, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) clearAllSpotlights();
   });
 }
 
@@ -303,52 +326,114 @@ if ("ResizeObserver" in window && track) {
   carouselResizeObserver.observe(track);
 }
 
-/* FAQ accordion - smooth opening/closing, one item at a time */
-const faqItems = [...document.querySelectorAll(".faq__list details")];
+/* Stable DETAILS animation — FAQ + packages */
+const detailsAnimations = new WeakMap();
+const detailsTargetOpen = new WeakMap();
 
-const animateFaq = (item, willOpen) => {
-  const summary = item.querySelector("summary");
+const animateDetails = (item, willOpen) => {
+  const summary = item.querySelector(":scope > summary");
   if (!summary) return;
-  if (reduceMotion) {
+
+  if (reduceMotion || !item.animate) {
     item.open = willOpen;
+    detailsTargetOpen.set(item, willOpen);
     return;
   }
-  if (item.dataset.animating === "true") return;
 
-  const startHeight = item.offsetHeight;
-  if (willOpen) item.open = true;
-  const endHeight = willOpen ? item.offsetHeight : summary.offsetHeight + 2;
+  const running = detailsAnimations.get(item);
+  const currentHeight = item.getBoundingClientRect().height;
 
-  item.dataset.animating = "true";
+  if (running) {
+    running.onfinish = null;
+    running.oncancel = null;
+    running.cancel();
+  }
+
+  if (willOpen && !item.open) item.open = true;
+
+  item.style.height = "auto";
   item.style.overflow = "hidden";
+
+  const summaryHeight = summary.getBoundingClientRect().height;
+  const targetHeight = willOpen ? item.scrollHeight : summaryHeight;
+
+  item.style.height = `${currentHeight}px`;
+  item.getBoundingClientRect(); // force current frame
+
+  detailsTargetOpen.set(item, willOpen);
+  item.dataset.animating = "true";
+
   const animation = item.animate(
-    [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
-    { duration: 430, easing: "cubic-bezier(.2,.75,.25,1)" }
+    [
+      { height: `${currentHeight}px` },
+      { height: `${targetHeight}px` }
+    ],
+    {
+      duration: willOpen ? 380 : 300,
+      easing: "cubic-bezier(.2,.75,.25,1)"
+    }
   );
 
-  animation.onfinish = () => {
-    if (!willOpen) item.open = false;
+  detailsAnimations.set(item, animation);
+
+  const finish = () => {
+    if (detailsAnimations.get(item) !== animation) return;
+    if (!detailsTargetOpen.get(item)) item.open = false;
     item.style.height = "";
     item.style.overflow = "";
     delete item.dataset.animating;
+    detailsAnimations.delete(item);
   };
-  animation.oncancel = animation.onfinish;
+
+  animation.onfinish = finish;
+  animation.oncancel = () => {
+    if (detailsAnimations.get(item) !== animation) return;
+    item.style.height = "";
+    item.style.overflow = "";
+    delete item.dataset.animating;
+    detailsAnimations.delete(item);
+  };
 };
 
+const getNextDetailsState = item => {
+  if (detailsTargetOpen.has(item) && item.dataset.animating === "true") {
+    return !detailsTargetOpen.get(item);
+  }
+  return !item.open;
+};
+
+/* FAQ — one question at a time */
+const faqItems = [...document.querySelectorAll(".faq__list details")];
+
 faqItems.forEach(item => {
-  const summary = item.querySelector("summary");
+  const summary = item.querySelector(":scope > summary");
   if (!summary) return;
 
   summary.addEventListener("click", event => {
     event.preventDefault();
-    const willOpen = !item.open;
+    const willOpen = getNextDetailsState(item);
 
     if (willOpen) {
       faqItems.forEach(other => {
-        if (other !== item && other.open) animateFaq(other, false);
+        if (other === item) return;
+        if (other.open || detailsTargetOpen.get(other) === true) {
+          animateDetails(other, false);
+        }
       });
     }
-    animateFaq(item, willOpen);
+
+    animateDetails(item, willOpen);
+  });
+});
+
+/* Packages — same smooth engine, but packages remain independent */
+document.querySelectorAll(".package-card").forEach(item => {
+  const summary = item.querySelector(":scope > summary");
+  if (!summary) return;
+
+  summary.addEventListener("click", event => {
+    event.preventDefault();
+    animateDetails(item, getNextDetailsState(item));
   });
 });
 
