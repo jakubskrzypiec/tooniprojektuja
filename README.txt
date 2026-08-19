@@ -1,16 +1,12 @@
-TO-ONI - PATCH v30 — mapa
+TO ONI — MAPA v33
 
 Podmień tylko:
 - index.html
 - style.css
 
-Zmiana dotyczy wyłącznie prezentacji mapy:
-- mapa jest w osobnej, bardziej premium sekcji,
-- zaokrąglona i osadzona w szerokim kontenerze,
-- ma małą kartę lokalizacji,
-- ma miejsce na dokładny adres, który później tylko podmienisz,
-- dodany dekoracyjny pin i subtelne tło zgodne ze stylem strony.
+Zmiany względem v32:
+- usunięta pinezka z prawego górnego rogu mapy,
+- usunięty tekst po prawej u góry sekcji mapy,
+- w dolnej karcie zostawione tylko „Lokalizacja / Gliwice”.
 
-Gdy dostaniesz adres, zamień w index.html:
-"dokładny adres — do uzupełnienia"
-na właściwy adres.
+Reszta bez zmian.
