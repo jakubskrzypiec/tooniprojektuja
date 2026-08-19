@@ -1,12 +1,11 @@
-TO ONI — MAPA v33
+TO-ONI — PATCH v34
 
 Podmień tylko:
 - index.html
 - style.css
 
-Zmiany względem v32:
-- usunięta pinezka z prawego górnego rogu mapy,
-- usunięty tekst po prawej u góry sekcji mapy,
-- w dolnej karcie zostawione tylko „Lokalizacja / Gliwice”.
+Fixy:
+1. Hero: preload właściwego isocpeur.ttf + brak starego ISOCTEUR jako fallbacku, dzięki czemu font nie przeskakuje przy wejściu.
+2. FAQ: usunięta transformacja całych kart odpowiedzialna za rasteryzowanie cienkich liter; pozostaje subtelny fade. Dodane ustawienia poprawiające rendering fontu.
 
-Reszta bez zmian.
+Nie zmieniano layoutu ani pozostałych sekcji.

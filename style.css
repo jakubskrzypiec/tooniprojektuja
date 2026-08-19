@@ -1879,7 +1879,7 @@ body:not(.home) .logo img,
   src: url("isocpeur.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 :root {
@@ -1890,7 +1890,7 @@ body:not(.home) .logo img,
   --navy-dark: #17284F;
   --gold: #CAA030;
   --soft-blue: #7C9BDB;
-  --display: "ISOCPEUR Client", "ISOCTEUR", "Arial Narrow", sans-serif;
+  --display: "ISOCPEUR Client", "Arial Narrow", sans-serif;
 }
 
 body {
@@ -3113,4 +3113,39 @@ html { overflow-x: clip; }
   .map__pin-float {
     display: none;
   }
+}
+
+
+/* ===== v34 — font loading + FAQ rendering only ===== */
+/* The correct client font is preloaded in <head>; do not flash the older ISOCTEUR fallback on hero. */
+.hero h1,
+.hero__brand,
+.nav,
+.section-label,
+.drop-button,
+.line-link {
+  font-family: "ISOCPEUR Client", "Arial Narrow", sans-serif;
+  font-synthesis: none;
+}
+
+/* FAQ cards used a translate animation on the whole panel. On some Windows/Chromium
+   setups that can leave the thin custom font on a rasterized layer and make it look pixelated.
+   Keep the fade, remove the text-rasterizing transform only inside FAQ. */
+.faq__list details.reveal,
+.faq__list details.reveal.is-visible {
+  transform: none !important;
+  will-change: auto !important;
+}
+.faq__list details.reveal {
+  transition: opacity .55s ease, background .28s ease, border-color .28s ease !important;
+}
+.faq__list summary {
+  font-family: "ISOCPEUR Client", "Arial Narrow", sans-serif !important;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  backface-visibility: visible;
+  transform: none !important;
+  letter-spacing: .04em;
 }
