@@ -498,13 +498,3 @@ const params = new URLSearchParams(location.search);
 if (params.get("wyslano") === "1") document.querySelector("[data-success]")?.classList.add("is-visible");
 
 window.addEventListener("beforeunload", () => cancelAnimationFrame(sliderRaf));
-
-/* V45 PDF "NOWE" — load shared visual overrides on legacy subpages too. */
-(() => {
-  if (document.querySelector('link[href*="v45-pdf-new.css"]')) return;
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = 'v45-pdf-new.css?v=tooni-v45-pdf-new';
-  link.dataset.tooniV45 = 'true';
-  document.head.append(link);
-})();
