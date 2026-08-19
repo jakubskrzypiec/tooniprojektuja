@@ -3756,7 +3756,7 @@ html { overflow-x: clip; }
 .project-card__label-top::before,
 .project-card__label-top::after {
   content: "•••" !important;
-  font-size: 8px !important;
+  font-size: 7px !important;
   letter-spacing: .21em !important;
 }
 
@@ -3941,7 +3941,7 @@ html { overflow-x: clip; }
 .project-card > button::before {
   content: "" !important;
   position: absolute !important;
-  inset: 18px !important;
+  inset: 28px 28px 22px !important;
   z-index: 2 !important;
   pointer-events: none !important;
   border: 1.5px solid rgba(255,255,255,.96) !important;
@@ -3965,28 +3965,28 @@ html { overflow-x: clip; }
 
 /* Dots — TOP — dots, centred above the inset frame. */
 .project-card__label-top {
-  top: 7px !important;
+  top: 10px !important;
   left: 50% !important;
   z-index: 4 !important;
-  gap: 8px !important;
+  gap: 12px !important;
   padding: 0 !important;
   color: rgba(255,255,255,.98) !important;
   font-family: var(--body) !important;
-  font-size: 12px !important;
+  font-size: 13px !important;
   font-weight: 500 !important;
   line-height: 1 !important;
-  letter-spacing: .08em !important;
+  letter-spacing: .18em !important;
   text-shadow: 0 1px 9px rgba(0,0,0,.34) !important;
   opacity: 0 !important;
-  transform: translate(-50%, -3px) !important;
+  transform: translate(-50%, -2px) !important;
 }
 
 .project-card__label-top::before,
 .project-card__label-top::after {
-  content: "•  •  •" !important;
+  content: "•••" !important;
   font-size: 8px !important;
   font-weight: 400 !important;
-  letter-spacing: .08em !important;
+  letter-spacing: .62em !important;
   opacity: .92 !important;
 }
 
