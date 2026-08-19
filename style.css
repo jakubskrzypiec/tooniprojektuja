@@ -3355,3 +3355,229 @@ html { overflow-x: clip; }
   .process-answer p,
   .process-answer b { margin-left: 20px !important; margin-right: 20px !important; }
 }
+
+
+/* =========================================================
+   V40 — FINAL MICRO FIXES ONLY
+   1) Larger project cards + Instagram-style hover frame/labels
+   2) Process droplets restored, without arrows
+   3) Strong cursor-following glow in FAQ
+   ========================================================= */
+
+/* 1) PROJECTS — a little larger/taller, still the same carousel layout. */
+.projects__track {
+  gap: 32px !important;
+}
+.project-card {
+  width: clamp(290px, 22vw, 370px) !important;
+}
+.project-card > button {
+  aspect-ratio: 3 / 4 !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+.project-card > button > img {
+  z-index: 0 !important;
+}
+
+/* Editorial darkening on hover. */
+.project-card button::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+  background:
+    linear-gradient(180deg, rgba(15,24,43,.34) 0%, rgba(15,24,43,.06) 34%, rgba(15,24,43,.08) 60%, rgba(15,24,43,.66) 100%) !important;
+  opacity: 0 !important;
+  transition: opacity .3s ease !important;
+  pointer-events: none !important;
+}
+
+/* Thin Instagram-like frame, visible only when the visual is active. */
+.project-card > button::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  z-index: 2;
+  border: 2px solid rgba(255,255,255,.94);
+  border-radius: 22px 4px 22px 4px;
+  opacity: 0;
+  transform: scale(.985);
+  transition: opacity .3s ease, transform .35s cubic-bezier(.2,.75,.25,1);
+  pointer-events: none;
+}
+.project-card:hover button::after,
+.project-card:focus-within button::after,
+.project-card:hover > button::before,
+.project-card:focus-within > button::before {
+  opacity: 1 !important;
+}
+.project-card:hover > button::before,
+.project-card:focus-within > button::before {
+  transform: none;
+}
+
+/* TOP stays at the top, studio name runs cleanly down the right edge. */
+.project-card__top {
+  top: 24px !important;
+  right: 22px !important;
+  left: auto !important;
+  z-index: 3 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: rgba(255,255,255,.96) !important;
+  font-family: var(--body) !important;
+  font-size: 9px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  letter-spacing: .16em !important;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  text-transform: uppercase;
+  transform: translateX(7px) !important;
+  opacity: 0 !important;
+  text-shadow: 0 2px 10px rgba(10,20,38,.38);
+  transition: opacity .25s ease, transform .35s cubic-bezier(.2,.75,.25,1) !important;
+}
+.project-card__top::before {
+  content: "•••   TOP   •••" !important;
+  position: absolute !important;
+  top: 0 !important;
+  right: 28px !important;
+  left: auto !important;
+  width: max-content !important;
+  margin: 0 !important;
+  transform: none !important;
+  writing-mode: horizontal-tb !important;
+  color: rgba(255,255,255,.98) !important;
+  font-family: var(--body) !important;
+  font-size: 9px !important;
+  font-weight: 500 !important;
+  letter-spacing: .17em !important;
+  text-shadow: 0 2px 10px rgba(10,20,38,.38);
+}
+
+/* Metraż — bottom-left, clean and large. */
+.project-card__meta {
+  left: 26px !important;
+  bottom: 24px !important;
+  z-index: 3 !important;
+  padding: 0 !important;
+  transform: translateY(7px) !important;
+  opacity: 0 !important;
+  transition: opacity .25s ease, transform .35s cubic-bezier(.2,.75,.25,1) !important;
+}
+.project-card__meta::before { display: none !important; }
+.project-card__meta strong {
+  color: #fff !important;
+  font-family: var(--body) !important;
+  font-size: 28px !important;
+  font-weight: 400 !important;
+  letter-spacing: .035em !important;
+  text-shadow: 0 2px 12px rgba(10,20,38,.42);
+}
+.project-card:hover .project-card__top,
+.project-card:focus-within .project-card__top,
+.project-card:hover .project-card__meta,
+.project-card:focus-within .project-card__meta {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* 2) PROCESS — restore the circles/drops, but intentionally NO arrow icon. */
+.process-item > button {
+  grid-template-columns: 52px minmax(235px, .9fr) 1fr !important;
+  gap: 22px !important;
+}
+.process-drop {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: block;
+  border: 1px solid rgba(40,61,104,.34);
+  border-radius: 50%;
+  background: rgba(242,238,231,.78);
+  box-shadow: 0 7px 18px rgba(40,61,104,.06);
+  transform: rotate(0deg);
+  transition:
+    border-radius .3s ease,
+    transform .42s cubic-bezier(.2,.75,.25,1),
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+.process-item:hover .process-drop,
+.process-item:focus-within .process-drop {
+  border-color: rgba(40,61,104,.78);
+  border-radius: 50% 50% 8% 50%;
+  background: rgba(40,61,104,.16);
+  transform: rotate(-45deg);
+}
+.process-item.is-open .process-drop {
+  border-color: var(--navy);
+  border-radius: 50% 50% 8% 50%;
+  background: var(--navy);
+  box-shadow: 0 10px 22px rgba(40,61,104,.22);
+  transform: rotate(45deg);
+}
+/* Old arrow helper remains disabled — the drop itself is the indicator. */
+.process-item .morph-arrow { display: none !important; }
+
+/* 3) FAQ — dedicated glow layer so no older ::before rule can suppress it. */
+.faq__list details.spotlight {
+  --mx: 50%;
+  --my: 50%;
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden;
+}
+.faq__list details.spotlight::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  opacity: 0;
+  visibility: visible !important;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle 270px at var(--mx) var(--my),
+      rgba(202,160,48,.38) 0%,
+      rgba(202,160,48,.22) 22%,
+      rgba(124,155,219,.10) 45%,
+      transparent 72%),
+    linear-gradient(180deg, rgba(124,155,219,.11) 0%, transparent 55%);
+  transition: opacity .16s ease;
+}
+.faq__list details.spotlight:hover::after,
+.faq__list details.spotlight:focus-within::after,
+.faq__list details.spotlight[open]::after {
+  opacity: 1 !important;
+}
+.faq__list details.spotlight > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .project-card { width: min(82vw, 330px) !important; }
+  .project-card__top,
+  .project-card__meta { opacity: 1 !important; transform: none !important; }
+  .project-card > button::before,
+  .project-card button::after { opacity: 1 !important; }
+
+  .process-item > button {
+    grid-template-columns: 46px 1fr !important;
+    gap: 14px !important;
+  }
+  .process-item > button small { grid-column: 2 !important; }
+  .process-drop { width: 40px; height: 40px; }
+}
