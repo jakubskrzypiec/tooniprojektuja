@@ -3149,3 +3149,209 @@ html { overflow-x: clip; }
   transform: none !important;
   letter-spacing: .04em;
 }
+
+
+/* =========================================================
+   v39 — CLIENT FINAL FIXES
+   Only requested interaction / typography / process / contact changes.
+   ========================================================= */
+
+/* 1) Cursor spotlight — restore real cursor-following glow above panel backgrounds. */
+.spotlight {
+  --mx: 50%;
+  --my: 50%;
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+}
+.spotlight::before,
+.package-card.spotlight::before,
+.process-item.spotlight::before,
+.faq__list details.spotlight::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  visibility: visible !important;
+  background:
+    radial-gradient(circle 240px at var(--mx) var(--my), rgba(202,160,48,.28) 0%, rgba(202,160,48,.15) 25%, rgba(124,155,219,.07) 48%, transparent 72%),
+    linear-gradient(180deg, rgba(124,155,219,.12), transparent 54%) !important;
+  transition: opacity .22s ease !important;
+}
+.spotlight:hover::before,
+.spotlight:focus-within::before,
+.spotlight[open]::before,
+.spotlight.is-open::before {
+  opacity: 1 !important;
+}
+.spotlight > * {
+  position: relative;
+  z-index: 1;
+}
+.package-card:hover,
+.package-card[open],
+.process-item:hover,
+.process-item.is-open,
+.faq__list details:hover,
+.faq__list details[open] {
+  background: var(--paper) !important;
+}
+
+/* 2) Project hover — no inset frame; clean editorial overlay. */
+.project-card > button {
+  border: 0 !important;
+}
+.project-card button::after {
+  inset: 0 !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+  background:
+    linear-gradient(180deg, rgba(20,31,54,.18) 0%, transparent 35%, transparent 56%, rgba(20,31,54,.72) 100%) !important;
+}
+.project-card__top {
+  top: 24px !important;
+  left: 24px !important;
+  width: auto !important;
+  display: block !important;
+  transform: translateY(-8px) !important;
+  font-family: var(--body) !important;
+  font-size: 10px !important;
+  font-weight: 600;
+  letter-spacing: .17em !important;
+  text-align: left;
+  text-transform: uppercase;
+  text-shadow: 0 2px 12px rgba(0,0,0,.28);
+}
+.project-card__top::before {
+  content: "•••  TOP  •••" !important;
+  display: block;
+  margin: 0 0 9px !important;
+  color: rgba(255,255,255,.82);
+  font-size: 9px !important;
+  letter-spacing: .16em !important;
+}
+.project-card__meta {
+  left: 24px !important;
+  bottom: 22px !important;
+  padding-top: 12px;
+  transform: translateY(8px) !important;
+}
+.project-card__meta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 38px;
+  height: 1px;
+  background: rgba(255,255,255,.78);
+}
+.project-card__meta strong {
+  font-family: var(--body) !important;
+  font-size: 26px !important;
+  font-weight: 400 !important;
+  letter-spacing: .04em;
+  text-shadow: 0 2px 12px rgba(0,0,0,.30);
+}
+.project-card:hover .project-card__top {
+  transform: none !important;
+}
+.project-card:hover .project-card__meta {
+  transform: none !important;
+}
+
+/* 3) Packages CTA was removed from markup; guard against stale cached markup too. */
+.packages__cta { display: none !important; }
+
+/* 4) Process — intro starts level with first stage; no arrows. */
+.process__grid {
+  align-items: start !important;
+}
+.process__intro {
+  position: relative !important;
+  top: auto !important;
+  align-self: start !important;
+  min-height: 0 !important;
+  padding-top: 0 !important;
+}
+.process__brand {
+  margin-top: 0 !important;
+}
+.process__list {
+  align-self: start;
+}
+.process-item > button {
+  grid-template-columns: minmax(235px, .9fr) 1fr !important;
+  align-items: center !important;
+  gap: 30px !important;
+  min-height: 92px;
+}
+.process-item .morph-arrow { display: none !important; }
+.process-item strong,
+.process-item small {
+  align-self: center;
+}
+.process-answer p,
+.process-answer b {
+  margin-left: 28px !important;
+}
+
+/* Process 01—06 line fills according to clicked stage. */
+.process__range {
+  --process-progress: 0%;
+}
+.process__range i {
+  position: relative;
+  height: 2px !important;
+  overflow: hidden;
+  background: rgba(40,61,104,.14) !important;
+}
+.process__range i::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--process-progress);
+  background: linear-gradient(90deg, var(--gold), var(--navy));
+  transition: width .55s cubic-bezier(.2,.75,.25,1);
+}
+
+/* 5) FAQ questions use Gill Sans MT for smoother rendering. */
+.faq__list summary {
+  font-family: var(--body) !important;
+  font-synthesis: none !important;
+  font-weight: 400 !important;
+  letter-spacing: .045em !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* 6) Contact — descriptive copy in Gill, label wording handled in HTML. */
+.contact__lead {
+  font-family: var(--body) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Consent circle same size as social icons. */
+.consent i {
+  width: 44px !important;
+  height: 44px !important;
+  flex: 0 0 44px !important;
+  border-width: 1px !important;
+}
+.consent i::after {
+  width: 8px !important;
+  height: 14px !important;
+}
+
+@media (max-width: 900px) {
+  .process-item > button {
+    grid-template-columns: 1fr !important;
+    gap: 5px !important;
+  }
+  .process-answer p,
+  .process-answer b { margin-left: 20px !important; margin-right: 20px !important; }
+}

@@ -371,9 +371,19 @@ document.querySelectorAll(typographySelectors.join(",")).forEach(node => {
   });
 });
 
-/* Process accordion */
+/* Process accordion + progress */
 const processItems = [...document.querySelectorAll("[data-process-item]")];
 const processGhost = document.querySelector("[data-process-ghost]");
+const processRange = document.querySelector(".process__range");
+
+const setProcessProgress = step => {
+  if (!processRange || !processItems.length) return;
+  const safeStep = Math.max(0, Math.min(processItems.length, step));
+  processRange.style.setProperty("--process-progress", `${(safeStep / processItems.length) * 100}%`);
+};
+
+setProcessProgress(0);
+
 processItems.forEach((item, index) => {
   const button = item.querySelector("[data-process-toggle]");
   button?.addEventListener("click", () => {
@@ -383,7 +393,10 @@ processItems.forEach((item, index) => {
       other.classList.toggle("is-open", open);
       other.querySelector("[data-process-toggle]")?.setAttribute("aria-expanded", String(open));
     });
-    if (processGhost && willOpen) {
+
+    setProcessProgress(index + 1);
+
+    if (processGhost) {
       processGhost.style.opacity = "0";
       processGhost.style.transform = "translateY(14px)";
       window.setTimeout(() => {
