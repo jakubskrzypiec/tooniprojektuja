@@ -1,16 +1,11 @@
-TO ONI PROJEKTUJĄ — V26 (tylko karuzela projektów)
+TO ONI PROJEKTUJĄ — V27
 
-Podmień w repo tylko:
+Podmień TYLKO:
 - index.html
 - style.css
-- script.js
 
-Zmiany:
-- węższe gradienty/fade po bokach karuzeli,
-- osobny jasny gradient/pas nad galerią, żeby ją optycznie odciąć,
-- na hover: kropki + TOP + kropki nad napisem TO ONI PROJEKTUJĄ,
-- łezki mają więcej koloru już w spoczynku,
-- strzałka wewnątrz łezek usunięta,
-- automatyczne przesuwanie oraz skok o 2 projekty pozostają bez zmian.
-
-Nic poza sekcją projektów nie zostało zmienione.
+Zmiany wyłącznie w karuzeli projektów:
+- wizualizacje delikatnie większe,
+- zdjęcia zawsze wypełniają ramkę bez białego paska,
+- poprawiony układ TOP / TO ONI PROJEKTUJĄ,
+- łezki mają więcej koloru także bez hovera.
