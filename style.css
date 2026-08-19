@@ -2698,17 +2698,17 @@ html { overflow-x: clip; }
 
 /* Teardrops are deliberately more coloured even before hover. */
 .slider-arrow::before {
-  border-color: rgba(40, 61, 104, .58);
-  background: linear-gradient(145deg, #7C9BDB 0%, #627FBC 100%);
-  opacity: .96;
-  filter: saturate(1.22);
-  box-shadow: 0 9px 22px rgba(40, 61, 104, .20);
+  border-color: rgba(40, 61, 104, .82);
+  background: linear-gradient(145deg, #3C5C96 0%, #283D68 100%);
+  opacity: 1;
+  filter: saturate(1.08);
+  box-shadow: 0 10px 24px rgba(40, 61, 104, .24);
 }
 .slider-arrow:hover::before,
 .slider-arrow:focus-visible::before {
-  background: var(--navy);
+  background: linear-gradient(145deg, #314F84 0%, #17284F 100%);
   opacity: 1;
-  filter: saturate(1.55);
+  filter: saturate(1.24);
 }
 
 @media (max-width: 820px) {
