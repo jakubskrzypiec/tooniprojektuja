@@ -4148,3 +4148,54 @@ body:not(.home) .header {
 .contact__page--right {
   background: var(--paper) !important;
 }
+
+
+/* =========================================================
+   V44.2 — CARD IMAGE FILL + LARGER SIDE DROPLETS
+   Fix white strip at the bottom of project visuals and make
+   the side carousel droplets larger. Nothing else changed.
+   ========================================================= */
+
+.project-card > button {
+  display: block !important;
+  width: 100% !important;
+  padding: 0 !important;
+  border: 0 !important;
+  line-height: 0 !important;
+  background: transparent !important;
+}
+
+.project-card > button > img {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  vertical-align: top !important;
+}
+
+.slider-arrow,
+.slider-arrow:hover,
+.slider-arrow:focus-visible,
+.slider-arrow:active {
+  width: 46px !important;
+}
+
+.slider-arrow::before {
+  box-shadow: 0 9px 22px rgba(40,61,104,.22) !important;
+}
+
+@media (max-width: 900px) {
+  .slider-arrow,
+  .slider-arrow:hover,
+  .slider-arrow:focus-visible,
+  .slider-arrow:active {
+    width: 42px !important;
+  }
+}
