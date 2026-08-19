@@ -4234,3 +4234,58 @@ body:not(.home) .header {
 .project-card > button > .project-card__meta {
   grid-area: 1 / 1 !important;
 }
+
+
+/* =========================================================
+   V44.4 — FINAL PROJECT IMAGE EDGE FIX
+   Must stay LAST: overscan the image so rounded clipping can
+   never reveal a light hairline at the bottom/edges.
+   ========================================================= */
+
+.project-card > button {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 3 / 4 !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  border: 0 !important;
+  line-height: 0 !important;
+}
+
+.project-card > button > img {
+  position: absolute !important;
+  top: -3px !important;
+  right: -3px !important;
+  bottom: -3px !important;
+  left: -3px !important;
+  inset: -3px !important;
+  width: calc(100% + 6px) !important;
+  height: calc(100% + 6px) !important;
+  min-width: calc(100% + 6px) !important;
+  min-height: calc(100% + 6px) !important;
+  max-width: none !important;
+  max-height: none !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  border-radius: 0 !important;
+  transform: translateZ(0) scale(1.006) !important;
+  transform-origin: center center !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+}
+
+.project-card:hover > button > img,
+.project-card:focus-within > button > img {
+  transform: translateZ(0) scale(1.035) !important;
+}
+
+/* Keep overlays above the absolutely positioned image. */
+.project-card > button::before,
+.project-card > button::after,
+.project-card__label-top,
+.project-card__meta {
+  position: absolute !important;
+}
