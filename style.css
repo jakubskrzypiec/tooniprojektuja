@@ -4199,3 +4199,38 @@ body:not(.home) .header {
     width: 42px !important;
   }
 }
+
+
+/* =========================================================
+   V44.3 — HARD FILL FOR PROJECT VISUALS
+   Ensure cards fill the whole 3:4 tile even without hover.
+   ========================================================= */
+
+.project-card > button {
+  display: grid !important;
+  grid-template: 1fr / 1fr !important;
+  align-items: stretch !important;
+  justify-items: stretch !important;
+}
+
+.project-card > button > img {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  grid-area: 1 / 1 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+.project-card > button > .project-card__label-top,
+.project-card > button > .project-card__top,
+.project-card > button > .project-card__meta {
+  grid-area: 1 / 1 !important;
+}
