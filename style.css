@@ -4120,3 +4120,31 @@ html { overflow-x: clip; }
     transform: none !important;
   }
 }
+
+/* =========================================================
+   V44.1 — ONLY FONT + BEIGE CONSISTENCY FIXES
+   No layout, gallery, animation or interaction changes.
+   ========================================================= */
+
+/* Small UI copy / small headings = Gill Sans MT, per client typography rules. */
+.hero__brand,
+.nav,
+.nav a,
+.section-label,
+.drop-button,
+.line-link,
+.mobile-menu > a:not(.drop-button) {
+  font-family: var(--body) !important;
+  font-synthesis: none !important;
+}
+
+/* Keep the scrolled header on the final page beige (#F2EEE7). */
+.header.is-scrolled,
+body:not(.home) .header {
+  background: rgba(242, 238, 231, .95) !important;
+}
+
+/* Both notebook/contact halves use the same light beige (#F5F2ED). */
+.contact__page--right {
+  background: var(--paper) !important;
+}
