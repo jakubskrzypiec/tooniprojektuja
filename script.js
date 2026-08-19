@@ -164,18 +164,18 @@ document.addEventListener("keydown", event => {
   if (event.key === "Escape" && modal?.classList.contains("is-open")) closeModal();
 });
 
-/* Infinite, slow project carousel */
+/* Infinite, slow project carousel — V25 */
 const viewport = document.querySelector("[data-project-viewport]");
 const track = document.querySelector("[data-project-track]");
 const projectPrev = document.querySelector("[data-project-prev]");
 const projectNext = document.querySelector("[data-project-next]");
 let sliderOffset = 0;
 let sliderSetWidth = 0;
-let sliderPaused = false;
 let sliderAnimating = false;
 let sliderRaf = 0;
 let sliderLast = 0;
 let sliderDesktop = false;
+const sliderSpeed = 14; // px / second — deliberately calm, but clearly moving
 
 const originals = () => [...(track?.querySelectorAll("[data-project-card]:not([data-clone])") || [])];
 const clearClones = () => track?.querySelectorAll("[data-clone]").forEach(clone => clone.remove());
@@ -183,25 +183,37 @@ const clearClones = () => track?.querySelectorAll("[data-clone]").forEach(clone 
 const setTrackPosition = (value, animate = false) => {
   if (!track) return;
   track.style.transition = animate ? "transform .72s cubic-bezier(.2,.72,.2,1)" : "none";
-  track.style.transform = "translate3d(" + (-value) + "px,0,0)";
+  track.style.transform = `translate3d(${-value}px,0,0)`;
 };
 
 const measureSlider = () => {
   const cards = originals();
-  if (!track || cards.length < 2) return;
+  if (!track || cards.length < 2) {
+    sliderSetWidth = 0;
+    return;
+  }
   const styles = getComputedStyle(track);
   const gap = parseFloat(styles.columnGap || styles.gap) || 0;
-  sliderSetWidth = cards[cards.length - 1].offsetLeft + cards[cards.length - 1].offsetWidth - cards[0].offsetLeft + gap;
+  const first = cards[0];
+  const last = cards[cards.length - 1];
+  sliderSetWidth = last.offsetLeft + last.offsetWidth - first.offsetLeft + gap;
+};
+
+const normalizeSlider = () => {
+  if (!sliderSetWidth) return;
+  while (sliderOffset >= sliderSetWidth) sliderOffset -= sliderSetWidth;
+  while (sliderOffset < 0) sliderOffset += sliderSetWidth;
 };
 
 const sliderFrame = time => {
   if (!sliderDesktop || !track) return;
   if (!sliderLast) sliderLast = time;
-  const delta = Math.min(40, time - sliderLast);
+  const delta = Math.min(50, Math.max(0, time - sliderLast));
   sliderLast = time;
-  if (!sliderPaused && !sliderAnimating && sliderSetWidth) {
-    sliderOffset += delta * .018;
-    if (sliderOffset >= sliderSetWidth) sliderOffset -= sliderSetWidth;
+
+  if (!sliderAnimating && sliderSetWidth && !document.hidden) {
+    sliderOffset += (delta / 1000) * sliderSpeed;
+    normalizeSlider();
     setTrackPosition(sliderOffset);
   }
   sliderRaf = requestAnimationFrame(sliderFrame);
@@ -209,7 +221,8 @@ const sliderFrame = time => {
 
 const setupSlider = () => {
   if (!track || !viewport) return;
-  const shouldDesktop = innerWidth > 820;
+  const shouldDesktop = window.innerWidth > 820;
+
   cancelAnimationFrame(sliderRaf);
   clearClones();
   track.style.transition = "none";
@@ -218,14 +231,16 @@ const setupSlider = () => {
   sliderLast = 0;
   sliderDesktop = shouldDesktop;
 
-  if (!shouldDesktop || reduceMotion) return;
+  if (!shouldDesktop) return;
 
+  /* Duplicate the complete set once, giving the transform a seamless loop. */
   originals().forEach(card => {
     const clone = card.cloneNode(true);
     clone.dataset.clone = "true";
     clone.setAttribute("aria-hidden", "true");
     track.append(clone);
   });
+
   requestAnimationFrame(() => {
     measureSlider();
     setTrackPosition(0);
@@ -238,13 +253,14 @@ const nudgeSlider = direction => {
   const first = originals()[0];
   if (!first) return;
 
-  if (!sliderDesktop || reduceMotion) {
+  if (!sliderDesktop) {
     viewport.scrollBy({ left: direction * (first.offsetWidth + 20) * 2, behavior: "smooth" });
     return;
   }
 
   const gap = parseFloat(getComputedStyle(track).gap) || 0;
-  const distance = (first.offsetWidth + gap) * 2;
+  const distance = (first.offsetWidth + gap) * 2; // faster jump: exactly 2 cards
+
   if (direction < 0 && sliderOffset < distance) {
     sliderOffset += sliderSetWidth;
     setTrackPosition(sliderOffset);
@@ -255,26 +271,37 @@ const nudgeSlider = direction => {
   setTrackPosition(sliderOffset, true);
 
   window.setTimeout(() => {
-    if (sliderOffset >= sliderSetWidth) sliderOffset -= sliderSetWidth;
-    if (sliderOffset < 0) sliderOffset += sliderSetWidth;
+    normalizeSlider();
     setTrackPosition(sliderOffset);
     sliderAnimating = false;
     sliderLast = performance.now();
   }, 740);
 };
 
-viewport?.addEventListener("mouseenter", () => { sliderPaused = true; });
-viewport?.addEventListener("mouseleave", () => { sliderPaused = false; sliderLast = performance.now(); });
-viewport?.addEventListener("focusin", () => { sliderPaused = true; });
-viewport?.addEventListener("focusout", () => { sliderPaused = false; sliderLast = performance.now(); });
+/* The carousel keeps moving even while the cursor is above it.
+   Hover is reserved for the card overlay, as requested. */
 projectPrev?.addEventListener("click", () => nudgeSlider(-1));
 projectNext?.addEventListener("click", () => nudgeSlider(1));
-window.addEventListener("load", setupSlider);
+document.addEventListener("visibilitychange", () => { sliderLast = performance.now(); });
+
+if (document.readyState === "complete") setupSlider();
+else window.addEventListener("load", setupSlider, { once: true });
+
 let resizeTimer = 0;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = window.setTimeout(setupSlider, 180);
 });
+
+if ("ResizeObserver" in window && track) {
+  const carouselResizeObserver = new ResizeObserver(() => {
+    if (!sliderDesktop || sliderAnimating) return;
+    measureSlider();
+    normalizeSlider();
+    setTrackPosition(sliderOffset);
+  });
+  carouselResizeObserver.observe(track);
+}
 
 /* FAQ accordion - smooth opening/closing, one item at a time */
 const faqItems = [...document.querySelectorAll(".faq__list details")];

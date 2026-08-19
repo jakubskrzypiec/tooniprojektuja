@@ -2357,3 +2357,156 @@ html { overflow-x: clip; }
     hyphens: none;
   }
 }
+
+
+/* =========================================================
+   V25 — ONLY: header logo removal + projects carousel polish
+   ========================================================= */
+
+/* Keep the existing header grid perfectly aligned after removing the logo. */
+.header-logo-spacer {
+  width: 68px;
+  height: 1px;
+  display: block;
+  pointer-events: none;
+}
+
+/* Stronger, visible side fade + a subtle light field that lifts the carousel. */
+.projects__stage {
+  position: relative;
+  padding: 12px 0 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(245, 242, 237, .98) 0%,
+    rgba(245, 242, 237, .76) 46%,
+    rgba(242, 238, 231, 0) 100%
+  );
+}
+.projects__stage::before,
+.projects__stage::after {
+  top: 0;
+  bottom: 0;
+  width: clamp(90px, 11vw, 190px);
+  z-index: 5;
+  opacity: 1;
+}
+.projects__stage::before {
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    #F2EEE7 0%,
+    rgba(242, 238, 231, .96) 20%,
+    rgba(245, 242, 237, .74) 56%,
+    rgba(245, 242, 237, 0) 100%
+  );
+}
+.projects__stage::after {
+  right: 0;
+  background: linear-gradient(
+    270deg,
+    #F2EEE7 0%,
+    rgba(242, 238, 231, .96) 20%,
+    rgba(245, 242, 237, .74) 56%,
+    rgba(245, 242, 237, 0) 100%
+  );
+}
+
+/* Instagram-like top marker: three real dots + label, shown with the hover overlay. */
+.project-card__top {
+  gap: 12px;
+  white-space: nowrap;
+}
+.project-card__top::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  flex: 0 0 4px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 8px 0 0 currentColor, 16px 0 0 currentColor;
+  margin-right: 14px;
+}
+
+/* Carousel navigation — same circle -> teardrop language as the process section.
+   No white arrow. On hover the arrow turns 45deg and saturation increases. */
+.slider-arrow,
+.slider-arrow:hover,
+.slider-arrow:focus-visible,
+.slider-arrow:active {
+  width: 44px;
+  aspect-ratio: 1;
+  overflow: visible;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  box-shadow: none;
+  color: var(--navy);
+  filter: none;
+  transition: transform .36s cubic-bezier(.2,.75,.25,1), color .28s ease;
+}
+.slider-arrow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 1px solid rgba(40, 61, 104, .28);
+  border-radius: 50%;
+  background: rgba(124, 155, 219, .46);
+  box-shadow: 0 9px 20px rgba(40, 61, 104, .12);
+  transition:
+    transform .42s cubic-bezier(.2,.75,.25,1),
+    border-radius .30s ease,
+    background .28s ease,
+    filter .28s ease,
+    box-shadow .28s ease;
+}
+.slider-arrow svg {
+  position: relative;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  color: var(--navy);
+  stroke: currentColor;
+  transition: transform .42s cubic-bezier(.2,.75,.25,1), color .28s ease;
+}
+.slider-arrow--prev {
+  left: 3vw;
+  transform: none;
+}
+.slider-arrow--next {
+  right: 3vw;
+  transform: none;
+}
+.slider-arrow--prev svg { transform: rotate(180deg); }
+.slider-arrow--next svg { transform: rotate(0deg); }
+
+.slider-arrow:hover,
+.slider-arrow:focus-visible { transform: scale(1.10); }
+.slider-arrow:hover::before,
+.slider-arrow:focus-visible::before {
+  border-color: var(--navy);
+  border-radius: 50% 50% 8% 50%;
+  background: var(--navy);
+  filter: saturate(1.38);
+  box-shadow: 0 12px 26px rgba(40, 61, 104, .24);
+}
+.slider-arrow--next:hover::before,
+.slider-arrow--next:focus-visible::before { transform: rotate(-45deg); }
+.slider-arrow--prev:hover::before,
+.slider-arrow--prev:focus-visible::before { transform: rotate(135deg); }
+.slider-arrow--next:hover svg,
+.slider-arrow--next:focus-visible svg {
+  color: var(--gold);
+  transform: rotate(45deg);
+}
+.slider-arrow--prev:hover svg,
+.slider-arrow--prev:focus-visible svg {
+  color: var(--gold);
+  transform: rotate(135deg);
+}
+
+@media (max-width: 820px) {
+  .header-logo-spacer { width: 1px; }
+  .projects__stage::before,
+  .projects__stage::after { width: 34px; }
+}
