@@ -2985,47 +2985,68 @@ html { overflow-x: clip; }
 }
 .map__pin-float {
   position: absolute;
-  right: clamp(26px, 4vw, 40px);
-  top: clamp(12px, 2vw, 22px);
-  z-index: 4;
-  width: 52px;
-  height: 78px;
+  right: clamp(10px, 2vw, 18px);
+  top: clamp(-18px, -1vw, -10px);
+  z-index: 5;
+  width: 92px;
+  height: 122px;
   pointer-events: none;
-  filter: drop-shadow(0 14px 22px rgba(40,61,104,.16));
-  transform: rotate(16deg);
+  transform: rotate(17deg);
+  transform-origin: 66% 16%;
+  filter: drop-shadow(0 18px 26px rgba(23,40,79,.20));
 }
 .map__pin-float::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 9px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--navy);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+  left: 36px;
+  top: 56px;
+  width: 6px;
+  height: 76px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f4f4f4 0%, #cfd5df 36%, #8d98ad 100%);
+  box-shadow: inset -1px 0 1px rgba(255,255,255,.55), inset 1px 0 1px rgba(40,61,104,.18);
+  transform: rotate(8deg);
+  transform-origin: top center;
 }
 .map__pin-float::after {
   content: "";
   position: absolute;
-  top: 21px;
-  left: 24px;
-  width: 4px;
-  height: 52px;
-  border-radius: 999px;
-  background: var(--navy);
-  transform: rotate(3deg);
-  transform-origin: top center;
+  left: 22px;
+  top: 18px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 34%, #5875b7 0%, #35538f 38%, #243f75 72%, #1a2e57 100%);
+  box-shadow:
+    inset -7px -10px 14px rgba(18,30,55,.28),
+    inset 6px 6px 12px rgba(255,255,255,.12),
+    0 6px 16px rgba(23,40,79,.20);
 }
 .map__pin-float span {
   position: absolute;
-  top: 11px;
-  left: 20px;
-  width: 12px;
-  height: 12px;
+  inset: 0;
+}
+.map__pin-float span::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 0;
+  width: 58px;
+  height: 24px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #4968a9 0%, #29467f 80%, #1d3563 100%);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,.18), 0 2px 6px rgba(23,40,79,.18);
+}
+.map__pin-float span::after {
+  content: "";
+  position: absolute;
+  left: 39px;
+  top: 35px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 0 6px rgba(202,160,48,.14);
+  background: radial-gradient(circle at 35% 35%, #f1d16a 0%, #d0a444 52%, #9e7526 100%);
+  box-shadow: 0 0 0 7px rgba(247,243,237,.72), 0 4px 9px rgba(23,40,79,.12);
 }
 
 @media (max-width: 900px) {
@@ -3041,26 +3062,35 @@ html { overflow-x: clip; }
     border-radius: 28px 5px 28px 5px;
   }
   .map__pin-float {
-    width: 44px;
-    height: 66px;
-    right: 18px;
-    top: 12px;
+    width: 74px;
+    height: 98px;
+    right: 4px;
+    top: -12px;
   }
   .map__pin-float::before {
-    left: 8px;
-    width: 28px;
-    height: 28px;
+    left: 29px;
+    top: 45px;
+    width: 5px;
+    height: 60px;
   }
   .map__pin-float::after {
-    top: 18px;
-    left: 20px;
+    left: 18px;
+    top: 15px;
+    width: 44px;
     height: 44px;
   }
-  .map__pin-float span {
-    top: 10px;
-    left: 17px;
-    width: 10px;
-    height: 10px;
+  .map__pin-float span::before {
+    left: 14px;
+    top: 0;
+    width: 48px;
+    height: 20px;
+  }
+  .map__pin-float span::after {
+    left: 31px;
+    top: 28px;
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 0 6px rgba(247,243,237,.72), 0 4px 9px rgba(23,40,79,.12);
   }
 }
 
